@@ -1,0 +1,18 @@
+.Tag {
+    display: flex;
+    width: 200px;
+    padding: .6rem .9rem;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 50px;
+}
+
+.Tag div:nth-child(2) {
+    border-left: 1px solid #fff;
+    width: 50px;
+    padding-left: .5rem;
+}
+
+.Tag.contraste {
+    color: #ffffff;
+}
