@@ -6,6 +6,7 @@ import { PartialSection } from './components/PartialSection';
 import { Bttn } from './components/Bttn';
 import React, { useState } from 'react';
 import { Discard } from './components/Discard';
+import { Card } from './components/Card';
 
 function App() {
   const [BttnIconGithub, setBttnIconGithub] = useState('fa-brands fa-github-alt');
@@ -36,7 +37,8 @@ function App() {
           </header>
 
           <div id='cards'>
-
+            <Card principal={true}></Card>
+            <Card></Card>
           </div>
 
           <Discard />
