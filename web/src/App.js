@@ -33,7 +33,7 @@ function App() {
             </div>
 
             <div>
-              <Bttn userStatedIcon={BttnIconUpload} background='is-danger'></Bttn>
+              <Bttn userStatedIcon={BttnIconUpload} background='is-info'></Bttn>
               <Bttn userStatedIcon={BttnIconDemarcar} background='is-warning'></Bttn>
               <Bttn userStatedIcon={BttnIconFinish} background='is-primary'></Bttn>
             </div>
