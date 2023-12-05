@@ -57,21 +57,18 @@ function App() {
           </div>
 
           <div id='box_drop'>
-          <DropArea/>
-          <DropArea/>
-          <DropArea/>
-          <DropArea/>
-          <DropArea/>
-          <DropArea/>
-          <DropArea/>
-          <DropArea/>
+            <DropArea label="Label" background="#c1c1c1" />
+            <DropArea label="Label" background="#c1c1c1" />
+            <DropArea label="Label" background="#c1c1c1" />
+            <DropArea label="Label" background="#c1c1c1" />
+            <DropArea label="Label" background="#c1c1c1" />
+            <DropArea label="Label" background="#c1c1c1" />
           </div>
         </PartialSection>
       </section>
 
       <aside>
         <div id='box_tags'>
-
         </div>
       </aside>
 
