@@ -1,0 +1,11 @@
+.PartialSection {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem .6rem 0rem .6rem;
+    width: 100%;
+    background: #ECECEC;
+}
+
+.PartialSection:first-child {
+    border-right: 2px solid #fff;
+}

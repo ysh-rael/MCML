@@ -1,0 +1,15 @@
+@import url('./css/layout');
+@import url('./css/keyFrames');
+.App {
+  background: #FFF;
+  display: flex;
+  margin: auto;
+
+}
+
+
+.animation__shake:hover {
+  animation: shake 6.6s alternate infinite;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.302);
+}
+
