@@ -58,35 +58,35 @@ function App() {
           </div>
 
           <div id='box_drop'>
-            <DropArea label="Label" background="#c1c1c1" _tags={tags} _setTags={setTags} />
-            <DropArea label="Label" background="#c1c1c1" _tags={tags} _setTags={setTags} />
-            <DropArea label="Label" background="#c1c1c1" _tags={tags} _setTags={setTags} />
-            <DropArea label="Label" background="#c1c1c1" _tags={tags} _setTags={setTags} />
-            <DropArea label="Label" background="#c1c1c1" _tags={tags} _setTags={setTags} />
-            <DropArea label="Label" background="#c1c1c1" _tags={tags} _setTags={setTags} />
-            <DropArea label="Label" background="#c1c1c1" _tags={tags} _setTags={setTags} />
-            <DropArea label="Label" background="#c1c1c1" _tags={tags} _setTags={setTags} />
-            <DropArea label="Label" background="#c1c1c1" _tags={tags} _setTags={setTags} />
-            <DropArea label="Label" background="#c1c1c1" _tags={tags} _setTags={setTags} />
-            <DropArea label="Label" background="#c1c1c1" _tags={tags} _setTags={setTags} />
-            <DropArea label="Label" background="#c1c1c1" _tags={tags} _setTags={setTags} />
-            <DropArea label="Label" background="#c1c1c1" _tags={tags} _setTags={setTags} />
-            <DropArea label="Label" background="#c1c1c1" _tags={tags} _setTags={setTags} />
-            <DropArea label="Label" background="#c1c1c1" _tags={tags} _setTags={setTags} />
-            <DropArea label="Label" background="#c1c1c1" _tags={tags} _setTags={setTags} />
-            <DropArea label="Label" background="#c1c1c1" _tags={tags} _setTags={setTags} />
-            <DropArea label="Label" background="#c1c1c1" _tags={tags} _setTags={setTags} />
-            <DropArea label="Label" background="#c1c1c1" _tags={tags} _setTags={setTags} />
-            <DropArea label="Label" background="#c1c1c1" _tags={tags} _setTags={setTags} />
-            <DropArea label="Label" background="#c1c1c1" _tags={tags} _setTags={setTags} />
-            <DropArea label="Label" background="#c1c1c1" _tags={tags} _setTags={setTags} />
-            <DropArea label="Label" background="#c1c1c1" _tags={tags} _setTags={setTags} />
-            <DropArea label="Label" background="#c1c1c1" _tags={tags} _setTags={setTags} />
-            <DropArea label="Label" background="#c1c1c1" _tags={tags} _setTags={setTags} />
-            <DropArea label="Label" background="#c1c1c1" _tags={tags} _setTags={setTags} />
-            <DropArea label="Label" background="#c1c1c1" _tags={tags} _setTags={setTags} />
-            <DropArea label="Label" background="#c1c1c1" _tags={tags} _setTags={setTags} />
-            <DropArea label="Label" background="#c1c1c1" _tags={tags} _setTags={setTags} />
+            <DropArea label="Label" background="#c1c1c1" tags={tags} setTags={setTags} />
+            <DropArea label="Label" background="#c1c1c1" tags={tags} setTags={setTags} />
+            <DropArea label="Label" background="#c1c1c1" tags={tags} setTags={setTags} />
+            <DropArea label="Label" background="#c1c1c1" tags={tags} setTags={setTags} />
+            <DropArea label="Label" background="#c1c1c1" tags={tags} setTags={setTags} />
+            <DropArea label="Label" background="#c1c1c1" tags={tags} setTags={setTags} />
+            <DropArea label="Label" background="#c1c1c1" tags={tags} setTags={setTags} />
+            <DropArea label="Label" background="#c1c1c1" tags={tags} setTags={setTags} />
+            <DropArea label="Label" background="#c1c1c1" tags={tags} setTags={setTags} />
+            <DropArea label="Label" background="#c1c1c1" tags={tags} setTags={setTags} />
+            <DropArea label="Label" background="#c1c1c1" tags={tags} setTags={setTags} />
+            <DropArea label="Label" background="#c1c1c1" tags={tags} setTags={setTags} />
+            <DropArea label="Label" background="#c1c1c1" tags={tags} setTags={setTags} />
+            <DropArea label="Label" background="#c1c1c1" tags={tags} setTags={setTags} />
+            <DropArea label="Label" background="#c1c1c1" tags={tags} setTags={setTags} />
+            <DropArea label="Label" background="#c1c1c1" tags={tags} setTags={setTags} />
+            <DropArea label="Label" background="#c1c1c1" tags={tags} setTags={setTags} />
+            <DropArea label="Label" background="#c1c1c1" tags={tags} setTags={setTags} />
+            <DropArea label="Label" background="#c1c1c1" tags={tags} setTags={setTags} />
+            <DropArea label="Label" background="#c1c1c1" tags={tags} setTags={setTags} />
+            <DropArea label="Label" background="#c1c1c1" tags={tags} setTags={setTags} />
+            <DropArea label="Label" background="#c1c1c1" tags={tags} setTags={setTags} />
+            <DropArea label="Label" background="#c1c1c1" tags={tags} setTags={setTags} />
+            <DropArea label="Label" background="#c1c1c1" tags={tags} setTags={setTags} />
+            <DropArea label="Label" background="#c1c1c1" tags={tags} setTags={setTags} />
+            <DropArea label="Label" background="#c1c1c1" tags={tags} setTags={setTags} />
+            <DropArea label="Label" background="#c1c1c1" tags={tags} setTags={setTags} />
+            <DropArea label="Label" background="#c1c1c1" tags={tags} setTags={setTags} />
+            <DropArea label="Label" background="#c1c1c1" tags={tags} setTags={setTags} />
           </div>
         </PartialSection>
       </section>
