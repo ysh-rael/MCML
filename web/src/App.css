@@ -25,3 +25,25 @@
   animation: shake 6.6s alternate infinite;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.302);
 }
+
+.App #box_tool {
+  display: flex;
+  gap: .6rem;
+  align-items: center;
+  background: #D9D9D9;
+  padding: .5rem;
+  border-radius: 0.3125rem;
+}
+
+.App #box_tool input[type="color"] {
+  height: 100%;
+  border: 1px solid #dbdbdb;
+}
+
+.App #box_tool input[type="color"],
+.App #box_tool input[type="color"]::-webkit-color-swatch-wrapper,
+.App #box_tool input[type="color"]::-webkit-color-swatch {
+  border-radius: 4px;
+}
+
+.App #box_tool input[type="color"]:nth-child(1) {}

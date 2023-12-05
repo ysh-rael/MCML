@@ -15,6 +15,7 @@ function App() {
   const [BttnIconDemarcar, setBttnIconDemarcar] = useState('fa-solid fa-expand');
   const [BttnIconUpload, setBttnIconUpload] = useState('fa-solid fa-upload');
   const [BttnIconFinish, setBttnIconFinish] = useState('fa-solid fa-circle-check');
+  const [BttnIconPlus, setBttnIconPlus] = useState('fa-solid fa-plus');
 
   return (
     <div className="App">
@@ -45,7 +46,16 @@ function App() {
 
         </PartialSection>
         <PartialSection>
-          {/* Conteúdo do segundo PartialSection */}
+
+          <div id='box_tool'>
+            <input className='input' type='text' placeholder='label for your drop box' />
+            <input className='' type='color'></input>
+            <Bttn animation={false} userStatedIcon={BttnIconPlus} />
+          </div>
+
+          <div id='box_drop'>
+
+          </div>
         </PartialSection>
       </section>
       <aside>
