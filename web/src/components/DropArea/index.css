@@ -1,0 +1,19 @@
+.DropArea {
+    width: 100%;
+    height: 10rem;
+    min-height: 80px;
+    background-color: #C1C1C1;
+    border-radius: 4px;
+}
+
+.DropArea::before {
+    content: 'Label test';
+    background-color: rgb(226, 226, 226);
+    float: right;
+    padding: .2rem .6rem;
+    margin: .6rem;
+    font-size: .9rem;
+    border-radius: 50px;
+    box-shadow: 1px 1px rgba(0, 0, 0, 0.369);
+    opacity: .9;
+}

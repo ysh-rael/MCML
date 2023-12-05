@@ -7,6 +7,7 @@ import { Bttn } from './components/Bttn';
 import React, { useState } from 'react';
 import { Discard } from './components/Discard';
 import { Card } from './components/Card';
+import { DropArea } from './components/DropArea';
 
 function App() {
   const [BttnIconGithub, setBttnIconGithub] = useState('fa-brands fa-github-alt');
@@ -19,6 +20,7 @@ function App() {
 
   return (
     <div className="App">
+
       <section>
         <PartialSection>
           <header>
@@ -38,29 +40,41 @@ function App() {
           </header>
 
           <div id='cards'>
-            <Card principal={true}></Card>
-            <Card></Card>
+            <Card principal={true} />
+            <Card />
           </div>
 
           <Discard />
 
         </PartialSection>
+
         <PartialSection>
 
           <div id='box_tool'>
             <input className='input' type='text' placeholder='label for your drop box' />
-            <input className='' type='color'></input>
+            <input className='' type='color' value={'#C1C1C1'}></input>
             <Bttn animation={false} userStatedIcon={BttnIconPlus} />
           </div>
 
           <div id='box_drop'>
-
+          <DropArea/>
+          <DropArea/>
+          <DropArea/>
+          <DropArea/>
+          <DropArea/>
+          <DropArea/>
+          <DropArea/>
+          <DropArea/>
           </div>
         </PartialSection>
       </section>
+
       <aside>
-        {/* Conteúdo do aside */}
+        <div id='box_tags'>
+
+        </div>
       </aside>
+
     </div>
   );
 }

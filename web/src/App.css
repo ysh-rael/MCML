@@ -5,6 +5,7 @@
   background: #FFF;
   display: flex;
   margin: auto;
+  overflow: hidden;
 
 }
 
@@ -46,4 +47,13 @@
   border-radius: 4px;
 }
 
-.App #box_tool input[type="color"]:nth-child(1) {}
+.App #box_drop {
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+  height: 100%;
+  margin-top: 1.4rem;
+  overflow: scroll;
+  padding-bottom: 1rem;
+  padding-right: 1rem;
+}
