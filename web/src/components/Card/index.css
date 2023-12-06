@@ -49,3 +49,11 @@
     }
 
 }
+
+@media (max-width: 512px) {
+    .Card.principal {
+        width: 300px;
+        height: 200px;
+    }
+
+}

@@ -23,13 +23,15 @@
 @media (max-width: 800px) {
   .Discard {
     position: fixed;
-    bottom: -110px;
-    left: -110px;
-    width: 220px;
-    height: 220px;
+    bottom: -125px;
+    left: -125px;
+    width: 250px;
+    height: 250px;
     z-index: 1;
     align-items: center;
     justify-content: space-around;
+    padding-left: 60px;
+    padding-bottom: 60px;
     border-radius: 50%;
 }
 
