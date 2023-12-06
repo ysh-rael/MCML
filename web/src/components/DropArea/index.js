@@ -4,6 +4,7 @@ import { Bttn } from '../Bttn';
 import { deleteThis } from './deleteThis';
 import { editLabel } from './editLabel';
 import { generatorTag } from './generatorTag';
+import { hiddenInpt } from './hiddenInpt';
 import './index.css';
 import { useEffect, useRef, useState } from 'react';
 
@@ -51,6 +52,7 @@ export function DropArea({ label, background, tags, setTags }) {
                 value={lbl}
                 ref={inputRef}
                 onChange={(event) => setLbl(event.target.value)}
+                onBlur={hiddenInpt}
             />
             <span className={`labelDropArea subtitle ${isColorLight(background) ? 'contraste' : ''}`}>{iconPincel} {lbl}</span>
             <Bttn background={'is-danger'} userStatedIcon={'fa-solid fa-trash-can'} id={id} setTags={setTags} tags={tags} onClick={() => deleteThis(id)} />

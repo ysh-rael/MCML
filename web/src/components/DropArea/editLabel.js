@@ -21,4 +21,5 @@ export function editLabel(event, lbl, setLbl) {
         return;
     }
     inpt.type = 'text'
+    inpt.focus()
 }
