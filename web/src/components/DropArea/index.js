@@ -1,3 +1,4 @@
+import { findChild } from '../../utils/findChild';
 import { isColorLight } from '../../utils/isColorLight';
 import { Bttn } from '../Bttn';
 import { deleteThis } from './deleteThis';
@@ -20,12 +21,27 @@ export function DropArea({ label, background, tags, setTags }) {
     useEffect(() => {
         setLbl(label)
         if (!id && stop != id) {
-            const generatedId = generatorTag({ lbl: `inputRef`, background, tags, setTags });
+            const generatedId = generatorTag({ lbl, background, tags, setTags });
             setId(generatedId);
             stop = generatedId
         }
 
-    }, [id, label, background, tags, setTags]);
+    }, []);
+
+    useEffect(() => {
+        const tag = document.getElementById(`Tag-${id}`)
+        if (!tag) {
+            console.log(`Tag was not found!`, tag)
+            return;
+        }
+        const labelTag = findChild(tag, 'labelTag')
+        if (!labelTag) {
+            console.log(`labelTag was not found!`, labelTag)
+            return;
+        }
+        labelTag.innerText = lbl
+
+    }, [lbl]);
 
     return (
         <div className={`DropArea`} style={{ background: background }} draggable={true} id={`DropArea-${id}`}>

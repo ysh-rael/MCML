@@ -2,7 +2,6 @@ import { findChild } from "../../utils/findChild";
 import { findParent } from "../../utils/findParent";
 
 export function editLabel(event, lbl, setLbl) {
-    console.clear();
     const iconEdit = event.target
     const parent = findParent(iconEdit, 'DropArea')
 
