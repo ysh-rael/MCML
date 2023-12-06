@@ -12,5 +12,5 @@ export function isColorLight(hexColor) {
     const brightness = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
 
     // Se o brilho for maior que 0,, considera-se uma cor clara
-    return brightness > 0.76;
+    return brightness < 0.76;
 }
