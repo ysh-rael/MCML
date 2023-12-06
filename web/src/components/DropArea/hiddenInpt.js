@@ -1,3 +1,3 @@
-export function hiddenInpt({target}) {
+export function hiddenInpt({ target }) {
     target.type = 'hidden'
 }
