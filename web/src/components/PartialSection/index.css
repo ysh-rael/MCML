@@ -10,3 +10,42 @@
 .PartialSection:first-child {
     border-right: 2px solid #fff;
 }
+
+@media (min-width: 1160px) {
+
+    .PartialSection {
+        flex-direction: column;
+        justify-content: space-between;
+        min-height: 100vh;
+    }
+
+
+}
+
+@media (max-width: 1160px) {
+
+    .PartialSection {
+        flex-direction: column;
+        justify-content: space-between;
+        min-height: 100vh;
+    }
+
+}
+
+@media (max-width: 800px) {
+    .PartialSection {
+        display: flex;
+        flex-direction: column;
+        padding: 1rem .6rem 0rem .6rem;
+        width: 100%;
+        background: #ECECEC;
+        min-height: 50vh;
+    }
+    .PartialSection:first-child {
+        border-right: none;
+    }
+    .PartialSection:last-child {
+        border-bottom: 2px solid #fff;
+    }
+
+}

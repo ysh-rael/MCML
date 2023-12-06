@@ -17,6 +17,7 @@ function App() {
   const [BttnIconUpload, setBttnIconUpload] = useState('fa-solid fa-upload');
   const [BttnIconFinish, setBttnIconFinish] = useState('fa-solid fa-circle-check');
   const [BttnIconPlus, setBttnIconPlus] = useState('fa-solid fa-plus');
+  const [BttnBar, setBttnBar] = useState('fa-solid fa-bars-staggered');
   const [ColorDropArea, setColorDropArea] = useState('#C1C1C1')
   const [NameDropArea, setNameDropArea] = useState('')
   const [DropsArea, setDropsArea] = useState([])
@@ -59,8 +60,8 @@ function App() {
             <input className='' type='color' value={ColorDropArea} onChange={(event) => setColorDropArea(event.target.value)}></input>
             <Bttn animation={false} userStatedIcon={BttnIconPlus} onClick={event => {
               const boxDrop = document.getElementById('box_drop')
-              
-              if(!boxDrop) return;
+
+              if (!boxDrop) return;
               setDropsArea(prev => [...prev, <DropArea label={NameDropArea} background={ColorDropArea} tags={tags} setTags={setTags} />])
             }} />
           </div>
@@ -70,6 +71,10 @@ function App() {
       </section>
 
       <aside>
+        <Bttn id={'bttnBar'} userStatedIcon={BttnBar} background='is-info is-light' onClick={event => {
+          BttnBar === 'fa-solid fa-bars-staggered' ? setBttnBar('fa-solid fa-bars') : setBttnBar('fa-solid fa-bars-staggered')
+        }}></Bttn>
+
         <div id='box_tags'>
           {tags}
         </div>

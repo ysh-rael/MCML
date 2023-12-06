@@ -1,4 +1,4 @@
-@media (min-width: 950px) {
+@media (min-width: 1160px) {
     .App {
         display: flex;
         flex-direction: row;
@@ -38,10 +38,80 @@
         overflow: hidden;
     }
 
-    .App .PartialSection {
-        flex-direction: column;
-        justify-content: space-between;
-        min-height: 100vh;
+    .App #bttnBar {
+        opacity: 0;
+        z-index: -1;
     }
 
+}
+
+
+@media (max-width: 1160px) {
+    .App {
+        display: flex;
+        flex-direction: row;
+        max-width: 2200px;
+        box-sizing: border-box;
+        height: 100%;
+    }
+
+    .App>section,
+    .App>aside {
+        height: 100%;
+
+    }
+
+    .App>section {
+        position: relative;
+        width: 90%;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .App>section header {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        z-index: 1;
+    }
+
+    .App>section header>div {
+        display: flex;
+        gap: .4rem;
+    }
+
+    .App>aside {
+        width: 10%;
+        min-height: 100vh;
+        overflow: hidden;
+    }
+
+}
+
+
+@media (max-width: 800px) {
+    .App {
+        display: flex;
+        flex-direction: column;
+        max-width: 2200px;
+        box-sizing: border-box;
+        height: 100%;
+    }
+
+    .App>section,
+    .App>aside {
+        height: 100%;
+
+    }
+
+
+    .App>section {
+        position: relative;
+        width: 100%;
+        max-height: 100vh;
+        display: flex;
+        flex-direction: column-reverse;
+    }
+
+    
 }

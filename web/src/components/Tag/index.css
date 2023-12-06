@@ -22,3 +22,32 @@
     white-space: nowrap;
     text-overflow: ellipsis;
 }
+
+
+@media (max-width: 1160px) {
+    .Tag {
+        display: flex;
+        width: 90px;
+        padding: .4rem .6rem;
+        justify-content: space-between;
+        align-items: center;
+        font-size: .9rem;
+        border-radius: 50px;
+    }
+
+    .Tag div:nth-child(2) {
+        border-left: 1px solid #fff;
+        min-width: 50px;
+        padding-left: .5rem;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+
+    .Tag div:nth-child(1) {
+        max-width: 150px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+}

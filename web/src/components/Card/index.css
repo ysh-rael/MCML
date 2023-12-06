@@ -34,3 +34,17 @@
 .Card.principal:active {
     cursor: grabbing;
 }
+
+
+@media (max-width: 800px) {
+    .Card {
+        display: none;
+    }
+
+    .Card.principal {
+        display: flex;
+        width: 40%;
+        height: 60%;
+    }
+
+}

@@ -65,7 +65,7 @@
   gap: .6rem;
   padding-top: 1rem;
   height: 100%;
-  max-height: 100vh;
+  max-height: calc(calc(100vh - 1rem) - 40px);
   align-items: center;
   overflow: auto;
 
@@ -73,4 +73,18 @@
 
 .App .contraste {
   color: #ffffff;
+}
+
+.App > aside {
+  padding-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+
+}
+
+.App > aside > :first-child {
+  margin-left: auto;
+  margin-right: .6rem;
 }
