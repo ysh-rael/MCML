@@ -3,9 +3,8 @@ import { Tag } from '../Tag'
 export function generatorTag({ label, background, tags, setTags }) {
     try {
         const idTag = Date.now() + '-' + tags.length
-        const arrayTags = tags
-        arrayTags.push(<Tag background={background} id={`Tag-${idTag}`} label={label} />)
-        setTags(arrayTags)
+        const newTag = <Tag background={background} id={`Tag-${idTag}`} label={label} />
+        setTags((prevElements) => [...prevElements, newTag])
         return idTag
     } catch (err) {
         console.log(err)
