@@ -6,7 +6,6 @@ export function deleteThis(id) {
         const tag = document.getElementById(`Tag-${id}`)
 
         dropArea.parentElement.removeChild(dropArea)
-        console.log(tag.parentElement)
         tag.parentElement.removeChild(tag)
 
         return true
