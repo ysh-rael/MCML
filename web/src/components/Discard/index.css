@@ -19,3 +19,18 @@
 .Discard:hover i {
   animation: swing 1.6s normal infinite;
 }
+
+@media (max-width: 800px) {
+  .Discard {
+    position: fixed;
+    bottom: -110px;
+    left: -110px;
+    width: 220px;
+    height: 220px;
+    z-index: 1;
+    align-items: center;
+    justify-content: space-around;
+    border-radius: 50%;
+}
+
+}

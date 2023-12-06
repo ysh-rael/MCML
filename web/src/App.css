@@ -9,18 +9,6 @@
 
 }
 
-.App #cards {
-  display: flex;
-  width: 95%;
-  height: 60%;
-  max-height: 670px;
-  margin: auto;
-
-  flex-direction: column;
-  justify-content: space-between;
-  position: relative;
-}
-
 
 .animation__shake:hover {
   animation: shake 6.6s alternate infinite;
