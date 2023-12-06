@@ -17,6 +17,9 @@ function App() {
   const [BttnIconUpload, setBttnIconUpload] = useState('fa-solid fa-upload');
   const [BttnIconFinish, setBttnIconFinish] = useState('fa-solid fa-circle-check');
   const [BttnIconPlus, setBttnIconPlus] = useState('fa-solid fa-plus');
+  const [ColorDropArea, setColorDropArea] = useState('#C1C1C1')
+  const [NameDropArea, setNameDropArea] = useState('')
+  const [DropsArea, setDropsArea] = useState([])
   const [tags, setTags] = useState([]);
 
   return (
@@ -52,20 +55,17 @@ function App() {
         <PartialSection>
 
           <div id='box_tool'>
-            <input className='input' type='text' placeholder='label for your drop box' />
-            <input className='' type='color' value={'#C1C1C1'}></input>
-            <Bttn animation={false} userStatedIcon={BttnIconPlus} />
+            <input className='input' type='text' placeholder='label for your drop box' value={NameDropArea} onChange={(event) => setNameDropArea(event.target.value)} />
+            <input className='' type='color' value={ColorDropArea} onChange={(event) => setColorDropArea(event.target.value)}></input>
+            <Bttn animation={false} userStatedIcon={BttnIconPlus} onClick={event => {
+              const boxDrop = document.getElementById('box_drop')
+              
+              if(!boxDrop) return;
+              setDropsArea(prev => [...prev, <DropArea label={NameDropArea} background={ColorDropArea} tags={tags} setTags={setTags} />])
+            }} />
           </div>
 
-          <div id='box_drop'>
-            <DropArea label="Label1" background="#f1c1c1" tags={tags} setTags={setTags} />
-            <DropArea label="Label2" background="#c1f1c1" tags={tags} setTags={setTags} />
-            <DropArea label="Label3" background="#c1c1f1" tags={tags} setTags={setTags} />
-            <DropArea label="Label4" background="#cdc1c1" tags={tags} setTags={setTags} />
-            <DropArea label="Label5" background="#c1cdc1" tags={tags} setTags={setTags} />
-            <DropArea label="Label6" background="#c1c1cf" tags={tags} setTags={setTags} />
-           
-          </div>
+          <div id='box_drop'> {DropsArea} </div>
         </PartialSection>
       </section>
 
