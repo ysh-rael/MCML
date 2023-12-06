@@ -9,6 +9,16 @@
 
 .Tag div:nth-child(2) {
     border-left: 1px solid #fff;
-    width: 50px;
+    min-width: 50px;
     padding-left: .5rem;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.Tag div:nth-child(1) {
+    max-width: 150px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
