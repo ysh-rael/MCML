@@ -57,3 +57,33 @@
     }
 
 }
+
+@media (max-height: 632px) {
+    .Card.principal {
+        height: calc(220px - 12%);
+    }
+
+}
+
+@media (max-height: 500px) {
+    .Card.principal {
+        height: calc(160px - 2.6rem);
+    }
+
+}
+
+@media (max-height: 500px) {
+    .Card.principal {
+        height: auto;
+    }
+
+    .Card.principal :nth-child(1) {
+        display: none;
+    }
+
+    .Card.principal::before {
+        content: 'Unable to display card';
+        color:  red;
+    }
+
+}

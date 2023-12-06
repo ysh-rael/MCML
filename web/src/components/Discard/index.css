@@ -36,3 +36,9 @@
 }
 
 }
+
+@media (max-height: 500px) {
+  .Discard {
+    display: none;
+  }
+}
