@@ -20,7 +20,7 @@ export function DropArea({ label, background, tags, setTags }) {
     useEffect(() => {
         setLbl(label)
         if (!id && stop != id) {
-            const generatedId = generatorTag({ lbl: inputRef, background, tags, setTags });
+            const generatedId = generatorTag({ lbl: `inputRef`, background, tags, setTags });
             setId(generatedId);
             stop = generatedId
         }
