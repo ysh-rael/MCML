@@ -10,6 +10,12 @@
     position: relative;
 }
 
+.App #box_tool input[type="color"] {
+    height: 100%;
+    min-height: 40px;
+    border: 1px solid #dbdbdb;
+  }
+
 @media (min-width: 1160px) {
     .App {
         display: flex;
@@ -166,6 +172,17 @@
         top: 1.5rem;
         right: 1rem;
     }
+
+    .App #box_tool input[type="color"] {
+        height: 40px;
+        border: 1px solid #dbdbdb;
+      }
+      
+      .App #box_tool input[type="color"],
+      .App #box_tool input[type="color"]::-webkit-color-swatch-wrapper,
+      .App #box_tool input[type="color"]::-webkit-color-swatch {
+        border-radius: 4px;
+      }
 
 }
 

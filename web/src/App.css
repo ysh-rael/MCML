@@ -25,7 +25,6 @@
 }
 
 .App #box_tool input[type="color"] {
-  height: 100%;
   border: 1px solid #dbdbdb;
 }
 
