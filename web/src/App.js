@@ -31,15 +31,15 @@ function App() {
           <header>
 
             <div>
-              <Bttn userStatedIcon={BttnIconGithub} animation={true}></Bttn>
-              <Bttn userStatedIcon={BttnIconLinkedin} animation={true}></Bttn>
-              <Bttn userStatedIcon={BttnIconEmail} animation={true}></Bttn>
+              <Bttn userStatedIcon={BttnIconGithub} animation={true} onClick={() => window.location = 'https://github.com/ysh-rael'}></Bttn>
+              <Bttn userStatedIcon={BttnIconLinkedin} animation={true} onClick={() => window.location = 'https://www.linkedin.com/in/yshrael-pimentel-76502820b/'}></Bttn>
+              <Bttn userStatedIcon={BttnIconEmail} animation={true} onClick={() => window.location = 'mailto:ysp.rael@gmail.com'}></Bttn>
             </div>
 
             <div>
-              <Bttn userStatedIcon={BttnIconUpload} background='is-info'></Bttn>
-              <Bttn userStatedIcon={BttnIconDemarcar} background='is-warning'></Bttn>
-              <Bttn userStatedIcon={BttnIconFinish} background='is-primary'></Bttn>
+              <Bttn userStatedIcon={BttnIconUpload} background='is-info' />
+              <Bttn userStatedIcon={BttnIconDemarcar} background='is-warning' />
+              <Bttn userStatedIcon={BttnIconFinish} background='is-primary' />
             </div>
 
           </header>
