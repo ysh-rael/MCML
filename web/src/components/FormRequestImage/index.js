@@ -1,17 +1,47 @@
 import { useState } from "react"
 import { inptSearchOnChange } from "./handler"
 
-export function FormRequestImage({ setModalActive, setModelContent }) {
+export function FormRequestImage({ setModalActive, setModelContent, setRequestImg }) {
     const [SearchElemnts, setSearchElemnts] = useState([])
     const [InptSearch, setInptSearch] = useState('')
-    return <form className="form" >
+    const [InptToken, setInptToken] = useState('')
+    const [InptPerRequest, setInptPerRequest] = useState(1)
+    return <form className="form" onSubmit={(event) => {
+        let urlBase = false
+        let options = {}
+        event.preventDefault()
+        const selectAPI = document.getElementById('SelectAPI')
+        //  console.log(selectAPI.value)
+        switch (selectAPI.value) {
+            // https://api.pexels.com/v1/search/?page=1&per_page=30&query=[nature,people]
+            case 'PexelsAPI':
+                urlBase = 'https://api.pexels.com/v1/search?page=1'
+                break
+        }
+
+
+        if (SearchElemnts.length) {
+            urlBase += `&query=[${(SearchElemnts.map(esse => esse.props.value).join())}]`
+        }
+
+        if (InptToken) options.headers = { 'Authorization': InptToken }
+
+        if (InptPerRequest) urlBase += `&per_page=${InptPerRequest}`
+
+        console.log(urlBase)
+        fetch(urlBase, options)
+            .then(res => res.json())
+            .then(console.log)
+            .catch(err => console.error(err))
+
+    }}>
 
         <div class="field">
             <label class="label">Choose an API</label>
             <div class="control">
                 <div class="select">
-                    <select>
-                        <option>Pexels API</option>
+                    <select id="SelectAPI">
+                        <option value={'PexelsAPI'}>Pexels API</option>
                     </select>
                 </div>
             </div>
@@ -20,7 +50,7 @@ export function FormRequestImage({ setModalActive, setModelContent }) {
         <div class="field">
             <label class="label">Token</label>
             <div class="control has-icons-left has-icons-right">
-                <input class="input" type="text" placeholder="Your token" />
+                <input class="input" type="text" placeholder="Your token" id="inptToken" value={InptToken} onChange={({ target }) => setInptToken(target.value)} />
                 <span class="icon is-small is-left">
                     <i class="fa-solid fa-key"></i>
                 </span>
@@ -46,7 +76,7 @@ export function FormRequestImage({ setModalActive, setModelContent }) {
         <div class="field">
             <label class="label">Maximum elements per request</label>
             <div class="control">
-                <input class="button" type="number" placeholder="1-80" min={1} max={80} />
+                <input class="button" type="number" placeholder="1-80" min={1} max={80} value={InptPerRequest} onChange={({ target }) => setInptPerRequest(target.value)} />
             </div>
         </div>
 

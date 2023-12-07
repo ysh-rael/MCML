@@ -26,6 +26,7 @@ function App() {
   const [tags, setTags] = useState([]);
   const [ModalActive, setModalActive] = useState(false);
   const [ModelContent, setModelContent] = useState(null)
+  const [RequestImg, setRequestImg] = useState(null)
 
   return (
     <div className="App">
@@ -51,7 +52,7 @@ function App() {
                   data = err
                 }
 
-                setModalActive(true); setModelContent(<FormRequestImage setModalActive={setModalActive} setModelContent={setModelContent} />)
+                setModalActive(true); setModelContent(<FormRequestImage setModalActive={setModalActive} setModelContent={setModelContent} setRequestImg={setRequestImg} />)
               }} />
               <Bttn userStatedIcon={BttnIconDemarcar} background='is-warning' onClick={() => { setModalActive(true); setModelContent(`Ola mundo2`) }} />
               <Bttn userStatedIcon={BttnIconFinish} background='is-primary' onClick={() => { setModalActive(true); setModelContent(`Ola mundo3`) }} />

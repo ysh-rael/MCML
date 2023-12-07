@@ -14,6 +14,7 @@
     justify-content: center;
     cursor: no-drop;
     font-size: 1.6rem;
+    overflow: hidden;
 }
 
 .Card.principal {
@@ -83,7 +84,7 @@
 
     .Card.principal::before {
         content: 'Unable to display card';
-        color:  red;
+        color: red;
     }
 
 }
