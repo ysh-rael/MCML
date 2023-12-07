@@ -8,7 +8,8 @@ import React, { useState } from 'react';
 import { Discard } from './components/Discard';
 import { Card } from './components/Card';
 import { DropArea } from './components/DropArea';
-import { BttnBar } from './components/BttnBra';
+import { BttnBar } from './components/BttnBar';
+import { Modal } from './components/Modal';
 
 function App() {
   const [BttnIconGithub, setBttnIconGithub] = useState('fa-brands fa-github-alt');
@@ -22,9 +23,12 @@ function App() {
   const [NameDropArea, setNameDropArea] = useState('')
   const [DropsArea, setDropsArea] = useState([])
   const [tags, setTags] = useState([]);
+  const [ModalActive, setModalActive] = useState(false);
+  const [ModelContent, setModelContent] = useState(null)
 
   return (
     <div className="App">
+      <Modal ModalActive={ModalActive} setModalActive={setModalActive} ModelContent={ModelContent} setModelContent={setModelContent} />
 
       <section>
         <PartialSection>
@@ -37,9 +41,9 @@ function App() {
             </div>
 
             <div>
-              <Bttn userStatedIcon={BttnIconUpload} background='is-info' />
-              <Bttn userStatedIcon={BttnIconDemarcar} background='is-warning' />
-              <Bttn userStatedIcon={BttnIconFinish} background='is-primary' />
+              <Bttn userStatedIcon={BttnIconUpload} background='is-info' onClick={() => { setModalActive(true); setModelContent(`Ola mundo`) }} />
+              <Bttn userStatedIcon={BttnIconDemarcar} background='is-warning' onClick={() => { setModalActive(true); setModelContent(`Ola mundo2`) }}  />
+              <Bttn userStatedIcon={BttnIconFinish} background='is-primary' onClick={() => { setModalActive(true); setModelContent(`Ola mundo3`) }}  />
             </div>
 
           </header>
