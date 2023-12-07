@@ -35,6 +35,10 @@
         border-radius: 50px;
     }
 
+    .actived .Tag {
+        width: 200px;
+    }
+
     .Tag div:nth-child(2) {
         border-left: 1px solid #fff;
         min-width: 50px;
@@ -49,5 +53,30 @@
         overflow: hidden;
         white-space: nowrap;
         text-overflow: ellipsis;
+    }
+}
+
+@media (max-width: 1160px) {
+    .Tag {
+        width: 70px;
+    }
+
+    .Tag div:nth-child(2) {
+        border-left: none;
+        text-align: center;
+        padding-left: .0rem;
+    }
+
+    .Tag div:nth-child(1) {
+        display: none;
+    }
+
+    .actived .Tag div:nth-child(2) {
+        border-left: 1px solid #fff;
+        text-align: center;
+    }
+
+    .actived .Tag div:nth-child(1) {
+        display: inherit;
     }
 }

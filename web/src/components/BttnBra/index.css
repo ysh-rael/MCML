@@ -1,0 +1,29 @@
+@media (min-width: 1160px) {
+    #BttnBar {
+        opacity: 0;
+        z-index: -1;
+    }
+}
+
+
+@media (max-width: 800px) {
+
+    #BttnBar {
+        position: fixed;
+        z-index: 3;
+        top: 1.5rem;
+        right: 1rem;
+    }
+
+}
+
+@media (max-width: 700px) {
+
+    #BttnBar {
+        position: fixed;
+        z-index: 3;
+        top: 1.5rem;
+        right: .1rem;
+    }
+
+}

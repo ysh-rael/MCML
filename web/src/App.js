@@ -8,6 +8,7 @@ import React, { useState } from 'react';
 import { Discard } from './components/Discard';
 import { Card } from './components/Card';
 import { DropArea } from './components/DropArea';
+import { BttnBar } from './components/BttnBra';
 
 function App() {
   const [BttnIconGithub, setBttnIconGithub] = useState('fa-brands fa-github-alt');
@@ -17,7 +18,6 @@ function App() {
   const [BttnIconUpload, setBttnIconUpload] = useState('fa-solid fa-upload');
   const [BttnIconFinish, setBttnIconFinish] = useState('fa-solid fa-circle-check');
   const [BttnIconPlus, setBttnIconPlus] = useState('fa-solid fa-plus');
-  const [BttnBar, setBttnBar] = useState('fa-solid fa-bars-staggered');
   const [ColorDropArea, setColorDropArea] = useState('#C1C1C1')
   const [NameDropArea, setNameDropArea] = useState('')
   const [DropsArea, setDropsArea] = useState([])
@@ -70,10 +70,8 @@ function App() {
         </PartialSection>
       </section>
 
-      <aside>
-        <Bttn id={'bttnBar'} userStatedIcon={BttnBar} background='is-info is-light' onClick={event => {
-          BttnBar === 'fa-solid fa-bars-staggered' ? setBttnBar('fa-solid fa-bars') : setBttnBar('fa-solid fa-bars-staggered')
-        }}></Bttn>
+      <aside className='tagAside'>
+        <BttnBar />
 
         <div id='box_tags'>
           {tags}
