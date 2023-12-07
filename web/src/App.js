@@ -51,7 +51,7 @@ function App() {
                   data = err
                 }
 
-                setModalActive(true); setModelContent(<FormRequestImage setModalActive={setModalActive}/>)
+                setModalActive(true); setModelContent(<FormRequestImage setModalActive={setModalActive} setModelContent={setModelContent} />)
               }} />
               <Bttn userStatedIcon={BttnIconDemarcar} background='is-warning' onClick={() => { setModalActive(true); setModelContent(`Ola mundo2`) }} />
               <Bttn userStatedIcon={BttnIconFinish} background='is-primary' onClick={() => { setModalActive(true); setModelContent(`Ola mundo3`) }} />
