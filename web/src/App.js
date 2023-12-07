@@ -4,7 +4,7 @@ import 'bulma/css/bulma.min.css';
 import { Button } from 'react-bulma-components';
 import { PartialSection } from './components/PartialSection';
 import { Bttn } from './components/Bttn';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Discard } from './components/Discard';
 import { Card } from './components/Card';
 import { DropArea } from './components/DropArea';
@@ -27,6 +27,13 @@ function App() {
   const [ModalActive, setModalActive] = useState(false);
   const [ModelContent, setModelContent] = useState(null)
   const [RequestImg, setRequestImg] = useState(null)
+  const [ImgIndex, setImgIndex] = useState(0)
+  const [srcImgs, setsrcImgs] = useState([])
+
+  useEffect(() => {
+    if (!RequestImg) return;
+    console.log(RequestImg)
+  }, [RequestImg])
 
   return (
     <div className="App">
@@ -44,15 +51,8 @@ function App() {
 
             <div>
               <Bttn userStatedIcon={BttnIconUpload} background='is-info' onClick={async () => {
-                let data = 'initial'
-                try {
-                  const t = data = await fetch('https://pexels.com/pt-br/procurar/carros/')
-                  data = 'data'
-                } catch (err) {
-                  data = err
-                }
-
-                setModalActive(true); setModelContent(<FormRequestImage setModalActive={setModalActive} setModelContent={setModelContent} setRequestImg={setRequestImg} />)
+                setModalActive(true);
+                setModelContent(<FormRequestImage setModalActive={setModalActive} setModelContent={setModelContent} setRequestImg={setRequestImg} />)
               }} />
               <Bttn userStatedIcon={BttnIconDemarcar} background='is-warning' onClick={() => { setModalActive(true); setModelContent(`Ola mundo2`) }} />
               <Bttn userStatedIcon={BttnIconFinish} background='is-primary' onClick={() => { setModalActive(true); setModelContent(`Ola mundo3`) }} />
