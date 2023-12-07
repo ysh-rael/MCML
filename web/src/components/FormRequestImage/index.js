@@ -1,4 +1,4 @@
-export function FormRequestImage({ params }) {
+export function FormRequestImage({ setModalActive }) {
     return <form className="form" >
 
 
@@ -16,7 +16,7 @@ export function FormRequestImage({ params }) {
         <div class="field">
             <label class="label">Token</label>
             <div class="control has-icons-left has-icons-right">
-                <input class="input" type="text" placeholder="Text input" value="bulma" />
+                <input class="input" type="text" placeholder="Your token"  />
                 <span class="icon is-small is-left">
                     <i class="fa-solid fa-key"></i>
                 </span>
@@ -28,7 +28,7 @@ export function FormRequestImage({ params }) {
         <div class="field">
             <label class="label">Search for</label>
             <div class="control has-icons-left has-icons-right">
-                <input class="input" type="text" placeholder="Text input" />
+                <input class="input" type="text" placeholder="exemple: car" />
                 <span class="icon is-small is-left">
                     <i class="fa-solid fa-magnifying-glass"></i>
                 </span>
@@ -44,7 +44,7 @@ export function FormRequestImage({ params }) {
         <div class="field">
             <label class="label">Maximum elements per request</label>
             <div class="control">
-                <input class="button" type="number" placeholder="Text input" min={1} max={80} />
+                <input class="button" type="number" placeholder="1-80" min={1} max={80} />
             </div>
         </div>
 
@@ -53,7 +53,7 @@ export function FormRequestImage({ params }) {
                 <button class="button is-link">Confirm</button>
             </div>
             <div class="control">
-                <button class="button is-link is-light">Cancel</button>
+                <span class="button is-link is-light" onClick={() => setModalActive()}>Cancel</span>
             </div>
         </div>
 
