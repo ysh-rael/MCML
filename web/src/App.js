@@ -10,6 +10,7 @@ import { Card } from './components/Card';
 import { DropArea } from './components/DropArea';
 import { BttnBar } from './components/BttnBar';
 import { Modal } from './components/Modal';
+import { FormRequestImage } from './components/FormRequestImage';
 
 function App() {
   const [BttnIconGithub, setBttnIconGithub] = useState('fa-brands fa-github-alt');
@@ -41,9 +42,19 @@ function App() {
             </div>
 
             <div>
-              <Bttn userStatedIcon={BttnIconUpload} background='is-info' onClick={() => { setModalActive(true); setModelContent(`Ola mundo`) }} />
-              <Bttn userStatedIcon={BttnIconDemarcar} background='is-warning' onClick={() => { setModalActive(true); setModelContent(`Ola mundo2`) }}  />
-              <Bttn userStatedIcon={BttnIconFinish} background='is-primary' onClick={() => { setModalActive(true); setModelContent(`Ola mundo3`) }}  />
+              <Bttn userStatedIcon={BttnIconUpload} background='is-info' onClick={async () => {
+                let data = 'initial'
+                try {
+                  const t = data = await fetch('https://pexels.com/pt-br/procurar/carros/')
+                  data = 'data'
+                } catch (err) {
+                  data = err
+                }
+
+                setModalActive(true); setModelContent(<FormRequestImage setModalActive={setModalActive}/>)
+              }} />
+              <Bttn userStatedIcon={BttnIconDemarcar} background='is-warning' onClick={() => { setModalActive(true); setModelContent(`Ola mundo2`) }} />
+              <Bttn userStatedIcon={BttnIconFinish} background='is-primary' onClick={() => { setModalActive(true); setModelContent(`Ola mundo3`) }} />
             </div>
 
           </header>
