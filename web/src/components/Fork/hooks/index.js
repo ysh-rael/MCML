@@ -3,6 +3,7 @@ import { DrawFork, handlerClear, handlerMouseDown, handlerMousemove } from "../h
 
 export function useDrawImg({ img, Designs, setDesigns, canvasRef }) {
     useEffect(() => {
+        console.log('ok')
         const canvas = canvasRef.current;
         const ctx = canvas.getContext('2d');
 
@@ -27,5 +28,5 @@ export function useDrawImg({ img, Designs, setDesigns, canvasRef }) {
 
         drawImageOnCanvas();
 
-    }, [img]);
+    }, [img, Designs]);
 }
