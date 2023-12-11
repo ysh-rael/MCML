@@ -1,9 +1,9 @@
 import React, { useRef, useEffect, useState } from 'react';
 import './index.css';
 import { designs } from './constants';
-import { DrawImg, useDrawImg } from './hooks';
+import { DrawImg, useDrawImg, useFork } from './hooks';
 import { inIsOnVertex } from '../../utils/inIsOnVertex';
-import { DrawFork, useFork } from './handler';
+import { DrawFork } from './handler';
 
 export function Fork({ img }) {
     const canvasRef = useRef(null);
