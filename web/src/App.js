@@ -54,21 +54,13 @@ function App() {
   }, [RequestImg])
 
   useEffect(() => {
+    console.log(ImgIndex)
+    console.log(srcImgs.length - ImgIndex)
     if (srcImgs.length - ImgIndex > 0) return;
+    console.log('Hello word')
     fetch(UrlPrevImg, OptionsRequestImg)
       .then(res => res.json())
-      .then(res => {
-        if (!res.ok) {
-          console.log('err in solicit prev page.')
-          console.log('res.ok')
-          console.log(res.ok)
-          console.log('res')
-          console.log(res)
-          return;
-        }
-        setRequestImg(res)
-
-      })
+      .then(res => setRequestImg(res))
       .catch(console.log)
 
   }, [ImgIndex])
@@ -103,7 +95,7 @@ function App() {
             <Card />
           </div>
 
-          <Discard />
+          <Discard ImgIndex={ImgIndex} setImgIndex={setImgIndex} />
 
         </PartialSection>
 
