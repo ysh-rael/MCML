@@ -1,3 +1,4 @@
+const ray = 4
 const topLine = {
     "id": "topLine",
     "form": "line",
@@ -6,7 +7,7 @@ const topLine = {
     "ray": 0,
     "x": 0,
     "y": 0,
-    "color": "blue",
+    "color": "#3A62F5",
     "idElem1": "rightTopVertex",
     "idElem2": "leftTopVertex"
 }
@@ -19,7 +20,7 @@ const leftLine = {
     "ray": 0,
     "x": 0,
     "y": 0,
-    "color": "blue",
+    "color": "#3A62F5",
     "idElem1": "bottomLeftVertex",
     "idElem2": "leftTopVertex"
 }
@@ -32,7 +33,7 @@ const lineBaixo = {
     "ray": 0,
     "x": 0,
     "y": 0,
-    "color": "blue",
+    "color": "#3A62F5",
     "idElem1": "bottomRightVertex",
     "idElem2": "bottomLeftVertex"
 }
@@ -45,7 +46,7 @@ const lineDireita = {
     "ray": 0,
     "x": 0,
     "y": 0,
-    "color": "blue",
+    "color": "#3A62F5",
     "idElem1": "rightTopVertex",
     "idElem2": "bottomRightVertex"
 }
@@ -55,7 +56,7 @@ const leftTopVertex = {
     "form": "circle",
     "height": 0,
     "width": 0,
-    "ray": 6,
+    "ray": ray,
     "x": 50,
     "y": 10,
     "color": "#F24335",
@@ -68,7 +69,7 @@ const rightTopVertex = {
     "form": "circle",
     "height": 0,
     "width": 0,
-    "ray": 6,
+    "ray": ray,
     "x": 200,
     "y": 10,
     "color": "#F24335",
@@ -81,10 +82,10 @@ const bottomLeftVertex = {
     "form": "circle",
     "height": 0,
     "width": 0,
-    "ray": 6,
+    "ray": ray,
     "x": 50,
     "y": 100,
-    "color": "orange",
+    "color": "F24335",
     "idElem1": null,
     "idElem2": null
 }
@@ -94,7 +95,7 @@ const bottomRightVertex = {
     "form": "circle",
     "height": 0,
     "width": 0,
-    "ray": 6,
+    "ray": ray,
     "x": 200,
     "y": 100,
     "color": "#F24335",
