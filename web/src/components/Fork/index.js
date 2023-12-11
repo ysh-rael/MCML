@@ -1,5 +1,4 @@
 import React, { useRef, useEffect, useState } from 'react';
-import { DrawFork, handleMouseDown, handlerClear, handlerMouseDown, handlerMousemove, init } from './handler';
 import './index.css';
 import { designs } from './constants';
 import { useDrawImg, useFork } from './hooks';
@@ -44,7 +43,7 @@ export function Fork({ img }) {
 
         canvas.addEventListener('mouseup', () => setIsDragging(null));
         canvas.addEventListener('mouseleave', () => setIsDragging(null));
-    }, [canvasRef])
+    }, [IsDragging, canvasRef])
 
     return <canvas ref={canvasRef} className="Fork" id="c1" />;
 }

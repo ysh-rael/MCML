@@ -27,5 +27,5 @@ export function useDrawImg({ img, Designs, setDesigns, canvasRef }) {
 
         drawImageOnCanvas();
 
-    }, [img, Designs]);
+    }, [img]);
 }
