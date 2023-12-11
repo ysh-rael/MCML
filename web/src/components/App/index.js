@@ -23,13 +23,13 @@ export function App() {
   const [ModelContent, setModelContent] = useState(null)
   const [RequestImg, setRequestImg] = useState(null)
   const [ImgIndex, setImgIndex] = useState(0)
-  const [srcImgs, setSrcImgs] = useState([])
+  const [Imgs, setImgs] = useState([])
   const [UrlPrevImg, setUrlPrevImg] = useState(null)
   const [OptionsRequestImg, setOptionsRequestImg] = useState(null)
 
-  useRequestImg({ RequestImg, setImgIndex, setSrcImgs, srcImgs, setUrlPrevImg })
+  useRequestImg({ RequestImg, setImgIndex, setImgs, Imgs, setUrlPrevImg })
 
-  usePrevImg({ ImgIndex, srcImgs, UrlPrevImg, OptionsRequestImg, setRequestImg })
+  usePrevImg({ ImgIndex, Imgs, UrlPrevImg, OptionsRequestImg, setRequestImg })
 
   return (
     <div className="App">
@@ -57,8 +57,8 @@ export function App() {
           </header>
 
           <div id='cards'>
-            <Card principal={true} src={srcImgs[ImgIndex - 1]} />
-            <Card src={srcImgs[ImgIndex]} />
+            <Card principal={true} img={Imgs[ImgIndex - 1]} />
+            <Card img={Imgs[ImgIndex]} />
           </div>
 
           <Discard ImgIndex={ImgIndex} setImgIndex={setImgIndex} />
