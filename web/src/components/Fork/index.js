@@ -10,7 +10,7 @@ export function Fork({ img }) {
 
     useDrawImg({ img, Designs, setDesigns, canvasRef })
 
-    useFork({ canvasRef })
+    useFork({ canvasRef, Designs })
 
     return <canvas ref={canvasRef} className="Fork" id="c1" />;
 }

@@ -1,15 +1,31 @@
-export function inIsOnVertex(mouseX, mouseY, Designs) {
+export function inIsOnVertex({ mouseX, mouseY, Designs, canvasRef }) {
+    let result = null;
+    try {
 
-    const KeysDesenhos = Object.keys(this.desenhos);
-    let result = false;
-    if (Designs.length)
-        Designs.forEach((design) => {
-            if (!design || result) return;
-            if (design.forma != 'circle') return;
-            const { x, y, ray } = design;
-            const distancia = Math.sqrt((mouseX - x) ** 2 + (mouseY - y) ** 2);
-            result = distancia <= ray ? design.id : null;
-        });
+        if (Designs.length && canvasRef.current) {
+            const canvas = canvasRef.current;
 
-    return result;
+            Designs.forEach((design) => {
+                if (!design || result) return;
+                if (design.form !== 'circle') return;
+
+                const { x, y, ray } = design;
+
+                // Obtém as coordenadas do canvas em relação à janela do navegador
+                const canvasRect = canvas.getBoundingClientRect();
+                const canvasX = mouseX - canvasRect.left;
+                const canvasY = mouseY - canvasRect.top;
+
+                const distancia = Math.sqrt((canvasX - x) ** 2 + (canvasY - y) ** 2);
+                if (distancia <= ray) {
+                    result = design.id;
+                }
+            });
+        }
+    } catch (error) {
+        console.log(error);
+        result = null;
+    } finally {
+        return result;
+    }
 }
