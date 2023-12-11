@@ -26,13 +26,22 @@ export function Fork({ img }) {
 
                 // Certifique-se de que designs é uma matriz antes de chamar DrawFork
                 const validDesigns = Array.isArray(Designs) ? Designs : [];
-                DrawFork({ ctx, Designs: validDesigns });
+                DrawFork({ ctx, Designs: validDesigns, setDesigns });
             };
         };
 
         drawImageOnCanvas();
 
     }, [img, Designs]);
+
+    function handleMouseDown(event) {
+        alert('ok')
+    }
+    
+    useEffect(() => {
+        const canvas = canvasRef.current;
+        canvas.addEventListener('mousedown', handleMouseDown);
+    }, [])
 
     return <canvas ref={canvasRef} className="Fork" id="c1" />;
 }
