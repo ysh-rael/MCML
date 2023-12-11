@@ -51,13 +51,12 @@ export class Draw {
         }
     }
 
-    static line({ ctx, color, array, idElem1, idElem2 }) {
+    static line({ ctx, color, Designs, idElem1, idElem2 }) {
         try {
             if (!idElem1 || !idElem2) return;
-            console.log(idElem1)
 
-            var v1 = array.find(e => e.id === idElem1);
-            var v2 = array.find(e => e.id === idElem2);
+            var v1 = Designs.find(e => e.id === idElem1);
+            var v2 = Designs.find(e => e.id === idElem2);
 
             if (v1 && v2) {
 
@@ -75,13 +74,13 @@ export class Draw {
         }
     }
 
-    line({ color, array, idElem1, idElem2 }) {
+    line({ color, Designs, idElem1, idElem2 }) {
         try {
             if (!idElem1 || !idElem2) return;
             console.log(idElem1)
 
-            var v1 = array.find(e => e.id === idElem1);
-            var v2 = array.find(e => e.id === idElem2);
+            var v1 = Designs.find(e => e.id === idElem1);
+            var v2 = Designs.find(e => e.id === idElem2);
 
             if (v1 && v2) {
 

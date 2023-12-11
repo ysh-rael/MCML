@@ -2,10 +2,8 @@ import { Draw } from "../../../../utils/Draw";
 
 export function DrawFork({ ctx, Designs, setDesigns }) {
 
-    const array = [];
-
-    if (array.length)
-        array.forEach(esse => {
+    if (Designs.length)
+        Designs.forEach(esse => {
             const { height, width, x, y, color, form, ray, idElem1, idElem2 } = esse;
             switch (form) {
                 case 'circle':
@@ -14,7 +12,7 @@ export function DrawFork({ ctx, Designs, setDesigns }) {
 
                 case 'line':
                     if (!idElem1 || !idElem2) return;
-                    Draw.line({ ctx, color, array, idElem1, idElem2 })
+                    Draw.line({ ctx, color, Designs, idElem1, idElem2 })
                     break;
                 default:
                     Draw.rect({ ctx, x, y, color, width, height })
