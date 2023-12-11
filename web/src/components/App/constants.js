@@ -1,0 +1,7 @@
+export const BttnIconGithub = 'fa-brands fa-github-alt'
+export const BttnIconLinkedin = 'fa-brands fa-linkedin-in'
+export const BttnIconEmail = 'fa-regular fa-envelope'
+export const BttnIconDemarcar = 'fa-solid fa-expand'
+export const BttnIconUpload = 'fa-solid fa-upload'
+export const BttnIconFinish = 'fa-solid fa-circle-check'
+export const BttnIconPlus = 'fa-solid fa-plus'

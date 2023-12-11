@@ -1,5 +1,5 @@
-@import url('./css/layout');
-@import url('./css/keyFrames');
+@import url('./layout');
+@import url('./keyFrames');
 
 .App {
   background: #FFF;
@@ -62,7 +62,7 @@
   color: #ffffff;
 }
 
-.App > aside {
+.App>aside {
   padding-top: 1rem;
   display: flex;
   flex-direction: column;
@@ -71,7 +71,7 @@
 
 }
 
-.App > aside > :first-child {
+.App>aside> :first-child {
   margin-left: auto;
   margin-right: .6rem;
 }

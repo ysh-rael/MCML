@@ -1,25 +1,20 @@
-import logo from './logo.svg';
-import './App.css';
+import './css/index.css';
 import 'bulma/css/bulma.min.css';
 import { Button } from 'react-bulma-components';
-import { PartialSection } from './components/PartialSection';
-import { Bttn } from './components/Bttn';
+import { PartialSection } from '../PartialSection';
+import { Bttn } from '../Bttn';
 import React, { useEffect, useState } from 'react';
-import { Discard } from './components/Discard';
-import { Card } from './components/Card';
-import { DropArea } from './components/DropArea';
-import { BttnBar } from './components/BttnBar';
-import { Modal } from './components/Modal';
-import { FormRequestImage } from './components/FormRequestImage';
+import { Discard } from '../Discard';
+import { Card } from '../Card';
+import { DropArea } from '../DropArea';
+import { BttnBar } from '../BttnBar';
+import { Modal } from '../Modal';
+import { FormRequestImage } from '../FormRequestImage';
+import { usePrevImg, useRequestImg } from './hooks';
+import { BttnIconDemarcar, BttnIconEmail, BttnIconFinish, BttnIconGithub, BttnIconLinkedin, BttnIconPlus, BttnIconUpload } from './constants';
 
-function App() {
-  const [BttnIconGithub, setBttnIconGithub] = useState('fa-brands fa-github-alt');
-  const [BttnIconLinkedin, setBttnIconLinkedin] = useState('fa-brands fa-linkedin-in');
-  const [BttnIconEmail, setBttnIconEmail] = useState('fa-regular fa-envelope');
-  const [BttnIconDemarcar, setBttnIconDemarcar] = useState('fa-solid fa-expand');
-  const [BttnIconUpload, setBttnIconUpload] = useState('fa-solid fa-upload');
-  const [BttnIconFinish, setBttnIconFinish] = useState('fa-solid fa-circle-check');
-  const [BttnIconPlus, setBttnIconPlus] = useState('fa-solid fa-plus');
+export function App() {
+
   const [ColorDropArea, setColorDropArea] = useState('#C1C1C1')
   const [NameDropArea, setNameDropArea] = useState('')
   const [DropsArea, setDropsArea] = useState([])
@@ -32,38 +27,9 @@ function App() {
   const [UrlPrevImg, setUrlPrevImg] = useState(null)
   const [OptionsRequestImg, setOptionsRequestImg] = useState(null)
 
-  useEffect(() => {
-    if (!RequestImg) {
-      console.log('requestImg is null')
-      console.log(RequestImg)
-      return;
-    }
-    console.log(RequestImg)
+  useRequestImg({ RequestImg, setImgIndex, setSrcImgs, srcImgs, setUrlPrevImg })
 
-    const photos = RequestImg.photos ? RequestImg.photos : null
-    if (!photos) {
-      console.log('photos is null')
-      console.log(RequestImg)
-      return;
-    }
-    photos.forEach(esse => {
-      setSrcImgs(prev => [...prev, esse.src.medium])
-    });
-
-    setUrlPrevImg(RequestImg.next_page)
-  }, [RequestImg])
-
-  useEffect(() => {
-    console.log(ImgIndex)
-    console.log(srcImgs.length - ImgIndex)
-    if (srcImgs.length - ImgIndex > 0) return;
-    console.log('Hello word')
-    fetch(UrlPrevImg, OptionsRequestImg)
-      .then(res => res.json())
-      .then(res => setRequestImg(res))
-      .catch(console.log)
-
-  }, [ImgIndex])
+  usePrevImg({ ImgIndex, srcImgs, UrlPrevImg, OptionsRequestImg, setRequestImg })
 
   return (
     <div className="App">
@@ -91,8 +57,8 @@ function App() {
           </header>
 
           <div id='cards'>
-            <Card principal={true} src={srcImgs[ImgIndex]} />
-            <Card />
+            <Card principal={true} src={srcImgs[ImgIndex - 1]} />
+            <Card src={srcImgs[ImgIndex]} />
           </div>
 
           <Discard ImgIndex={ImgIndex} setImgIndex={setImgIndex} />
