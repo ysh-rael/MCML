@@ -20,5 +20,8 @@ export function DrawFork({ ctx, Designs, setDesigns }) {
             }
         })
 
+}
 
+export function handleMouseDown(event) {
+    
 }
