@@ -12,6 +12,7 @@ import { Modal } from '../Modal';
 import { FormRequestImage } from '../FormRequestImage';
 import { usePrevImg, useRequestImg } from './hooks';
 import { BttnIconDemarcar, BttnIconEmail, BttnIconFinish, BttnIconGithub, BttnIconLinkedin, BttnIconPlus, BttnIconUpload } from './constants';
+import { Fork } from '../Fork';
 
 export function App() {
 
@@ -50,7 +51,7 @@ export function App() {
                 setModalActive(true);
                 setModelContent(<FormRequestImage setModalActive={setModalActive} setModelContent={setModelContent} setRequestImg={setRequestImg} setOptionsRequestImg={setOptionsRequestImg} />)
               }} />
-              <Bttn userStatedIcon={BttnIconDemarcar} background='is-warning' onClick={() => { setModalActive(true); setModelContent(`Ola mundo2`) }} />
+              <Bttn userStatedIcon={BttnIconDemarcar} background='is-warning' onClick={() => { setModalActive(true); setModelContent(<Fork img={Imgs[ImgIndex - 1]} />) }} />
               <Bttn userStatedIcon={BttnIconFinish} background='is-primary' onClick={() => { setModalActive(true); setModelContent(`Ola mundo3`) }} />
             </div>
 

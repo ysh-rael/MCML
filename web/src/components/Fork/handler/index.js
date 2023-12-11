@@ -1,4 +1,4 @@
-import { Draw } from "../../../../utils/Draw";
+import { Draw } from "../../../utils/Draw";
 
 export function DrawFork({ ctx, Designs, setDesigns }) {
 
