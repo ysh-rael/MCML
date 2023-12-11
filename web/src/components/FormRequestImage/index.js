@@ -1,12 +1,12 @@
 import { useState } from "react"
 import { formOnSubmit, inptSearchOnChange } from "./handler"
 
-export function FormRequestImage({ setModalActive, setModelContent, setRequestImg }) {
+export function FormRequestImage({ setModalActive, setModelContent, setRequestImg, setOptionsRequestImg }) {
     const [SearchElemnts, setSearchElemnts] = useState([])
     const [InptSearch, setInptSearch] = useState('')
     const [InptToken, setInptToken] = useState('')
     const [InptPerRequest, setInptPerRequest] = useState(1)
-    return <form className="form" onSubmit={(event) => formOnSubmit(event, { SearchElemnts, InptToken, InptPerRequest, setRequestImg })}>
+    return <form className="form" onSubmit={(event) => formOnSubmit(event, { SearchElemnts, InptToken, InptPerRequest, setRequestImg, setOptionsRequestImg })}>
 
         <div class="field">
             <label class="label">Choose an API</label>

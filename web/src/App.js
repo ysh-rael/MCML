@@ -28,12 +28,50 @@ function App() {
   const [ModelContent, setModelContent] = useState(null)
   const [RequestImg, setRequestImg] = useState(null)
   const [ImgIndex, setImgIndex] = useState(0)
-  const [srcImgs, setsrcImgs] = useState([])
+  const [srcImgs, setSrcImgs] = useState([])
+  const [UrlPrevImg, setUrlPrevImg] = useState(null)
+  const [OptionsRequestImg, setOptionsRequestImg] = useState(null)
 
   useEffect(() => {
-    if (!RequestImg) return;
+    if (!RequestImg) {
+      console.log('requestImg is null')
+      console.log(RequestImg)
+      return;
+    }
     console.log(RequestImg)
+
+    const photos = RequestImg.photos ? RequestImg.photos : null
+    if (!photos) {
+      console.log('photos is null')
+      console.log(RequestImg)
+      return;
+    }
+    photos.forEach(esse => {
+      setSrcImgs(prev => [...prev, esse.src.medium])
+    });
+
+    setUrlPrevImg(RequestImg.next_page)
   }, [RequestImg])
+
+  useEffect(() => {
+    if (srcImgs.length - ImgIndex > 0) return;
+    fetch(UrlPrevImg, OptionsRequestImg)
+      .then(res => res.json())
+      .then(res => {
+        if (!res.ok) {
+          console.log('err in solicit prev page.')
+          console.log('res.ok')
+          console.log(res.ok)
+          console.log('res')
+          console.log(res)
+          return;
+        }
+        setRequestImg(res)
+
+      })
+      .catch(console.log)
+
+  }, [ImgIndex])
 
   return (
     <div className="App">
@@ -52,7 +90,7 @@ function App() {
             <div>
               <Bttn userStatedIcon={BttnIconUpload} background='is-info' onClick={async () => {
                 setModalActive(true);
-                setModelContent(<FormRequestImage setModalActive={setModalActive} setModelContent={setModelContent} setRequestImg={setRequestImg} />)
+                setModelContent(<FormRequestImage setModalActive={setModalActive} setModelContent={setModelContent} setRequestImg={setRequestImg} setOptionsRequestImg={setOptionsRequestImg} />)
               }} />
               <Bttn userStatedIcon={BttnIconDemarcar} background='is-warning' onClick={() => { setModalActive(true); setModelContent(`Ola mundo2`) }} />
               <Bttn userStatedIcon={BttnIconFinish} background='is-primary' onClick={() => { setModalActive(true); setModelContent(`Ola mundo3`) }} />
@@ -61,7 +99,7 @@ function App() {
           </header>
 
           <div id='cards'>
-            <Card principal={true} />
+            <Card principal={true} src={srcImgs[ImgIndex]} />
             <Card />
           </div>
 
