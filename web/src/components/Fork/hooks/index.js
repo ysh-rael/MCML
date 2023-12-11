@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { DrawFork, handlerClear, handlerMouseDown, handlerMousemove } from "../handler";
 
 export function useDrawImg({ img, Designs, setDesigns, canvasRef }) {
@@ -28,15 +28,4 @@ export function useDrawImg({ img, Designs, setDesigns, canvasRef }) {
         drawImageOnCanvas();
 
     }, [img, Designs]);
-}
-
-export function useFork({ canvasRef, Designs }) {
-    useEffect(() => {
-        const canvas = canvasRef.current;
-        canvas.addEventListener('mousedown', event => handlerMouseDown({ event, Designs, canvasRef }));
-        canvas.addEventListener('mousemove', event => handlerMousemove({ event, Designs, canvasRef }));
-        canvas.addEventListener('mouseup', handlerClear);
-        canvas.addEventListener('mouseleave', handlerClear);
-    }, [])
-
 }
