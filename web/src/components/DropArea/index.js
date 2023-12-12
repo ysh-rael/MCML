@@ -14,16 +14,12 @@ let stop = false
 export function DropArea({ label, background, tags, setTags, setImgIndex, ImgIndex, Imgs, setImgs }) {
     const [lbl, setLbl] = useState('');
     const [id, setId] = useState(null);
-    const [ImgIndex_, setImgIndex_] = useState(ImgIndex)
 
 
     const inputRef = useRef(null);
 
     const iconPincel = <i className='fa-solid fa-pen-to-square iconPincel' onClick={(event) => editLabel(event, lbl, setLbl)}></i>;
 
-    useEffect(() => {
-        setImgIndex(ImgIndex_)
-    }, [ImgIndex_])
 
     useEffect(() => {
         setLbl(label)
@@ -55,9 +51,9 @@ export function DropArea({ label, background, tags, setTags, setImgIndex, ImgInd
         try {
             if (event.target.id !== `DropArea-${id}`) return;
 
-            setImgIndex_(ImgIndex_ + 1)
+            setImgIndex((prevImgIndex) => prevImgIndex + 1);
         } catch (err) {
-            console.log(err)
+            console.log(err);
         }
     }
 
