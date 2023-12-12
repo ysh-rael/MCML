@@ -7,7 +7,6 @@ export function useRequestImg({ RequestImg, setImgIndex, setImgs, Imgs, setUrlPr
             console.log(RequestImg)
             return;
         }
-        console.log(RequestImg)
 
         const photos = RequestImg.photos ? RequestImg.photos : null
         if (!photos) {
@@ -26,10 +25,7 @@ export function useRequestImg({ RequestImg, setImgIndex, setImgs, Imgs, setUrlPr
 
 export function usePrevImg({ ImgIndex, Imgs, UrlPrevImg, OptionsRequestImg, setRequestImg }) {
     return useEffect(() => {
-        console.log(ImgIndex)
-        console.log(Imgs.length - ImgIndex)
         if (Imgs.length - ImgIndex > 0) return;
-        console.log('Hello word')
         fetch(UrlPrevImg, OptionsRequestImg)
             .then(res => res.json())
             .then(res => setRequestImg(res))
