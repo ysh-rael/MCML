@@ -4,7 +4,7 @@ import { Bttn } from "../Bttn";
 import { handlerOnClick } from "./handler/index.js";
 
 export function BttnBar({ }) {
-    const [bttnBar, setBttnBar] = useState('fa-solid fa-bars-staggered');
+    const [bttnBar, setBttnBar] = useState('fa-solid fa-bars');
 
     return <Bttn id={'BttnBar'} userStatedIcon={bttnBar} background='is-info is-light' onClick={ event => handlerOnClick(event, bttnBar, setBttnBar) } />
 } 
