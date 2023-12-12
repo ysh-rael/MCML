@@ -2,9 +2,8 @@ import { findChild } from '../../utils/findChild';
 import { isColorLight } from '../../utils/isColorLight';
 import { Bttn } from '../Bttn';
 import { deleteThis } from './deleteThis';
-import { editLabel } from './editLabel';
 import { generatorTag } from './generatorTag';
-import { hiddenInpt } from './hiddenInpt';
+import { editLabel, hiddenInpt, nextImgIndex } from './handler';
 import { useLabelTag, useQuantTag } from './hooks';
 import { increaseThis } from './increaseThis';
 import './index.css';
@@ -18,11 +17,8 @@ export function DropArea({ label, background, tags, setTags, setImgIndex, ImgInd
     const [id, setId] = useState(null);
     const [quant, setQuant] = useState(0);
 
-
     const inputRef = useRef(null);
-
     const iconPincel = <i className='fa-solid fa-pen-to-square iconPincel' onClick={(event) => editLabel(event, lbl, setLbl)}></i>;
-
 
     useEffect(() => {
         setLbl(label)
@@ -31,28 +27,13 @@ export function DropArea({ label, background, tags, setTags, setImgIndex, ImgInd
             setId(generatedId);
             stop = generatedId
         }
-
     }, []);
-
     useLabelTag({ lbl, id })
-
-
     useQuantTag({ quant, id })
 
 
-    function nextImgIndex(event) {
-        try {
-            if (event.target.id !== `DropArea-${id}`) return;
-
-            setImgIndex((prevImgIndex) => prevImgIndex + 1);
-            setQuant((prevImgIndex) => prevImgIndex + 1);
-        } catch (err) {
-            console.log(err);
-        }
-    }
-
     function update(event) {
-        nextImgIndex(event)
+        nextImgIndex({ event, setImgIndex, setQuant, id })
         increaseThis(id)
     }
 
