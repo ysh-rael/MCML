@@ -1,9 +1,8 @@
 import { findChild } from '../../utils/findChild';
 import { isColorLight } from '../../utils/isColorLight';
 import { Bttn } from '../Bttn';
-import { deleteThis } from './deleteThis';
 import { generatorTag } from './generatorTag';
-import { editLabel, hiddenInpt, nextImgIndex } from './handler';
+import { deleteThis, editLabel, hiddenInpt, nextImgIndex } from './handler';
 import { useLabelTag, useQuantTag } from './hooks';
 import { increaseThis } from './increaseThis';
 import './index.css';

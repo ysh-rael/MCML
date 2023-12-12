@@ -40,3 +40,20 @@ export function editLabel(event, lbl, setLbl) {
     inpt.type = 'text'
     inpt.focus()
 }
+
+export function deleteThis(id) {
+    try {
+        console.log(id)
+        if (!id) return false
+        const dropArea = document.getElementById(`DropArea-${id}`)
+        const tag = document.getElementById(`Tag-${id}`)
+
+        dropArea.parentElement.removeChild(dropArea)
+        tag.parentElement.removeChild(tag)
+
+        return true
+    } catch (err) {
+        console.log(err)
+        return false
+    }
+}
