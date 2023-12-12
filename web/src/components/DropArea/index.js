@@ -16,14 +16,14 @@ export function DropArea({ label, background, tags, setTags, setImgIndex, ImgInd
     const [id, setId] = useState(null);
     const [ImgIndex_, setImgIndex_] = useState(ImgIndex)
 
-    useEffect(() => {
-        setImgIndex(ImgIndex_)
-    }, [ImgIndex_])
-
 
     const inputRef = useRef(null);
 
-    const iconPincel = <i className='fa-solid fa-pen-to-square iconPincel' onClick={(event, lbl, setLbl) => editLabel(event, lbl, setLbl)}></i>;
+    const iconPincel = <i className='fa-solid fa-pen-to-square iconPincel' onClick={(event) => editLabel(event, lbl, setLbl)}></i>;
+
+    useEffect(() => {
+        setImgIndex(ImgIndex_)
+    }, [ImgIndex_])
 
     useEffect(() => {
         setLbl(label)
@@ -51,8 +51,10 @@ export function DropArea({ label, background, tags, setTags, setImgIndex, ImgInd
     }, [lbl]);
 
 
-    function nextImgIndex() {
+    function nextImgIndex(event) {
         try {
+            if (event.target.id !== `DropArea-${id}`) return;
+
             setImgIndex_(ImgIndex_ + 1)
         } catch (err) {
             console.log(err)
@@ -66,7 +68,7 @@ export function DropArea({ label, background, tags, setTags, setImgIndex, ImgInd
             draggable={false} id={`DropArea-${id}`}
             onDragOver={event => event.preventDefault()}
             onDrop={nextImgIndex}
-            onClick={nextImgIndex}
+        //onClick={nextImgIndex}
         >
             <input
                 type='hidden'
