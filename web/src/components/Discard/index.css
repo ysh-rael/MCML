@@ -9,6 +9,7 @@
     justify-content: center;
     font-size: 3rem;
     color: #e52d2d;
+    border-radius: 10px 10px 0 0;
 }
 
 .Discard:hover {
