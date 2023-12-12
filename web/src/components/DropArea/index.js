@@ -11,9 +11,15 @@ import { useEffect, useRef, useState } from 'react';
 
 
 let stop = false
-export function DropArea({ label, background, tags, setTags }) {
+export function DropArea({ label, background, tags, setTags, setImgIndex, ImgIndex, Imgs, setImgs }) {
     const [lbl, setLbl] = useState('');
     const [id, setId] = useState(null);
+    const [ImgIndex_, setImgIndex_] = useState(ImgIndex)
+
+    useEffect(() => {
+        setImgIndex(ImgIndex_)
+    }, [ImgIndex_])
+
 
     const inputRef = useRef(null);
 
@@ -44,8 +50,24 @@ export function DropArea({ label, background, tags, setTags }) {
 
     }, [lbl]);
 
+
+    function nextImgIndex() {
+        try {
+            setImgIndex_(ImgIndex_ + 1)
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
+
     return (
-        <div className={`DropArea`} style={{ background: background }} draggable={true} id={`DropArea-${id}`}>
+        <div className={`DropArea`}
+            style={{ background: background }}
+            draggable={false} id={`DropArea-${id}`}
+            onDragOver={event => event.preventDefault()}
+            onDrop={nextImgIndex}
+            onClick={nextImgIndex}
+        >
             <input
                 type='hidden'
                 className='inptEditLabelDropArea input'

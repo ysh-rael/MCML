@@ -78,7 +78,7 @@ export function App() {
               const boxDrop = document.getElementById('box_drop')
 
               if (!boxDrop) return;
-              setDropsArea(prev => [...prev, <DropArea label={NameDropArea} background={ColorDropArea} tags={tags} setTags={setTags} />])
+              setDropsArea(prev => [...prev, <DropArea label={NameDropArea} background={ColorDropArea} tags={tags} setTags={setTags} setImgIndex={setImgIndex} ImgIndex={ImgIndex} Imgs={Imgs} setImgs={setImgs} />])
             }} />
           </div>
 
