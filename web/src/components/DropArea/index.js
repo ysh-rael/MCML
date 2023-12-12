@@ -5,6 +5,7 @@ import { deleteThis } from './deleteThis';
 import { editLabel } from './editLabel';
 import { generatorTag } from './generatorTag';
 import { hiddenInpt } from './hiddenInpt';
+import { increaseThis } from './increaseThis';
 import './index.css';
 import { useEffect, useRef, useState } from 'react';
 
@@ -14,6 +15,7 @@ let stop = false
 export function DropArea({ label, background, tags, setTags, setImgIndex, ImgIndex, Imgs, setImgs }) {
     const [lbl, setLbl] = useState('');
     const [id, setId] = useState(null);
+    const [quant, setQuant] = useState(0);
 
 
     const inputRef = useRef(null);
@@ -24,7 +26,7 @@ export function DropArea({ label, background, tags, setTags, setImgIndex, ImgInd
     useEffect(() => {
         setLbl(label)
         if (!id && stop != id) {
-            const generatedId = generatorTag({ lbl, background, tags, setTags });
+            const generatedId = generatorTag({ lbl, background, tags, setTags, quant });
             setId(generatedId);
             stop = generatedId
         }
@@ -46,15 +48,36 @@ export function DropArea({ label, background, tags, setTags, setImgIndex, ImgInd
 
     }, [lbl]);
 
+    useEffect(() => {
+        const tag = document.getElementById(`Tag-${id}`)
+        if (!tag) {
+            console.log(`Tag was not found!`, tag)
+            return;
+        }
+        const quanTag = findChild(tag, 'quantTag')
+        if (!quanTag) {
+            console.log(`quanTag was not found!`, quanTag)
+            return;
+        }
+        quanTag.innerText = quant
+
+    }, [quant]);
+
 
     function nextImgIndex(event) {
         try {
             if (event.target.id !== `DropArea-${id}`) return;
 
             setImgIndex((prevImgIndex) => prevImgIndex + 1);
+            setQuant((prevImgIndex) => prevImgIndex + 1);
         } catch (err) {
             console.log(err);
         }
+    }
+
+    function update(event) {
+        nextImgIndex(event)
+        increaseThis(id)
     }
 
 
@@ -63,7 +86,7 @@ export function DropArea({ label, background, tags, setTags, setImgIndex, ImgInd
             style={{ background: background }}
             draggable={false} id={`DropArea-${id}`}
             onDragOver={event => event.preventDefault()}
-            onDrop={nextImgIndex}
+            onDrop={update}
         //onClick={nextImgIndex}
         >
             <input
