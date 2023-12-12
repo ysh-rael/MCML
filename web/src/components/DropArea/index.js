@@ -5,6 +5,7 @@ import { deleteThis } from './deleteThis';
 import { editLabel } from './editLabel';
 import { generatorTag } from './generatorTag';
 import { hiddenInpt } from './hiddenInpt';
+import { useLabelTag, useQuantTag } from './hooks';
 import { increaseThis } from './increaseThis';
 import './index.css';
 import { useEffect, useRef, useState } from 'react';
@@ -33,35 +34,10 @@ export function DropArea({ label, background, tags, setTags, setImgIndex, ImgInd
 
     }, []);
 
-    useEffect(() => {
-        const tag = document.getElementById(`Tag-${id}`)
-        if (!tag) {
-            console.log(`Tag was not found!`, tag)
-            return;
-        }
-        const labelTag = findChild(tag, 'labelTag')
-        if (!labelTag) {
-            console.log(`labelTag was not found!`, labelTag)
-            return;
-        }
-        labelTag.innerText = lbl
+    useLabelTag({ lbl, id })
 
-    }, [lbl]);
 
-    useEffect(() => {
-        const tag = document.getElementById(`Tag-${id}`)
-        if (!tag) {
-            console.log(`Tag was not found!`, tag)
-            return;
-        }
-        const quanTag = findChild(tag, 'quantTag')
-        if (!quanTag) {
-            console.log(`quanTag was not found!`, quanTag)
-            return;
-        }
-        quanTag.innerText = quant
-
-    }, [quant]);
+    useQuantTag({ quant, id })
 
 
     function nextImgIndex(event) {
