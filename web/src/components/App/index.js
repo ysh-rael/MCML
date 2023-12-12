@@ -13,6 +13,7 @@ import { FormRequestImage } from '../FormRequestImage';
 import { usePrevImg, useRequestImg } from './hooks';
 import { BttnIconDemarcar, BttnIconEmail, BttnIconFinish, BttnIconGithub, BttnIconLinkedin, BttnIconPlus, BttnIconUpload } from './constants';
 import { Fork } from '../Fork';
+import { handlerKeyPress } from './handler';
 
 export function App() {
 
@@ -31,6 +32,8 @@ export function App() {
   useRequestImg({ RequestImg, setImgIndex, setImgs, Imgs, setUrlPrevImg })
 
   usePrevImg({ ImgIndex, Imgs, UrlPrevImg, OptionsRequestImg, setRequestImg })
+
+  document.onkeyup = event => handlerKeyPress({ event, setModalActive, setModelContent, ModalActive })
 
   return (
     <div className="App">

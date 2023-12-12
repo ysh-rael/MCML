@@ -1,9 +1,15 @@
-export function Modal({ModalActive, setModalActive, ModelContent, setModelContent }) {
-    return <div class={`modal Modal ${ModalActive ? `is-active` : ``}`}>
-        <div class="modal-background"></div>
-        <div class="modal-content box">
-            {ModelContent}
+import React, { useEffect, useCallback } from "react";
+import { closeModal } from "./handler";
+
+export function Modal({ ModalActive, setModalActive, ModelContent, setModelContent }) {
+
+    const _closeModal = () => closeModal({ setModalActive, setModelContent });
+
+    return (
+        <div className={`modal Modal ${ModalActive ? `is-active` : ``}`}>
+            <div className="modal-background" onClick={_closeModal}></div>
+            <div className="modal-content box">{ModelContent}</div>
+            <button className="modal-close is-large" aria-label="close" onClick={_closeModal}></button>
         </div>
-        <button class="modal-close is-large" aria-label="close" onClick={() => {setModalActive(false); setModelContent(null) }}></button>
-    </div>
+    );
 }
