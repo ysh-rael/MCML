@@ -44,7 +44,7 @@ export function DropArea({ label, background, tags, setTags, setImgIndex, ImgInd
                 id={id}
                 setTags={setTags}
                 tags={tags}
-                onClick={() => deleteThis({ id, setDropsArea, DropsArea })}
+                onClick={() => deleteThis({ id, setDropsArea, DropsArea, Elements, setElements })}
             />
         </div>
     );

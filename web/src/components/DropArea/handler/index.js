@@ -41,7 +41,7 @@ export function editLabel(event, lbl, setLbl) {
     inpt.focus()
 }
 
-export function deleteThis({ id, setDropsArea }) {
+export function deleteThis({ id, setDropsArea, Elements, setElements }) {
     try {
         if (!id) return false;
 
@@ -50,6 +50,7 @@ export function deleteThis({ id, setDropsArea }) {
             const updatedElements = elements.filter(esse => esse.props.id !== id);
             return updatedElements;
         });
+        console.log(Elements)
 
         const tag = document.getElementById(`Tag-${id}`);
         if (tag) {

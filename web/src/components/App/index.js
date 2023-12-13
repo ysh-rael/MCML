@@ -19,7 +19,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 export function App() {
 
-  const [ColorDropArea, setColorDropArea] = useState('#C1C1C1')
+  const [ColorDropArea, setColorDropArea] = useState('#C2C0C9')
   const [NameDropArea, setNameDropArea] = useState('')
   const [DropsArea, setDropsArea] = useState([])
   const [tags, setTags] = useState([]);
@@ -77,7 +77,7 @@ export function App() {
         <PartialSection>
 
           <div id='box_tool'>
-            <input className='input' type='text' placeholder='label for your drop box' value={NameDropArea} onChange={(event) => setNameDropArea(event.target.value)} />
+            <input className='input' type='text' placeholder='label for your drop box' value={NameDropArea} onChange={(event) => setNameDropArea(event.target.value)} onFocus={({ target }) => target.select()} />
             <input className='' type='color' value={ColorDropArea} onChange={(event) => setColorDropArea(event.target.value)}></input>
             <Bttn animation={false} userStatedIcon={BttnIconPlus} onClick={event => {
               const boxDrop = document.getElementById('box_drop')
