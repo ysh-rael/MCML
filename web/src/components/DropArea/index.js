@@ -8,24 +8,22 @@ import './index.css';
 import { useEffect, useRef, useState } from 'react';
 
 
-
-let stop = false
-export function DropArea({ label, background, tags, setTags, setImgIndex, ImgIndex, Imgs, setImgs, Elements, setElements, Designs, setDesigns }) {
+export function DropArea({ label, background, tags, setTags, setImgIndex, ImgIndex, Imgs, setImgs, Elements, setElements, Designs, setDesigns, DropsArea, setDropsArea, id }) {
     const [lbl, setLbl] = useState('');
-    const [id, setId] = useState(null);
     const [quant, setQuant] = useState(0);
 
     const inputRef = useRef(null);
     const iconPincel = <i className='fa-solid fa-pen-to-square iconPincel' onClick={(event) => editLabel(event, lbl, setLbl)}></i>;
 
-    useInitComponent({ setLbl, label, id, setId, stop, lbl, background, tags, setTags, quant, setElements })
+    useInitComponent({ setLbl, label, id, lbl, background, tags, setTags, quant, setElements })
     useLabelTag({ lbl, id })
     useQuantTag({ quant, id })
 
     return (
         <div className={`DropArea`}
             style={{ background: background }}
-            draggable={false} id={`DropArea-${id}`}
+            draggable={false}
+            id={`DropArea-${id}`}
             onDragOver={event => event.preventDefault()}
             onDrop={event => update({ event, setImgIndex, setQuant, id, Imgs, setImgs, ImgIndex, lbl, Elements, setElements, Designs, setDesigns })}
         //onClick={nextImgIndex}
@@ -39,7 +37,7 @@ export function DropArea({ label, background, tags, setTags, setImgIndex, ImgInd
                 onBlur={event => blur({ event, setElements, id, lbl })}
             />
             <span className={`labelDropArea subtitle ${isColorLight(background) ? 'contraste' : ''}`}>{iconPincel} {lbl}</span>
-            <Bttn background={'is-danger'} userStatedIcon={'fa-solid fa-trash-can'} id={id} setTags={setTags} tags={tags} onClick={() => deleteThis(id)} />
+            <Bttn background={'is-danger'} userStatedIcon={'fa-solid fa-trash-can'} id={id} setTags={setTags} tags={tags} onClick={() => deleteThis({ id, Elements, setElements, DropsArea, setDropsArea: setDropsArea })} />
         </div>
     );
 }

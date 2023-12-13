@@ -41,22 +41,34 @@ export function editLabel(event, lbl, setLbl) {
     inpt.focus()
 }
 
-export function deleteThis(id) {
+export function deleteThis({ id, setDropsArea, DropsArea }) {
     try {
-        console.log(id)
-        if (!id) return false
-        const dropArea = document.getElementById(`DropArea-${id}`)
-        const tag = document.getElementById(`Tag-${id}`)
-
-        dropArea.parentElement.removeChild(dropArea)
-        tag.parentElement.removeChild(tag)
-
-        return true
+      if (!id) return false;
+  
+      setDropsArea(elements => {
+        console.log(elements.length)
+          const updatedElements = elements.filter(esse => {
+            console.log(esse.props)
+            return esse.props.id !== `DropArea-${id}`
+          });
+          console.log(updatedElements)
+          return updatedElements;
+        });
+        console.log(DropsArea)
+  
+      const tag = document.getElementById(`Tag-${id}`);
+  
+      if (tag) {
+        tag.parentElement.removeChild(tag);
+      }
+  
+      return true;
     } catch (err) {
-        console.log(err)
-        return false
+      console.log(err);
+      return false;
     }
-}
+  }
+  
 
 export function increaseThis(id) {
     try {

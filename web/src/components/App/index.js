@@ -15,6 +15,7 @@ import { BttnIconDemarcar, BttnIconEmail, BttnIconFinish, BttnIconGithub, BttnIc
 import { Fork } from '../Fork';
 import { handlerKeyPress } from './handler';
 import { designs } from '../Fork/constants';
+import { v4 as uuidv4 } from 'uuid';
 
 export function App() {
 
@@ -36,6 +37,10 @@ export function App() {
   useRequestImg({ RequestImg, setImgIndex, setImgs, Imgs, setUrlPrevImg })
 
   usePrevImg({ ImgIndex, Imgs, UrlPrevImg, OptionsRequestImg, setRequestImg })
+
+  useEffect(() => {
+    console.log('DropsArea', DropsArea);
+  }, [DropsArea]);
 
   document.onkeyup = event => handlerKeyPress({ event, setModalActive, setModelContent, ModalActive })
 
@@ -59,7 +64,7 @@ export function App() {
                 setModelContent(<FormRequestImage setModalActive={setModalActive} setModelContent={setModelContent} setRequestImg={setRequestImg} setOptionsRequestImg={setOptionsRequestImg} />)
               }} />
               <Bttn userStatedIcon={BttnIconDemarcar} background='is-warning' onClick={() => { setModalActive(true); setModelContent(<Fork img={Imgs[ImgIndex - 1]} Designs={Designs} setDesigns={setDesigns} />) }} />
-              <Bttn userStatedIcon={BttnIconFinish} background='is-primary' onClick={() => { setModalActive(true); setModelContent(`Ola mundo3`) }} />
+              <Bttn userStatedIcon={BttnIconFinish} background='is-primary' onClick={() => { setModalActive(true); setModelContent(<div>{Elements.map(esse => (<><label className='label'>{esse.id} </label> <br /></>))}</div>) }} />
             </div>
 
           </header>
@@ -82,7 +87,26 @@ export function App() {
               const boxDrop = document.getElementById('box_drop')
 
               if (!boxDrop) return;
-              setDropsArea(prev => [...prev, <DropArea label={NameDropArea} background={ColorDropArea} tags={tags} setTags={setTags} setImgIndex={setImgIndex} ImgIndex={ImgIndex} Imgs={Imgs} setImgs={setImgs} Elements={Elements} setElements={setElements} Designs={Designs} setDesigns={setDesigns} />])
+              const id = uuidv4()
+              const newElement =
+                <DropArea label={NameDropArea}
+                  DropsArea={DropsArea}
+                  setDropsArea={setDropsArea}
+                  background={ColorDropArea}
+                  tags={tags}
+                  setTags={setTags}
+                  setImgIndex={setImgIndex}
+                  ImgIndex={ImgIndex}
+                  Imgs={Imgs}
+                  setImgs={setImgs}
+                  Elements={Elements}
+                  setElements={setElements}
+                  Designs={Designs}
+                  setDesigns={setDesigns}
+                  id={id}
+                />
+
+              setDropsArea(prev => [...prev, newElement])
             }} />
           </div>
 
