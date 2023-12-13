@@ -2,9 +2,8 @@ import { findChild } from '../../utils/findChild';
 import { isColorLight } from '../../utils/isColorLight';
 import { Bttn } from '../Bttn';
 import { generatorTag } from './generatorTag';
-import { deleteThis, editLabel, hiddenInpt, nextImgIndex } from './handler';
+import { deleteThis, editLabel, hiddenInpt, nextImgIndex, update } from './handler';
 import { useInitComponent, useLabelTag, useQuantTag } from './hooks';
-import { increaseThis } from './increaseThis';
 import './index.css';
 import { useEffect, useRef, useState } from 'react';
 
@@ -23,19 +22,12 @@ export function DropArea({ label, background, tags, setTags, setImgIndex, ImgInd
     useLabelTag({ lbl, id })
     useQuantTag({ quant, id })
 
-
-    function update(event) {
-        nextImgIndex({ event, setImgIndex, setQuant, id })
-        increaseThis(id)
-    }
-
-
     return (
         <div className={`DropArea`}
             style={{ background: background }}
             draggable={false} id={`DropArea-${id}`}
             onDragOver={event => event.preventDefault()}
-            onDrop={update}
+            onDrop={event => update({ event, setImgIndex, setQuant, id })}
         //onClick={nextImgIndex}
         >
             <input
