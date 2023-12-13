@@ -60,7 +60,12 @@ export function App() {
                 setModelContent(<FormRequestImage setModalActive={setModalActive} setModelContent={setModelContent} setRequestImg={setRequestImg} setOptionsRequestImg={setOptionsRequestImg} />)
               }} />
               <Bttn userStatedIcon={BttnIconDemarcar} background='is-warning' onClick={() => { setModalActive(true); setModelContent(<Fork img={Imgs[ImgIndex - 1]} Designs={Designs} setDesigns={setDesigns} />) }} />
-              <Bttn userStatedIcon={BttnIconFinish} background='is-primary' onClick={() => { setModalActive(true); setModelContent(<div>{Elements.map(esse => (<><label className='label'>{esse.id} </label> <br /></>))}</div>) }} />
+              <Bttn userStatedIcon={BttnIconFinish} background='is-primary' onClick={() => { setModalActive(true); setModelContent(<div>{Elements.map(esse => (<>
+              <label className='label'>{esse.id} </label> <br />
+              {esse.imgs.map(_esse => (<span>{_esse.src}</span>))}
+
+
+              </>))}</div>) }} />
             </div>
 
           </header>

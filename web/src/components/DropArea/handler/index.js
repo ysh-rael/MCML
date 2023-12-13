@@ -83,17 +83,34 @@ export function blur({ event, setElements, id, lbl }) {
     }))
 }
 
-export function update({ event, setImgIndex, setQuant, id, Imgs, setImgs, ImgIndex, lbl, Elements, setElements, Designs, setDesigns }) {
-    const designs = Designs
+export function update({ event, setImgIndex, setQuant, id, setImgs, lbl, Elements, setElements, setDesigns }) {
+    let designs = []
+    setDesigns(esse => {
+        designs = esse
+        return esse
+    })
+
+    let Imgs = []
+    setImgs(esse => {
+        Imgs = esse
+        return esse
+    })
+
+    let ImgIndex = 0
+    setImgIndex(esse => {
+        ImgIndex = esse
+        return esse
+    })
+
+
     if (Imgs[ImgIndex] && Imgs[ImgIndex].src) {
         setElements(elems => {
             const indexElem = elems.findIndex(esse => esse.id === id)
             elems[indexElem].imgs.push({ src: Imgs[ImgIndex].src, designs })
             return elems
         })
-        console.log(Elements)
+        nextImgIndex({ event, setImgIndex, setQuant, id })
     }
 
-    nextImgIndex({ event, setImgIndex, setQuant, id })
-    increaseThis(id)
+
 }
