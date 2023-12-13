@@ -14,6 +14,7 @@ import { usePrevImg, useRequestImg } from './hooks';
 import { BttnIconDemarcar, BttnIconEmail, BttnIconFinish, BttnIconGithub, BttnIconLinkedin, BttnIconPlus, BttnIconUpload } from './constants';
 import { Fork } from '../Fork';
 import { handlerKeyPress } from './handler';
+import { designs } from '../Fork/constants';
 
 export function App() {
 
@@ -28,6 +29,9 @@ export function App() {
   const [Imgs, setImgs] = useState([])
   const [UrlPrevImg, setUrlPrevImg] = useState(null)
   const [OptionsRequestImg, setOptionsRequestImg] = useState(null)
+  const [Elements, setElements] = useState([]);
+  const [Designs, setDesigns] = useState(designs);
+
 
   useRequestImg({ RequestImg, setImgIndex, setImgs, Imgs, setUrlPrevImg })
 
@@ -54,7 +58,7 @@ export function App() {
                 setModalActive(true);
                 setModelContent(<FormRequestImage setModalActive={setModalActive} setModelContent={setModelContent} setRequestImg={setRequestImg} setOptionsRequestImg={setOptionsRequestImg} />)
               }} />
-              <Bttn userStatedIcon={BttnIconDemarcar} background='is-warning' onClick={() => { setModalActive(true); setModelContent(<Fork img={Imgs[ImgIndex - 1]} />) }} />
+              <Bttn userStatedIcon={BttnIconDemarcar} background='is-warning' onClick={() => { setModalActive(true); setModelContent(<Fork img={Imgs[ImgIndex - 1]} Designs={Designs} setDesigns={setDesigns} />) }} />
               <Bttn userStatedIcon={BttnIconFinish} background='is-primary' onClick={() => { setModalActive(true); setModelContent(`Ola mundo3`) }} />
             </div>
 
@@ -78,7 +82,7 @@ export function App() {
               const boxDrop = document.getElementById('box_drop')
 
               if (!boxDrop) return;
-              setDropsArea(prev => [...prev, <DropArea label={NameDropArea} background={ColorDropArea} tags={tags} setTags={setTags} setImgIndex={setImgIndex} ImgIndex={ImgIndex} Imgs={Imgs} setImgs={setImgs} />])
+              setDropsArea(prev => [...prev, <DropArea label={NameDropArea} background={ColorDropArea} tags={tags} setTags={setTags} setImgIndex={setImgIndex} ImgIndex={ImgIndex} Imgs={Imgs} setImgs={setImgs} Elements={Elements} setElements={setElements} Designs={Designs} setDesigns={setDesigns} />])
             }} />
           </div>
 

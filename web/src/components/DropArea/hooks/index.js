@@ -2,13 +2,14 @@ import { useEffect } from "react";
 import { generatorTag } from "../generatorTag";
 import { findChild } from "../../../utils/findChild";
 
-export const useInitComponent = ({ setLbl, label, id, setId, stop, lbl, background, tags, setTags, quant }) => {
+export const useInitComponent = ({ setLbl, label, id, setId, stop, lbl, background, tags, setTags, quant, setElements }) => {
     useEffect(() => {
         setLbl(label)
         if (!id && stop != id) {
             const generatedId = generatorTag({ lbl, background, tags, setTags, quant });
             setId(generatedId);
             stop = generatedId
+            setElements(prev => [...prev, {id: generatedId, label: label, imgs: []}])
         }
 
     }, []);

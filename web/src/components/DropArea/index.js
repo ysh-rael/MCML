@@ -2,7 +2,7 @@ import { findChild } from '../../utils/findChild';
 import { isColorLight } from '../../utils/isColorLight';
 import { Bttn } from '../Bttn';
 import { generatorTag } from './generatorTag';
-import { deleteThis, editLabel, hiddenInpt, nextImgIndex, update } from './handler';
+import { blur, deleteThis, editLabel, hiddenInpt, nextImgIndex, update } from './handler';
 import { useInitComponent, useLabelTag, useQuantTag } from './hooks';
 import './index.css';
 import { useEffect, useRef, useState } from 'react';
@@ -10,7 +10,7 @@ import { useEffect, useRef, useState } from 'react';
 
 
 let stop = false
-export function DropArea({ label, background, tags, setTags, setImgIndex, ImgIndex, Imgs, setImgs }) {
+export function DropArea({ label, background, tags, setTags, setImgIndex, ImgIndex, Imgs, setImgs, Elements, setElements, Designs, setDesigns }) {
     const [lbl, setLbl] = useState('');
     const [id, setId] = useState(null);
     const [quant, setQuant] = useState(0);
@@ -18,7 +18,7 @@ export function DropArea({ label, background, tags, setTags, setImgIndex, ImgInd
     const inputRef = useRef(null);
     const iconPincel = <i className='fa-solid fa-pen-to-square iconPincel' onClick={(event) => editLabel(event, lbl, setLbl)}></i>;
 
-    useInitComponent({ setLbl, label, id, setId, stop, lbl, background, tags, setTags, quant })
+    useInitComponent({ setLbl, label, id, setId, stop, lbl, background, tags, setTags, quant, setElements })
     useLabelTag({ lbl, id })
     useQuantTag({ quant, id })
 
@@ -27,7 +27,7 @@ export function DropArea({ label, background, tags, setTags, setImgIndex, ImgInd
             style={{ background: background }}
             draggable={false} id={`DropArea-${id}`}
             onDragOver={event => event.preventDefault()}
-            onDrop={event => update({ event, setImgIndex, setQuant, id })}
+            onDrop={event => update({ event, setImgIndex, setQuant, id, Imgs, setImgs, ImgIndex, lbl, Elements, setElements, Designs, setDesigns })}
         //onClick={nextImgIndex}
         >
             <input
@@ -35,8 +35,8 @@ export function DropArea({ label, background, tags, setTags, setImgIndex, ImgInd
                 className='inptEditLabelDropArea input'
                 value={lbl}
                 ref={inputRef}
-                onChange={(event) => setLbl(event.target.value)}
-                onBlur={hiddenInpt}
+                onChange={(event) => { setLbl(event.target.value) }}
+                onBlur={event => blur({ event, setElements, id, lbl })}
             />
             <span className={`labelDropArea subtitle ${isColorLight(background) ? 'contraste' : ''}`}>{iconPincel} {lbl}</span>
             <Bttn background={'is-danger'} userStatedIcon={'fa-solid fa-trash-can'} id={id} setTags={setTags} tags={tags} onClick={() => deleteThis(id)} />

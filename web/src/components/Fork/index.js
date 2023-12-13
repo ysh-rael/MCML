@@ -5,9 +5,8 @@ import { DrawImg, useDrawImg, useFork } from './hooks';
 import { inIsOnVertex } from '../../utils/inIsOnVertex';
 import { DrawFork } from './handler';
 
-export function Fork({ img }) {
+export function Fork({ img, Designs, setDesigns }) {
     const canvasRef = useRef(null);
-    const [Designs, setDesigns] = useState(designs);
     const [IsDragging, setIsDragging] = useState(null);
 
     useDrawImg({ img, Designs, setDesigns, canvasRef });

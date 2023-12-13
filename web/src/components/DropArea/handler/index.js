@@ -64,7 +64,6 @@ export function increaseThis(id) {
         if (!id) return false
         const dropArea = document.getElementById(`DropArea-${id}`)
         const tag = document.getElementById(`Tag-${id}`)
-        console.log(tag)
 
         return true
     } catch (err) {
@@ -73,7 +72,25 @@ export function increaseThis(id) {
     }
 }
 
-export function update({event, setImgIndex, setQuant, id}) {
+export function blur({ event, setElements, id, lbl }) {
+    hiddenInpt(event)
+    setElements(prev => prev.map(esse => {
+        if (esse.id === id) esse.label = lbl
+        return esse
+    }))
+}
+
+export function update({ event, setImgIndex, setQuant, id, Imgs, setImgs, ImgIndex, lbl, Elements, setElements, Designs, setDesigns }) {
+    const designs = Designs
+    if (Imgs[ImgIndex] && Imgs[ImgIndex].src) {
+        setElements(elems => {
+            const indexElem = elems.findIndex(esse => esse.id === id)
+            elems[indexElem].imgs.push({ src: Imgs[ImgIndex].src, designs })
+            return elems
+        })
+        console.log(Elements)
+    }
+
     nextImgIndex({ event, setImgIndex, setQuant, id })
     increaseThis(id)
 }
