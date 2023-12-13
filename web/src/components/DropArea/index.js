@@ -3,7 +3,7 @@ import { isColorLight } from '../../utils/isColorLight';
 import { Bttn } from '../Bttn';
 import { generatorTag } from './generatorTag';
 import { deleteThis, editLabel, hiddenInpt, nextImgIndex } from './handler';
-import { useLabelTag, useQuantTag } from './hooks';
+import { useInitComponent, useLabelTag, useQuantTag } from './hooks';
 import { increaseThis } from './increaseThis';
 import './index.css';
 import { useEffect, useRef, useState } from 'react';
@@ -19,14 +19,7 @@ export function DropArea({ label, background, tags, setTags, setImgIndex, ImgInd
     const inputRef = useRef(null);
     const iconPincel = <i className='fa-solid fa-pen-to-square iconPincel' onClick={(event) => editLabel(event, lbl, setLbl)}></i>;
 
-    useEffect(() => {
-        setLbl(label)
-        if (!id && stop != id) {
-            const generatedId = generatorTag({ lbl, background, tags, setTags, quant });
-            setId(generatedId);
-            stop = generatedId
-        }
-    }, []);
+    useInitComponent({ setLbl, label, id, setId, stop, lbl, background, tags, setTags, quant })
     useLabelTag({ lbl, id })
     useQuantTag({ quant, id })
 

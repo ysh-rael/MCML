@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { generatorTag } from "../generatorTag";
 import { findChild } from "../../../utils/findChild";
 
-export function useId({ setLbl, label, id, setId, stop, lbl, background, tags, setTags, quant }) {
+export const useInitComponent = ({ setLbl, label, id, setId, stop, lbl, background, tags, setTags, quant }) => {
     useEffect(() => {
         setLbl(label)
         if (!id && stop != id) {
