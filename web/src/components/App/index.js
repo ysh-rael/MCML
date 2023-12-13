@@ -20,7 +20,7 @@ import { FormSendRequestModel } from '../FormSendRequestModel';
 
 export function App() {
 
-  const [ColorDropArea, setColorDropArea] = useState('#C2C0C9')
+  const [ColorDropArea, setColorDropArea] = useState('#CBCDD2')
   const [NameDropArea, setNameDropArea] = useState('')
   const [DropsArea, setDropsArea] = useState([])
   const [tags, setTags] = useState([]);
