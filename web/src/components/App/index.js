@@ -16,6 +16,7 @@ import { Fork } from '../Fork';
 import { handlerKeyPress } from './handler';
 import { designs } from '../Fork/constants';
 import { v4 as uuidv4 } from 'uuid';
+import { FormSendRequestModel } from '../FormSendRequestModel';
 
 export function App() {
 
@@ -60,12 +61,14 @@ export function App() {
                 setModelContent(<FormRequestImage setModalActive={setModalActive} setModelContent={setModelContent} setRequestImg={setRequestImg} setOptionsRequestImg={setOptionsRequestImg} />)
               }} />
               <Bttn userStatedIcon={BttnIconDemarcar} background='is-warning' onClick={() => { setModalActive(true); setModelContent(<Fork img={Imgs[ImgIndex - 1]} Designs={Designs} setDesigns={setDesigns} />) }} />
-              <Bttn userStatedIcon={BttnIconFinish} background='is-primary' onClick={() => { setModalActive(true); setModelContent(<div>{Elements.map(esse => (<>
-              <label className='label'>{esse.id} </label> <br />
-              {esse.imgs.map(_esse => (<span>{_esse.src}</span>))}
-
-
-              </>))}</div>) }} />
+              <Bttn
+                userStatedIcon={BttnIconFinish}
+                background='is-primary'
+                onClick={() => {
+                  setModalActive(true);
+                  setModelContent(<FormSendRequestModel setModalActive={setModalActive} setModelContent={setModelContent} Elements={Elements} />)
+                }}
+              />
             </div>
 
           </header>
