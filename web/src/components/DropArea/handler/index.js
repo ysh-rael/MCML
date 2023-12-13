@@ -41,34 +41,29 @@ export function editLabel(event, lbl, setLbl) {
     inpt.focus()
 }
 
-export function deleteThis({ id, setDropsArea, DropsArea }) {
+export function deleteThis({ id, setDropsArea }) {
     try {
-      if (!id) return false;
-  
-      setDropsArea(elements => {
-        console.log(elements.length)
-          const updatedElements = elements.filter(esse => {
-            console.log(esse.props)
-            return esse.props.id !== `DropArea-${id}`
-          });
-          console.log(updatedElements)
-          return updatedElements;
+        if (!id) return false;
+
+        setDropsArea(elements => {
+            // Filtra o array, removendo o elemento com o id correspondente
+            const updatedElements = elements.filter(esse => esse.props.id !== id);
+            return updatedElements;
         });
-        console.log(DropsArea)
-  
-      const tag = document.getElementById(`Tag-${id}`);
-  
-      if (tag) {
-        tag.parentElement.removeChild(tag);
-      }
-  
-      return true;
+
+        const tag = document.getElementById(`Tag-${id}`);
+        if (tag) {
+            tag.parentElement.removeChild(tag);
+        }
+
+        return true;
     } catch (err) {
-      console.log(err);
-      return false;
+        console.log(err);
+        return false;
     }
-  }
-  
+}
+
+
 
 export function increaseThis(id) {
     try {

@@ -8,6 +8,7 @@ import './index.css';
 import { useEffect, useRef, useState } from 'react';
 
 
+
 export function DropArea({ label, background, tags, setTags, setImgIndex, ImgIndex, Imgs, setImgs, Elements, setElements, Designs, setDesigns, DropsArea, setDropsArea, id }) {
     const [lbl, setLbl] = useState('');
     const [quant, setQuant] = useState(0);
@@ -37,7 +38,14 @@ export function DropArea({ label, background, tags, setTags, setImgIndex, ImgInd
                 onBlur={event => blur({ event, setElements, id, lbl })}
             />
             <span className={`labelDropArea subtitle ${isColorLight(background) ? 'contraste' : ''}`}>{iconPincel} {lbl}</span>
-            <Bttn background={'is-danger'} userStatedIcon={'fa-solid fa-trash-can'} id={id} setTags={setTags} tags={tags} onClick={() => deleteThis({ id, Elements, setElements, DropsArea, setDropsArea: setDropsArea })} />
+            <Bttn
+                background={'is-danger'}
+                userStatedIcon={'fa-solid fa-trash-can'}
+                id={id}
+                setTags={setTags}
+                tags={tags}
+                onClick={() => deleteThis({ id, setDropsArea, DropsArea })}
+            />
         </div>
     );
 }

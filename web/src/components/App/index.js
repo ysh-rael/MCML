@@ -38,10 +38,6 @@ export function App() {
 
   usePrevImg({ ImgIndex, Imgs, UrlPrevImg, OptionsRequestImg, setRequestImg })
 
-  useEffect(() => {
-    console.log('DropsArea', DropsArea);
-  }, [DropsArea]);
-
   document.onkeyup = event => handlerKeyPress({ event, setModalActive, setModelContent, ModalActive })
 
   return (
@@ -87,9 +83,11 @@ export function App() {
               const boxDrop = document.getElementById('box_drop')
 
               if (!boxDrop) return;
-              const id = uuidv4()
+              const _id = uuidv4()
               const newElement =
-                <DropArea label={NameDropArea}
+                <DropArea
+                  key={_id}
+                  label={NameDropArea}
                   DropsArea={DropsArea}
                   setDropsArea={setDropsArea}
                   background={ColorDropArea}
@@ -103,7 +101,7 @@ export function App() {
                   setElements={setElements}
                   Designs={Designs}
                   setDesigns={setDesigns}
-                  id={id}
+                  id={_id}
                 />
 
               setDropsArea(prev => [...prev, newElement])

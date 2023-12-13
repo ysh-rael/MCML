@@ -5,9 +5,8 @@ import { findChild } from "../../../utils/findChild";
 export const useInitComponent = ({ setLbl, label, id, lbl, background, tags, setTags, quant, setElements }) => {
     useEffect(() => {
         setLbl(label)
-        console.log(id)
-            const generatedId = generatorTag({ lbl, background, tags, setTags, quant, id });
-            setElements(prev => [...prev, {id: id, label: label, imgs: []}])
+        generatorTag({ lbl, background, tags, setTags, quant, id });
+        setElements(prev => [...prev, { id: id, label: label, imgs: [] }])
     }, []);
 }
 
