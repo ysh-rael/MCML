@@ -45,17 +45,12 @@ export function deleteThis({ id, setDropsArea, Elements, setElements }) {
     try {
         if (!id) return false;
 
-        setDropsArea(elements => {
-            // Filtra o array, removendo o elemento com o id correspondente
-            const updatedElements = elements.filter(esse => esse.props.id !== id);
-            return updatedElements;
-        });
-        console.log(Elements)
+        setDropsArea(elements => elements.filter(esse => esse.props.id !== id));
+
+        setElements(elements => elements.filter(esse => esse.id !== id));
 
         const tag = document.getElementById(`Tag-${id}`);
-        if (tag) {
-            tag.parentElement.removeChild(tag);
-        }
+        if (tag) tag.parentElement.removeChild(tag);
 
         return true;
     } catch (err) {
