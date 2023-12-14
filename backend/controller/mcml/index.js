@@ -3,125 +3,92 @@ const tf = require('@tensorflow/tfjs-node');
 const axios = require('axios');
 const fs = require('fs').promises;
 
-// Função para baixar e salvar a imagem
-async function downloadImage(url, filePath) {
-    const response = await axios({
-        method: 'get',
-        url: url,
-        responseType: 'arraybuffer',
-    });
-
-    await fs.writeFile(filePath, Buffer.from(response.data));
-}
-
-// Função para obter a caixa delimitadora da região de interesse (ROI)
-function getBoundingBox(vertices) {
-    const xValues = vertices.map(vertex => vertex.x);
-    const yValues = vertices.map(vertex => vertex.y);
-
-    const xmin = Math.min(...xValues);
-    const ymin = Math.min(...yValues);
-    const xmax = Math.max(...xValues);
-    const ymax = Math.max(...yValues);
-
-    return [xmin, ymin, xmax, ymax];
-}
-
-// Função para preparar os dados de treinamento
-async function prepareData(data) {
-    const images = [];
-    const labels = [];
-
-    for (const item of data) {
-        for (const img of item.imgs) {
-            const imagePath = `./images/${Date.now()}.jpg`; // Nome do arquivo baseado no timestamp
-            await downloadImage(img.src, imagePath);
-
-            // Redimensionar a imagem para o tamanho esperado [300, 300, 3]
-            const imageTensor = tf.node.decodeImage(await fs.readFile(imagePath));
-            const resizedImage = tf.image.resizeBilinear(imageTensor, [300, 300]);
-
-            // Obter a caixa delimitadora da região de interesse (ROI)
-            const vertices = img.designs.filter(esse => esse.form === 'circle');
-            const [xmin, ymin, xmax, ymax] = getBoundingBox(vertices);
+const print = new Print({ informa: 'Controller mcml', alerta: 'Controller mcml', erro: 'Controller mcml', sucesso: 'Controller mcml' });
 
 
+async function loadAndPreprocessImage(imagePath) {
+    const imageTensor = tf.node.decodeImage(await fs.readFile(imagePath));
+    const expandedImage = imageTensor.expandDims(0); // Adicionar a dimensão de lote
 
-            // Cortar a região de interesse (ROI) da imagem
-            const croppedImage = tf.image.cropAndResize(
-                resizedImage.expandDims(0),
-                vertices.map(vertex => [
-                    (vertex.y - ymin) / (ymax - ymin),
-                    (vertex.x - xmin) / (xmax - xmin),
-                    (vertex.y - ymin + 1) / (ymax - ymin),
-                    (vertex.x - xmin + 1) / (xmax - xmin),
-                ]),
-                [0, 0, 0, 0], // Ajustado para 4 vértices
-                [300, 300]
-            );
+    const resizedImage = tf.image.resizeBilinear(expandedImage, [300, 300]);
 
-            // Ajustar as coordenadas da caixa delimitadora para o tamanho redimensionado
-            const labelData = vertices.flatMap(vertex => [
-                (vertex.x - xmin) / (xmax - xmin),
-                (vertex.y - ymin) / (ymax - ymin),
-            ]);
-
-            console.log(labelData);
-
-            // Criar tensor unidimensional para rótulo
-            const labelTensor = tf.tensor2d([labelData]);
-
-            images.push(croppedImage);
-            labels.push(labelTensor);
-
-            await fs.unlink(imagePath); // Remover a imagem após o uso
-        }
-    }
-
-    return {
-        images: tf.concat(images),
-        labels: tf.stack(labels),
-    };
+    return resizedImage;
 }
 
 
+async function prepareData() {
+    // Definir rótulos (1 para "pessoa presente")
+    const labels = tf.tensor2d([[1]]);
+
+    // Carregar e pré-processar a imagem
+    const imagePath = 'C:\\Users\\yshaeldev\\Desktop\\yshrael\\JS\\create-model-for-machine-learning\\backend\\images\\test.jpg';
+    const image = await loadAndPreprocessImage(imagePath);
+
+    // Adicionar a imagem à lista de imagens
+    const images = [image];
+
+    return { images, labels };
+}
 
 
-
-// Função para treinar o modelo
-async function trainModel(data, epochs) {
-    const { images, labels } = await prepareData(data);
-
+async function createAndTrainModel(images, labels) {
     const model = tf.sequential();
-    model.add(tf.layers.flatten({ inputShape: [300, 300, 3] }));
 
-    // Ajustar a camada densa com base na tarefa
-    model.add(tf.layers.dense({ units: 16, activation: 'relu' }));
-    model.add(tf.layers.dense({ units: 8, activation: 'linear' }));
+    // Adicionar camadas ao modelo conforme necessário
+    model.add(tf.layers.flatten({ inputShape: [300, 300, 3] }));
+    model.add(tf.layers.dense({ units: 1, activation: 'sigmoid' }));
 
     // Compilar o modelo
-    model.compile({ optimizer: 'adam', loss: 'meanSquaredError' });
-
-    console.log('------------------------------------');
-    console.log(images.shape);
-    console.log(labels.shape);
-    console.log('------------------------------------');
+    model.compile({ optimizer: 'adam', loss: 'binaryCrossentropy', metrics: ['accuracy'] });
 
     // Treinar o modelo
-    await model.fit(images, labels, { epochs });
+    await model.fit(images, labels, { epochs: 10 });
 
-    // Salvar o modelo
+    return model;
+}
+
+
+
+async function saveModel(model) {
     await model.save('file://./trained-model');
 }
 
-const print = new Print({ informa: 'Controller mcml', alerta: 'Controller mcml', erro: 'Controller mcml', sucesso: 'Controller mcml' });
+async function loadModel() {
+    const model = await tf.loadLayersModel('file://./trained-model/model.json');
+    return model;
+}
 
-function mcml(req, res) {
-    print.informa('req.body');
-    res.send({ data: 'Pong', ok: true });
-    trainModel(req.body.data, req.body.epochs).then(() => {
-        console.log('Treinamento concluído e modelo salvo.');
-    });
+// Exemplo de uso
+async function useModel() {
+    const loadedModel = await loadModel();
+
+    // Agora você pode usar `loadedModel` para fazer previsões ou outras operações.
+}
+
+
+
+
+async function mcml(req, res) {
+    try {
+
+        // Preparar os dados de treinamento
+        const { images, labels } = await prepareData();
+
+        // Criar e treinar o modelo
+        const model = await createAndTrainModel(images, labels);
+
+        // Salvar o modelo
+        await saveModel(model);
+
+        // Chame a função para usar o modelo carregado
+        //useModel();
+
+        res.send({ data: 'Pong', ok: true });
+    } catch (error) {
+        print.erro('error catch');
+        console.error(error);
+        res.status(500).send({ error: 'Internal Server Error' });
+    }
 }
 
 module.exports.mcml = mcml;
