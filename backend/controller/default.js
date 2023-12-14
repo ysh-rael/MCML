@@ -10,7 +10,13 @@ function postDefault(req, res) {
     res.send({ data: 'Pong', ok: true });
 }
 
+function authorization(req, res, next) {
+    print.sucesso('authorization default');
+    next();
+}
+
 module.exports = {
     getDefault,
-    postDefault
+    postDefault,
+    authorization
 };  

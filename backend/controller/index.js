@@ -1,10 +1,10 @@
-const { getDefault, postDefault } = require('./default');
+const { getDefault, postDefault, authorization } = require('./default');
 
 module.exports.controller = {
     get: {
-        default: getDefault
+        default: [authorization, getDefault]
     },
     post: {
-        default: postDefault
+        default: [authorization, postDefault]
     }
 }; 
