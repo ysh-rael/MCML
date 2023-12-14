@@ -1,0 +1,3 @@
+MCML: Model Creation for Machine Learning (Criação de Modelos para Aprendizado de Máquina)
+
+O MCML permite a criação de modelos de aprendizado de máquina utilizando imagens obtidas por APIs externas. Com essa ferramenta, é possível demarcar objetos de interesse nas imagens, e em seguida, os casos marcados são enviados para uma segunda aplicação. Essa segunda aplicação realiza o treinamento do modelo, capacitando-o para reconhecer esses objetos em qualquer imagem.
