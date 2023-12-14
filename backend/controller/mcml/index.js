@@ -1,35 +1,31 @@
 const { Print } = require('../../utils/print');
 const tf = require('@tensorflow/tfjs-node');
-const axios = require('axios');
 const fs = require('fs').promises;
 
 const print = new Print({ informa: 'Controller mcml', alerta: 'Controller mcml', erro: 'Controller mcml', sucesso: 'Controller mcml' });
 
-
 async function loadAndPreprocessImage(imagePath) {
     const imageTensor = tf.node.decodeImage(await fs.readFile(imagePath));
-    const expandedImage = imageTensor.expandDims(0); // Adicionar a dimensão de lote
-
-    const resizedImage = tf.image.resizeBilinear(expandedImage, [300, 300]);
-
+    const resizedImage = tf.image.resizeBilinear(imageTensor, [300, 300]);
     return resizedImage;
 }
 
-
 async function prepareData() {
     // Definir rótulos (1 para "pessoa presente")
-    const labels = tf.tensor2d([[5]]);
+    const labels = tf.tensor2d([[1], [1]]); // Adicione um rótulo para cada imagem
 
-    // Carregar e pré-processar a imagem
-    const imagePath = 'C:\\Users\\yshaeldev\\Desktop\\yshrael\\JS\\create-model-for-machine-learning\\backend\\images\\test.jpg';
-    const image = await loadAndPreprocessImage(imagePath);
+    // Carregar e pré-processar as imagens
+    const imagePath1 = 'C:\\Users\\yshaeldev\\Desktop\\yshrael\\JS\\create-model-for-machine-learning\\backend\\images\\test3.jpg';
+    const imagePath2 = 'C:\\Users\\yshaeldev\\Desktop\\yshrael\\JS\\create-model-for-machine-learning\\backend\\images\\test4.jpg';
 
-    // Adicionar a imagem à lista de imagens
-    const images = [image];
+    const image1 = await loadAndPreprocessImage(imagePath1);
+    const image2 = await loadAndPreprocessImage(imagePath2);
+
+    // Adicionar as imagens à lista de imagens
+    const images = [image1, image2];
 
     return { images, labels };
 }
-
 
 async function createAndTrainModel(images, labels) {
     const model = tf.sequential();
@@ -42,73 +38,66 @@ async function createAndTrainModel(images, labels) {
     model.compile({ optimizer: 'adam', loss: 'binaryCrossentropy', metrics: ['accuracy'] });
 
     // Treinar o modelo
-    await model.fit(images, labels, { epochs: 10 });
+    await model.fit(tf.stack(images), labels, { epochs: 10 });
 
     return model;
 }
 
-
-
 async function saveModel(model) {
     await model.save('file://./trained-model');
 }
-
-
-
-
 
 async function loadModel() {
     const model = await tf.loadLayersModel('file://./trained-model/model.json');
     return model;
 }
 
-async function loadAndPreprocessImage(imagePath) {
-    const imageTensor = tf.node.decodeImage(await fs.readFile(imagePath));
-    const expandedImage = imageTensor.expandDims(0); // Adicionar a dimensão de lote
-    const resizedImage = tf.image.resizeBilinear(expandedImage, [300, 300]);
-    return resizedImage;
+async function trainAndSaveModel() {
+    try {
+        // Preparar os dados de treinamento
+        const { images, labels } = await prepareData();
+
+        // Criar e treinar o modelo
+        const model = await createAndTrainModel(images, labels);
+
+        // Salvar o modelo
+        await saveModel(model);
+    } catch (error) {
+        print.erro('Error during training');
+        console.error(error);
+    }
 }
 
-async function predict(model, image) {
-    const prediction = model.predict(image);
-    return prediction.dataSync();
-}
+async function makePrediction(imagePath) {
+    try {
+        // Carregar o modelo
+        const model = await loadModel();
 
+        // Carregar e pré-processar a nova imagem
+        const image = await loadAndPreprocessImage(imagePath);
+
+        // Expandir as dimensões para criar um lote
+        const batchedImage = image.expandDims(0);
+
+        // Fazer a previsão
+        const prediction = model.predict(batchedImage);
+        console.log('Prediction:', prediction.dataSync().find(esse => esse >= 1));
+    } catch (error) {
+        print.erro('Error during prediction');
+        console.error(error);
+    }
+}
 
 async function mcml(req, res) {
-    try {
-
-        const teste = false;
-        if (teste) {
-            // Preparar os dados de treinamento
-            const { images, labels } = await prepareData();
-
-            // Criar e treinar o modelo
-            const model = await createAndTrainModel(images, labels);
-
-            // Salvar o modelo
-            await saveModel(model);
-
-            res.send({ data: 'Pong', ok: true });
-        } else {
-            // Caminho para a nova imagem
-            const imagePath = 'C:\\Users\\yshaeldev\\Desktop\\yshrael\\JS\\create-model-for-machine-learning\\backend\\images\\test4.jpg';
-
-            // Carregar o modelo
-            loadModel().then(async (model) => {
-                // Carregar e pré-processar a nova imagem
-                const image = await loadAndPreprocessImage(imagePath);
-
-                // Fazer a previsão
-                const achou = await predict(model, image);
-                console.log(achou);
-            });
-        }
-
-    } catch (error) {
-        print.erro('error catch');
-        console.error(error);
-        res.status(500).send({ error: 'Internal Server Error' });
+    if (!req) {
+        // Treinar e salvar o modelo
+        await trainAndSaveModel();
+        res.send({ data: 'Pong', ok: true });
+    } else {
+        // Fazer previsão com nova imagem
+        const imagePath = 'C:\\Users\\yshaeldev\\Desktop\\yshrael\\JS\\create-model-for-machine-learning\\backend\\images\\test4.jpg';
+        await makePrediction(imagePath);
+        res.send({ data: 'Prediction made', ok: true });
     }
 }
 
