@@ -12,7 +12,7 @@ async function loadAndPreprocessImage(imagePath) {
 
 async function prepareData() {
     // Definir rótulos (1 para "pessoa presente")
-    const labels = tf.tensor2d([[1], [1]]); // Adicione um rótulo para cada imagem
+    const labels = tf.tensor2d([[1], [1]]); // Adicione um rótulo para cada imagem: 0 para imagem que não contenha o elemento e 1 para imagens que contenha
 
     // Carregar e pré-processar as imagens
     const imagePath1 = 'C:\\Users\\yshaeldev\\Desktop\\yshrael\\JS\\create-model-for-machine-learning\\backend\\images\\test3.jpg';
@@ -81,7 +81,7 @@ async function makePrediction(imagePath) {
 
         // Fazer a previsão
         const prediction = model.predict(batchedImage);
-        console.log('Prediction:', prediction.dataSync().find(esse => esse >= 1));
+        console.log('Prediction:', prediction.dataSync());
     } catch (error) {
         print.erro('Error during prediction');
         console.error(error);
@@ -95,7 +95,7 @@ async function mcml(req, res) {
         res.send({ data: 'Pong', ok: true });
     } else {
         // Fazer previsão com nova imagem
-        const imagePath = 'C:\\Users\\yshaeldev\\Desktop\\yshrael\\JS\\create-model-for-machine-learning\\backend\\images\\test4.jpg';
+        const imagePath = 'C:\\Users\\yshaeldev\\Desktop\\yshrael\\JS\\create-model-for-machine-learning\\backend\\images\\test6.jpg';
         await makePrediction(imagePath);
         res.send({ data: 'Prediction made', ok: true });
     }
