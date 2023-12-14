@@ -30,6 +30,7 @@ export function formOnSubmit(event, { SearchElemnts, InptToken, InptPerRequest, 
 
         if (InptPerRequest) urlBase += `&per_page=${InptPerRequest}`
 
+        setOptionsRequestImg(options)
         fetch(urlBase, options)
             .then(res => res.json())
             .then(res => setRequestImg(res))
