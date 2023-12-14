@@ -33,7 +33,7 @@ export function FormSendRequestModel({ setModalActive, setModelContent, Elements
         <div class="field">
             <label class="label">Number of epochst</label>
             <div class="control">
-                <input class="button" type="number" placeholder="120-8k" min={120} max={8000} value={InptEpochst} onChange={({ target }) => setInptEpochst(target.value)} />
+                <input class="button" type="number" placeholder="120-8k" min={120} max={8000} value={InptEpochst} onChange={({ target }) => setInptEpochst(Number(target.value))} />
             </div>
         </div>
 

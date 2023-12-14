@@ -4,7 +4,7 @@ const router = express.Router();
 
 router.get('/ping', ...controller.get.default);
 
-router.post('/mcml', ...controller.post.default);
+router.post('/mcml', ...controller.post.mcml);
 
 
 module.exports = { router };
