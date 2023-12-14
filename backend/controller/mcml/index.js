@@ -71,15 +71,15 @@ async function loadAndPreprocessImage(imagePath) {
 
 async function predict(model, image) {
     const prediction = model.predict(image);
-    // Processar a previsão conforme necessário
-    console.log('Prediction:', prediction.dataSync());
+    return prediction.dataSync();
 }
 
 
 async function mcml(req, res) {
     try {
 
-        if (!req) {
+        const teste = false;
+        if (teste) {
             // Preparar os dados de treinamento
             const { images, labels } = await prepareData();
 
@@ -92,7 +92,7 @@ async function mcml(req, res) {
             res.send({ data: 'Pong', ok: true });
         } else {
             // Caminho para a nova imagem
-            const imagePath = 'C:\\Users\\yshaeldev\\Desktop\\yshrael\\JS\\create-model-for-machine-learning\\backend\\images\\test.jpg';
+            const imagePath = 'C:\\Users\\yshaeldev\\Desktop\\yshrael\\JS\\create-model-for-machine-learning\\backend\\images\\test4.jpg';
 
             // Carregar o modelo
             loadModel().then(async (model) => {
@@ -100,7 +100,8 @@ async function mcml(req, res) {
                 const image = await loadAndPreprocessImage(imagePath);
 
                 // Fazer a previsão
-                predict(model, image);
+                const achou = await predict(model, image);
+                console.log(achou);
             });
         }
 
