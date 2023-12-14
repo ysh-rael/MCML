@@ -9,14 +9,20 @@ export function inptSearchOnChange(target, setInptSearch, setSearchElemnts) {
 
 export function formOnSubmit(event, { SearchElemnts, InptToken, InptPerRequest, setRequestImg, setOptionsRequestImg }) {
     try {
+        event.preventDefault()
+
+        if (process.env.REACT_APP_DEVELOPER) {
+            if (process.env.REACT_APP_EXEMPLE_REQUEST_IMG) setRequestImg(JSON.parse(process.env.REACT_APP_EXEMPLE_REQUEST_IMG))
+            if (process.env.REACT_APP_EXEMPLE_REQUEST_IMG_OPTIONS) setOptionsRequestImg(JSON.parse(process.env.REACT_APP_EXEMPLE_REQUEST_IMG_OPTIONS))
+            return;
+        }
+
         let urlBase = false
         let options = {}
-        event.preventDefault()
         const selectAPI = document.getElementById('SelectAPI')
-        //  console.log(selectAPI.value)
         switch (selectAPI.value) {
-            // https://api.pexels.com/v1/search/?page=1&per_page=30&query=[nature,people]
             case 'PexelsAPI':
+                // https://api.pexels.com/v1/search/?page=1&per_page=30&query=[nature,people]
                 urlBase = 'https://api.pexels.com/v1/search?page=1'
                 break
         }
