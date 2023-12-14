@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { submitForm } from "./handler"
 
 export function FormSendRequestModel({ setModalActive, setModelContent, Elements }) {
 
@@ -16,7 +17,7 @@ export function FormSendRequestModel({ setModalActive, setModelContent, Elements
         return true
     }
 
-    const form = <form className="form" onSubmit={(event) => event.preventDefault()}>
+    const form = <form className="form" onSubmit={(event) => submitForm(event, { InputEmail, InptEpochst, Elements })}>
         <span className="subtitle is-info">Your model will be sent to your email</span>
 
         <div class="field">
