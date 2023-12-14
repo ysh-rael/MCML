@@ -34,6 +34,7 @@ export function formOnSubmit(event, { SearchElemnts, InptToken, InptPerRequest, 
             .then(res => res.json())
             .then(res => setRequestImg(res))
             .catch(err => {
+                console.log('Err en nexp_page request:')
                 console.error(err)
                 setRequestImg(null)
             })
