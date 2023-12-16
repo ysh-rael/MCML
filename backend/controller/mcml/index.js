@@ -1,100 +1,23 @@
 const { Print } = require('../../utils/print');
-const tf = require('@tensorflow/tfjs-node');
-const fs = require('fs').promises;
-
+const { createModel } = require('./createModel');
+const { makePrediction } = require('./makePrediction');
 const pathBase = 'C:\\Users\\Yshrael\\Documents\\Github\\MCML\\backend\\images\\';
 
 const print = new Print({ informa: 'Controller mcml', alerta: 'Controller mcml', erro: 'Controller mcml', sucesso: 'Controller mcml' });
 
-async function loadAndPreprocessImage(imagePath) {
-    const imageTensor = tf.node.decodeImage(await fs.readFile(imagePath));
-    const resizedImage = tf.image.resizeBilinear(imageTensor, [300, 300]);
-    return resizedImage;
-}
-
-async function prepareData() {
-    // Definir rótulos (1 para "pessoa presente")
-    const labels = tf.tensor2d([[1]]); // Adicione um rótulo para cada imagem: 0 para imagem que não contenha o elemento e 1 para imagens que contenha
-
-    // Carregar e pré-processar as imagens
-    const imagePath1 = pathBase + 'test4.jpg';
-
-    const image1 = await loadAndPreprocessImage(imagePath1);
-
-    // Adicionar as imagens à lista de imagens
-    const images = [image1];
-
-    return { images, labels };
-}
-
-async function createAndTrainModel(images, labels) {
-    const model = tf.sequential();
-
-    // Adicionar camadas ao modelo conforme necessário
-    model.add(tf.layers.flatten({ inputShape: [300, 300, 3] }));
-    model.add(tf.layers.dense({ units: 1, activation: 'sigmoid' }));
-
-    // Compilar o modelo
-    model.compile({ optimizer: 'adam', loss: 'binaryCrossentropy', metrics: ['accuracy'] });
-
-    // Treinar o modelo
-    await model.fit(tf.stack(images), labels, { epochs: 2000 });
-
-    return model;
-}
-
-async function saveModel(model) {
-    await model.save('file://./trained-model');
-}
-
-async function loadModel() {
-    const model = await tf.loadLayersModel('file://./trained-model/model.json');
-    return model;
-}
-
-async function trainAndSaveModel() {
-    try {
-        // Preparar os dados de treinamento
-        const { images, labels } = await prepareData();
-
-        // Criar e treinar o modelo
-        const model = await createAndTrainModel(images, labels);
-
-        // Salvar o modelo
-        await saveModel(model);
-    } catch (error) {
-        print.erro('Error during training');
-        console.error(error);
-    }
-}
-
-async function makePrediction(imagePath) {
-    try {
-        // Carregar o modelo
-        const model = await loadModel();
-
-        // Carregar e pré-processar a nova imagem
-        const image = await loadAndPreprocessImage(imagePath);
-
-        // Expandir as dimensões para criar um lote
-        const batchedImage = image.expandDims(0);
-
-        // Fazer a previsão
-        const prediction = model.predict(batchedImage);
-        console.log('Prediction:', prediction.dataSync()[0] > 0.5);
-    } catch (error) {
-        print.erro('Error during prediction');
-        console.error(error);
-    }
-}
 
 async function mcml(req, res) {
-    if (!req) {
+    if (req.body.trainModel) {
         res.send({ data: 'Pong', ok: true });
+
+        const arayPathImgs = [`${pathBase}test4.jpg`]
         // Treinar e salvar o modelo
-        await trainAndSaveModel();
+        await createModel({ arayPathImgs, epochs: 40 });
+
+        console.log(`Erro in train model: ${err}`)
     } else {
         res.send({ data: 'Prediction made', ok: true });
+
         // Fazer previsão com nova imagem
         const imagePath = pathBase + 'test3.jpg';
         await makePrediction(imagePath);
