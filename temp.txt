@@ -1,3 +1,30 @@
 MCML: Model Creation for Machine Learning (Criação de Modelos para Aprendizado de Máquina)
 
 O MCML permite a criação de modelos de aprendizado de máquina utilizando imagens obtidas por APIs externas. Com essa ferramenta, é possível demarcar objetos de interesse nas imagens, e em seguida, os casos marcados são enviados para uma segunda aplicação. Essa segunda aplicação realiza o treinamento do modelo, capacitando-o para reconhecer esses objetos em qualquer imagem.
+
+
+
+const tf = require('@tensorflow/tfjs');
+const jsdom = require('jsdom');
+const { JSDOM } = jsdom;
+
+// Simule o ambiente do navegador usando jsdom
+const { window } = new JSDOM('<!DOCTYPE html>');
+global.window = window;
+global.document = window.document;
+
+// Caminhos para os arquivos JSON e bin do modelo
+const modelJSONPath = 'caminho/para/seu/modelo/model.json';
+const modelWeightsPath = 'caminho/para/seu/modelo/model.weights.bin';
+
+// Carregue o modelo
+const model = await tf.loadLayersModel(tf.io.fileSystem(modelJSONPath, modelWeightsPath));
+
+// Agora, seu modelo está pronto para uso!
+
+// Faça previsões
+const inputTensor = tf.tensor2d([[1.0, 2.0]]);
+const predictions = model.predict(inputTensor);
+
+// Faça algo com as previsões
+predictions.print();
