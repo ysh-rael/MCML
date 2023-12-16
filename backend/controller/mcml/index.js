@@ -14,17 +14,15 @@ async function loadAndPreprocessImage(imagePath) {
 
 async function prepareData() {
     // Definir rótulos (1 para "pessoa presente")
-    const labels = tf.tensor2d([[1], [1]]); // Adicione um rótulo para cada imagem: 0 para imagem que não contenha o elemento e 1 para imagens que contenha
+    const labels = tf.tensor2d([[1]]); // Adicione um rótulo para cada imagem: 0 para imagem que não contenha o elemento e 1 para imagens que contenha
 
     // Carregar e pré-processar as imagens
-    const imagePath1 = pathBase + 'test3.jpg';
-    const imagePath2 = pathBase + 'test4.jpg';
+    const imagePath1 = pathBase + 'test4.jpg';
 
     const image1 = await loadAndPreprocessImage(imagePath1);
-    const image2 = await loadAndPreprocessImage(imagePath2);
 
     // Adicionar as imagens à lista de imagens
-    const images = [image1, image2];
+    const images = [image1];
 
     return { images, labels };
 }
@@ -40,7 +38,7 @@ async function createAndTrainModel(images, labels) {
     model.compile({ optimizer: 'adam', loss: 'binaryCrossentropy', metrics: ['accuracy'] });
 
     // Treinar o modelo
-    await model.fit(tf.stack(images), labels, { epochs: 10 });
+    await model.fit(tf.stack(images), labels, { epochs: 2000 });
 
     return model;
 }
@@ -83,7 +81,7 @@ async function makePrediction(imagePath) {
 
         // Fazer a previsão
         const prediction = model.predict(batchedImage);
-        console.log('Prediction:', prediction.dataSync());
+        console.log('Prediction:', prediction.dataSync()[0] > 0.5);
     } catch (error) {
         print.erro('Error during prediction');
         console.error(error);
@@ -92,14 +90,14 @@ async function makePrediction(imagePath) {
 
 async function mcml(req, res) {
     if (!req) {
+        res.send({ data: 'Pong', ok: true });
         // Treinar e salvar o modelo
         await trainAndSaveModel();
-        res.send({ data: 'Pong', ok: true });
     } else {
-        // Fazer previsão com nova imagem
-        const imagePath = pathBase + 'test6.jpg';
-        await makePrediction(imagePath);
         res.send({ data: 'Prediction made', ok: true });
+        // Fazer previsão com nova imagem
+        const imagePath = pathBase + 'test3.jpg';
+        await makePrediction(imagePath);
     }
 }
 
