@@ -11,7 +11,7 @@ export function formOnSubmit(event, { SearchElemnts, InptToken, InptPerRequest, 
     try {
         event.preventDefault()
 
-        if (process.env.REACT_APP_DEVELOPER) {
+        if (process.env.REACT_APP_DEVELOPER === 'true') {
             if (process.env.REACT_APP_EXEMPLE_REQUEST_IMG) setRequestImg(JSON.parse(process.env.REACT_APP_EXEMPLE_REQUEST_IMG))
             if (process.env.REACT_APP_EXEMPLE_REQUEST_IMG_OPTIONS) setOptionsRequestImg(JSON.parse(process.env.REACT_APP_EXEMPLE_REQUEST_IMG_OPTIONS))
             return;

@@ -8,20 +8,16 @@ const print = new Print({ informa: 'Controller mcml', alerta: 'Controller mcml',
 
 async function mcml(req, res) {
     if (req.body.trainModel) {
-        res.send({ data: 'Pong', ok: true });
 
         const arayPathImgs = [`${publicPath}test4.jpg`]
         // Treinar e salvar o modelo
         await createModel({ arayPathImgs, epochs: 40 });
 
         print.erro(`Erro in train model: ${err}`)
-    } else {
-        res.send({ data: 'Prediction made', ok: true });
-
-        // Fazer previsão com nova imagem
-        const imagePath = publicPath + 'test3.jpg';
-        await makePrediction(imagePath);
     }
+    console.log(req.body)
+
+    res.send({ data: 'Pong', ok: true });
 }
 
 module.exports.mcml = mcml;
