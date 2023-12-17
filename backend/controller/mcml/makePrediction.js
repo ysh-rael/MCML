@@ -1,4 +1,6 @@
 const { Print } = require('../../utils/print');
+const { loadAndPreprocessImage } = require('./loadAndPreprocessImage');
+const { loadModel } = require('./loadModel');
 const print = new Print({ informa: 'makePrediction:', alerta: 'makePrediction:', erro: 'makePrediction:', sucesso: 'makePrediction:' });
 async function makePrediction(imagePath) {
     try {
