@@ -14,7 +14,7 @@ async function mcml(req, res) {
         // Treinar e salvar o modelo
         await createModel({ arayPathImgs, epochs: 40 });
 
-        console.log(`Erro in train model: ${err}`)
+        print.erro(`Erro in train model: ${err}`)
     } else {
         res.send({ data: 'Prediction made', ok: true });
 

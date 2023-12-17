@@ -1,3 +1,5 @@
+const { Print } = require('../../utils/print');
+const print = new Print({ informa: 'makePrediction:', alerta: 'makePrediction:', erro: 'makePrediction:', sucesso: 'makePrediction:' });
 async function makePrediction(imagePath) {
     try {
         // Carregar o modelo
@@ -11,10 +13,10 @@ async function makePrediction(imagePath) {
 
         // Fazer a previsão
         const prediction = model.predict(batchedImage);
-        console.log('Prediction:', prediction.dataSync()[0] > 0.5);
+        print.informa('Prediction:', prediction.dataSync()[0] > 0.5);
     } catch (error) {
         print.erro('Error during prediction');
-        console.error(error);
+        console.log(error);
     }
 }
 

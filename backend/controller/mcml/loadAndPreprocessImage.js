@@ -1,5 +1,7 @@
 const tf = require('@tensorflow/tfjs-node');
 const fs = require('fs').promises;
+const { Print } = require('../../utils/print');
+const print = new Print({ informa: 'loadAndPreprocessImage in mcml:', alerta: 'loadAndPreprocessImage in mcml:', erro: 'loadAndPreprocessImage in mcml:', sucesso: 'loadAndPreprocessImage in mcml:' });
 
 async function loadAndPreprocessImage(imagePath) {
     try {
@@ -7,8 +9,8 @@ async function loadAndPreprocessImage(imagePath) {
         const resizedImage = tf.image.resizeBilinear(imageTensor, [300, 300]);
         return resizedImage;
     } catch (err) {
-        console.log('Err catch in loadAndPreprocessImage: ')
-        console.log(err)
+        print.erro('Err catch in loadAndPreprocessImage: ')
+        print.erro(err)
         return;
     }
 }

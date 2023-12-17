@@ -10,7 +10,7 @@ async function createModel({ arayPathImgs, epochs }) {
     try {
         // Preparar os dados de treinamento
         const _ = await prepareData(arayPathImgs);
-        if(!_) {
+        if (!_) {
             print.erro('Erro in prepareData')
             throw new Error('prepareData not sender image or label. it is null')
         }

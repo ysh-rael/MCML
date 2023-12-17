@@ -3,13 +3,6 @@ const tf = require('@tensorflow/tfjs-node');
 async function createAndTrainModel({ images, labels, epochs }) {
     try {
         const model = tf.sequential();
-        console.log('images')
-        console.log(images)
-        console.log('labels')
-        console.log(labels)
-        console.log('epochs')
-        console.log(epochs)
-
         // Adicionar camadas ao modelo conforme necessário
         model.add(tf.layers.flatten({ inputShape: [300, 300, 3] }));
         model.add(tf.layers.dense({ units: 1, activation: 'sigmoid' }));

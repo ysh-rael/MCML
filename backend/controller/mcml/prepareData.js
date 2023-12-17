@@ -1,12 +1,15 @@
 const tf = require('@tensorflow/tfjs-node');
 const { loadAndPreprocessImage } = require('./loadAndPreprocessImage');
 
+const { Print } = require('../../utils/print');
+const print = new Print({ informa: 'prepareData:', alerta: 'prepareData:', erro: 'prepareData:', sucesso: 'prepareData:' });
+
 
 async function prepareData(arrayImagePath) {
     try {
         // Definir rótulos (1 para "pessoa presente")
         if (!Array.isArray(arrayImagePath)) {
-            console.log('it is not an Array');
+            print.erro('it is not an Array');
             return;
         }
 
@@ -18,7 +21,7 @@ async function prepareData(arrayImagePath) {
         // Adicionar as imagens à lista de imagens
         return { images, labels }
     } catch (error) {
-        console.log('error catch in preparedata:s ')
+        print.erro('error catch in preparedata:s ')
         console.log(error);
         return;
     }
