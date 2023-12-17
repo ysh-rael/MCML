@@ -1,6 +1,5 @@
 const { Print } = require('../../utils/print');
 const { createModel } = require('./createModel');
-const { makePrediction } = require('./makePrediction');
 const publicPath = 'C:/Users/Yshrael/Documents/Github/MCML/backend/public/images/';
 
 const print = new Print({ informa: 'Controller mcml', alerta: 'Controller mcml', erro: 'Controller mcml', sucesso: 'Controller mcml' });
@@ -81,13 +80,32 @@ function validation(req, res, next) {
 }
 
 
+
 async function mcml(req, res) {
 
-    const arayPathImgs = [`${publicPath}test4.jpg`]
+    const { data } = req.body
+    const pathModels = createFolder('./models')
+    if (!pathModels) {
+        console.log('pathModels is null')
+        return;
+    }
     // Treinar e salvar o modelo
-    await createModel({ arayPathImgs, epochs: 10 });
-
     res.send({ data: 'Pong', ok: true });
+
+    data.forEach(async element => {
+        const pathNewElement = createFolder(`${pathModels}/${element.label}`)
+        if (!pathNewElement) {
+            print.erro('pathNewElement is null.')
+            return;
+        }
+        // criar a imagem em public/images
+        const arayPathImgs = element.imgs.filter(esse => !!createFile(esse.src))
+
+        await createModel({ arayPathImgs, epochs: 10 });
+        // excluir as imagens criadas
+
+    })
+    print.sucesso('model created.')
 }
 
 module.exports = { mcml, validation };
