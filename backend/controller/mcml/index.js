@@ -34,9 +34,20 @@ function validation(req, res, next) {
     }
 
     const elementInvalid = req.body.data.find(esse => {
-        if (!esse.label || esse.label && typeof esse.label !== "string") return true
-        if (!esse.id) return true
-        if (!Array.isArray(esse.imgs)) return true
+        if (!esse.label || esse.label && typeof esse.label !== "string") {
+            print.erro('elementInvalid: label invalid')
+            return true
+        }
+        if (!esse.id) {
+            print.erro('elementInvalid: id invalid')
+            return true
+        }
+
+        if (!Array.isArray(esse.imgs)) {
+            print.erro('elementInvalid: imgs is not an array')
+            return true
+        }
+
         const imgsInvalid = esse.imgs.find(esse => {
             if (typeof esse.src !== "string") return true
             const arrayVertice = esse.designs.filter(esse => {
@@ -47,11 +58,19 @@ function validation(req, res, next) {
                 if (typeof esse.y !== "number") return false
                 return true
             })
-            if (arrayVertice.length < 4) return true
+            if (arrayVertice.length < 4) {
+                print.erro('elementInvalid->arrayVertice: arrayVertice.length < 4')
+                return true
+            }
         })
-        if (imgsInvalid) return true
+
+        if (imgsInvalid) {
+            print.erro('elementInvalid: imgsInvalid')
+            return true
+        }
 
     })
+
     if (elementInvalid) {
         print.erro('One element in data is not valid: ')
         console.log(req.body.data)
@@ -66,7 +85,7 @@ async function mcml(req, res) {
 
     const arayPathImgs = [`${publicPath}test4.jpg`]
     // Treinar e salvar o modelo
-    await createModel({ arayPathImgs, epochs: 40 });
+    await createModel({ arayPathImgs, epochs: 10 });
 
     res.send({ data: 'Pong', ok: true });
 }
