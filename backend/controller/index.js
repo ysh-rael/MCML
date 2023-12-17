@@ -1,5 +1,5 @@
 const { getDefault, postDefault, authorization } = require('./default');
-const { mcml } = require('./mcml');
+const { mcml, validation } = require('./mcml');
 
 module.exports.controller = {
     get: {
@@ -7,6 +7,6 @@ module.exports.controller = {
     },
     post: {
         default: [authorization, postDefault],
-        mcml: [authorization, mcml]
+        mcml: [authorization, validation, mcml]
     }
 }; 

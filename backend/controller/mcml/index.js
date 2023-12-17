@@ -5,9 +5,7 @@ const publicPath = 'C:/Users/Yshrael/Documents/Github/MCML/backend/public/images
 
 const print = new Print({ informa: 'Controller mcml', alerta: 'Controller mcml', erro: 'Controller mcml', sucesso: 'Controller mcml' });
 
-
-async function mcml(req, res) {
-
+function validation(req, res, next) {
     if (typeof req.body !== "object") {
         print.erro('body is not an object: ')
         console.log(req.body)
@@ -34,6 +32,11 @@ async function mcml(req, res) {
         console.log(req.body.data)
         return res.send({ ok: false })
     }
+    next()
+}
+
+
+async function mcml(req, res) {
 
     const arayPathImgs = [`${publicPath}test4.jpg`]
     // Treinar e salvar o modelo
@@ -45,4 +48,4 @@ async function mcml(req, res) {
     res.send({ data: 'Pong', ok: true });
 }
 
-module.exports.mcml = mcml;
+module.exports = { mcml, validation };
