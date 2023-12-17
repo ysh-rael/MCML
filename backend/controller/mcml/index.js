@@ -21,17 +21,43 @@ function validation(req, res, next) {
     }
 
     if (!req.body.email || typeof req.body.email !== "string") {
-        print.erro('epochs is not an string valid: ')
+        print.erro('Email is not an string valid: ')
         console.log(req.body.email)
         print.informa('typeof req.body.email: ' + typeof req.body.email)
         return res.send({ ok: false })
     }
 
-    if (Array.isArray(req.body.data)) {
+    if (!Array.isArray(req.body.data)) {
         print.erro('data is not an array: ')
         console.log(req.body.data)
         return res.send({ ok: false })
     }
+
+    const elementInvalid = req.body.data.find(esse => {
+        if (!esse.label || esse.label && typeof esse.label !== "string") return true
+        if (!esse.id) return true
+        if (!Array.isArray(esse.imgs)) return true
+        const imgsInvalid = esse.imgs.find(esse => {
+            if (typeof esse.src !== "string") return true
+            const arrayVertice = esse.designs.filter(esse => {
+                if (esse.form !== "circle") return false
+                if (typeof esse.height !== "number") return false
+                if (typeof esse.width !== "number") return false
+                if (typeof esse.x !== "number") return false
+                if (typeof esse.y !== "number") return false
+                return true
+            })
+            if (arrayVertice.length < 4) return true
+        })
+        if (imgsInvalid) return true
+
+    })
+    if (elementInvalid) {
+        print.erro('One element in data is not valid: ')
+        console.log(req.body.data)
+        return res.send({ ok: false })
+    }
+
     next()
 }
 
