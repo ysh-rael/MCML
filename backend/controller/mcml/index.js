@@ -83,35 +83,40 @@ function validation(req, res, next) {
 }
 
 async function puta(element, pathModels) {
+    console.clear()
+    console.log(`\n\n\n\n\n\n\n\n\n\n\n\n\n`)
     console.log(' \n############################### INICIO ##### ')
-        const pathNewElement = createFolder(`${pathModels}/${element.label}`)
-        console.log(`pathNewElement: ${pathNewElement}`)
-        if (!pathNewElement) {
-            print.erro('pathNewElement is null.')
-            return;
-        }
-        // criar a imagem em public/images
-        const arrayPathImgs = []
-        for (var i = 0; i < element.imgs.length; i++) {
-            console.log(`i: ${i}`)
-            const path = await downloadImge(`${publicPath}/${Date.now() + i}.jpg`, element.imgs[i].src)
-            console.log('#')
-            if(path)
-            arrayPathImgs.push(path)
+    const pathNewElement = createFolder(`${pathModels}/${element.label}`)
+    console.log(`pathNewElement: ${pathNewElement}`)
+
+    if (!pathNewElement) {
+        print.erro('pathNewElement is null.')
+        return;
+    }
+    // criar a imagem em public/images
+    const arrayPathImgs = []
+    if (!element.imgs.length) {
+        console.log('Nao tem imagens no elemento... finalizando funcao puta')
+        return;
+    }
+
+    for (var i = 0; i < element.imgs.length; i++) {
+        const path = await downloadImge(`${publicPath}/${Date.now() + i}.jpg`, element.imgs[i].src)
+        console.log(`path`)
+        console.log(path)
+        if (path) arrayPathImgs.push(path)
         else console.log(`path is null***`)
-            console.log('**')
-        }
-        console.log('arrayPathImgs.length')
-        console.log(arrayPathImgs.length)
+    }
 
-        console.log(' \n############################### FIM ##### ')
+    console.log('comecando a criacao do modelo')
+    await createModel({ array: arrayPathImgs, epochs: 10, pathNewElement });
 
-        await createModel({ array: arrayPathImgs, epochs: 10, pathNewElement });
-        // excluir as imagens criadas
+    console.log(' \n############################### FIM ##### ')
+    // excluir as imagens criadas
 
-        deleteFile(arrayPathImgs)
+    deleteFile(arrayPathImgs)
 
-        print.sucesso(`model ${element.label} created.`)
+    print.sucesso(`model ${element.label} created.`)
 }
 
 async function mcml(req, res) {
@@ -125,13 +130,15 @@ async function mcml(req, res) {
     // Treinar e salvar o modelo
     res.send({ data: 'Pong', ok: true });
 
-    // puta(data[0], pathModels)
-    console.log(data[0].label)
-    const [a,b] = [puta(data[0], pathModels), puta(data[1], pathModels)]
-    
-    
+
     for (var index = 0; index < data.length; index++) {
-        const element = data[index]
+        try {
+            const element = data[index]
+            await puta(element, pathModels)
+        } catch (error) {
+            console.log(111111)
+            console.log(error)
+        }
     }
 
 }

@@ -1,8 +1,9 @@
 const axios = require('axios');
-const fs = require('fs');
+const fs = require('fs').promises; // Usando fs.promises para obter funções assíncronas do File System
 
 const { Print } = require('./print');
 const print = new Print({ informa: 'Utils downloadImge', alerta: 'Utils downloadImge', erro: 'Utils downloadImge', sucesso: 'Utils downloadImge' });
+
 
 async function downloadImge(localPath, url) {
     try {
@@ -12,17 +13,16 @@ async function downloadImge(localPath, url) {
             responseType: 'stream',
         });
 
-        // Salva a imagem localmente
-        await resposta.data.pipe(fs.createWriteStream(localPath));
+        // Usando fs.promises.writeFile para salvar a imagem localmente de forma assíncrona
+        await fs.writeFile(localPath, resposta.data);
 
-       return localPath
+        return localPath;
     } catch (erro) {
-        print.erro(`Catch: ${erro.message}`)
-        console.log(erro)
-        print.informa(`url`)
-        console.log(url)
-        return null
+        print.erro(`Erro no download da imagem: ${erro.message}`);
+        console.error(erro);
+        throw new Error(`Erro no download da imagem: ${erro.message}`);
     }
 }
+
 
 module.exports = { downloadImge }
