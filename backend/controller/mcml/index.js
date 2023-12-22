@@ -1,9 +1,13 @@
+require('dotenv').config();
+// const fs = require('fs');
+// const path = require('path');
+const nodemailer = require('nodemailer');
+
 const { createFolder } = require('../../utils/createFolder');
 const { deleteFile } = require('../../utils/deleteFile');
 const { downloadImge } = require('../../utils/downloadImge.js');
 const { Print } = require('../../utils/print');
 const { createModel } = require('./createModel');
-const nodemailer = require('nodemailer');
 const publicPath = 'C:/Users/Yshrael/Documents/Github/MCML/backend/public/images/';
 
 const print = new Print({ informa: 'Controller mcml', alerta: 'Controller mcml', erro: 'Controller mcml', sucesso: 'Controller mcml' });
@@ -139,31 +143,37 @@ function sendEmail() {
     // Configuração do transporte (SMTP)
 
     const transporter = nodemailer.createTransport({
-        host: 'smtp-relay.brevo.com',
-        port: 587,
+        host: process.env.NODEMAILER_HOST,
+        port: process.env.NODEMAILER_PORT,
         auth: {
-            user: 'mcml.bot.dev@gmail.com',
-            pass: '98Z67FpmfYS3jBwH'
+            user: process.env.NODEMAILER_USER,
+            pass: process.env.NODEMAILER_PASS
         }
     });
 
     // Detalhes do e-mail
     const mailOptions = {
-        from: 'mcml.bot.dev@gmail.com',
+        from: process.env.NODEMAILER_FROM,
         to: 'ysp.rael@gmail.com',
-        cc: 'ysp.rael@gmail.com',
-        subject: 'MCML: Email Teste de envio modelo',
+        cc: process.env.NODEMAILER_CC,
+        subject: process.env.NODEMAILER_SUBJECT,
         text: 'Conteúdo do e-mail em texto simples.',
-        // Você também pode usar 'html' para enviar e-mails HTML:
-        // html: '<p>Conteúdo do e-mail em HTML.</p>'
+        // attachments: [
+        //     {
+        //         filename: 'arquivo.zip',
+        //         content: fs.createReadStream(path.join(__dirname, 'caminho-do-arquivo', 'arquivo.zip')),
+        //     },
+        // ],
     };
 
     // Enviar e-mail
     transporter.sendMail(mailOptions, function (error, info) {
         if (error) {
+            print.erro('Error sending email');
             console.error(error);
         } else {
-            console.log('E-mail enviado: ' + info.response);
+            print.sucesso('E-mail sent: ');
+            console.log(info.response);
         }
     });
 
