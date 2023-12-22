@@ -140,8 +140,7 @@ async function mcml(req, res, next) {
         }
     }
 
-    if (req.body.sendForEmail) return next();
-    return res.send({ err: false, message: 'Models created.', data: '' });
+    next();
 }
 
 
@@ -162,7 +161,16 @@ async function createZip(req, res, next) {
         await archive.finalize();
 
         req.zipFilePath = zipFilePath;
-        next();
+
+        if (req.body.sendForEmail) return next();
+
+        res.send({
+            err: false, message: 'Models created.', data: {
+                filename: 'models.zip',
+                content: fs.createReadStream(path.join(req.pathModels, 'models.zip')),
+            }
+        });
+
     } catch (error) {
         print.erro('Err Catch in createZip: ');
         console.error(error);
@@ -173,7 +181,6 @@ async function createZip(req, res, next) {
 function sendEmail(req) {
 
     // Configuração do transporte (SMTP)
-
     const transporter = nodemailer.createTransport({
         host: process.env.NODEMAILER_HOST,
         port: process.env.NODEMAILER_PORT,
