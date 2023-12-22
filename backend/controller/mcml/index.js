@@ -107,7 +107,7 @@ async function mcml(req, res) {
             // criar a imagem em public/images
             const arrayPathImgs = []
             if (!element.imgs.length) {
-                console.log('Nao tem imagens no elemento... finalizando funcao puta')
+                console.log('element.imgs.length is zero.')
                 return;
             }
 
