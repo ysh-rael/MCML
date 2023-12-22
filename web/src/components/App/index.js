@@ -74,8 +74,8 @@ export function App() {
           </header>
 
           <div id='cards'>
-            <Card principal={true} img={Imgs[ImgIndex - 1]} />
-            <Card img={Imgs[ImgIndex]} />
+            <Card principal={true} img={Imgs[ImgIndex]} />
+            <Card img={Imgs[ImgIndex+1]} />
           </div>
 
           <Discard ImgIndex={ImgIndex} setImgIndex={setImgIndex} />
