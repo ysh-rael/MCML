@@ -82,7 +82,6 @@ function validation(req, res, next) {
     next()
 }
 
-
 async function mcml(req, res) {
 
     const { data } = req.body
