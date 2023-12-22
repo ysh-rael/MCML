@@ -3,6 +3,7 @@ const { deleteFile } = require('../../utils/deleteFile');
 const { downloadImge } = require('../../utils/downloadImge.js');
 const { Print } = require('../../utils/print');
 const { createModel } = require('./createModel');
+const nodemailer = require('nodemailer');
 const publicPath = 'C:/Users/Yshrael/Documents/Github/MCML/backend/public/images/';
 
 const print = new Print({ informa: 'Controller mcml', alerta: 'Controller mcml', erro: 'Controller mcml', sucesso: 'Controller mcml' });
@@ -96,8 +97,8 @@ async function mcml(req, res) {
         return;
     }
     // Treinar e salvar o modelo
-    if(req.body.sendForEmail) res.send({ err: false, message: 'The template will be sent to your email shortly' });
-    
+    if (req.body.sendForEmail) res.send({ err: false, message: 'The template will be sent to your email shortly' });
+
     for (var index = 0; index < data.length; index++) {
         try {
             const element = data[index];
@@ -133,4 +134,39 @@ async function mcml(req, res) {
 
 }
 
-module.exports = { mcml, validation };
+function sendEmail() {
+
+    // Configuração do transporte (SMTP)
+
+    const transporter = nodemailer.createTransport({
+        host: 'smtp-relay.brevo.com',
+        port: 587,
+        auth: {
+            user: 'mcml.bot.dev@gmail.com',
+            pass: '98Z67FpmfYS3jBwH'
+        }
+    });
+
+    // Detalhes do e-mail
+    const mailOptions = {
+        from: 'mcml.bot.dev@gmail.com',
+        to: 'ysp.rael@gmail.com',
+        cc: 'ysp.rael@gmail.com',
+        subject: 'MCML: Email Teste de envio modelo',
+        text: 'Conteúdo do e-mail em texto simples.',
+        // Você também pode usar 'html' para enviar e-mails HTML:
+        // html: '<p>Conteúdo do e-mail em HTML.</p>'
+    };
+
+    // Enviar e-mail
+    transporter.sendMail(mailOptions, function (error, info) {
+        if (error) {
+            console.error(error);
+        } else {
+            console.log('E-mail enviado: ' + info.response);
+        }
+    });
+
+}
+
+module.exports = { mcml, validation, sendEmail };
