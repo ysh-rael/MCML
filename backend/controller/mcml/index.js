@@ -96,8 +96,8 @@ async function mcml(req, res) {
         return;
     }
     // Treinar e salvar o modelo
-    res.send({ data: 'Pong', ok: true });
-
+    if(req.body.sendForEmail) res.send({ err: false, message: 'The template will be sent to your email shortly' });
+    
     for (var index = 0; index < data.length; index++) {
         try {
             const element = data[index];
