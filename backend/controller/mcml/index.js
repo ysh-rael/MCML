@@ -12,27 +12,30 @@ function validation(req, res, next) {
         print.erro('body is not an object: ');
         console.log(req.body);
         print.informa('typeof req.body: ' + typeof req.body);
-        return res.send({ ok: false });
+        res.status(400).send(JSON.stringify({ err: true, message: 'Bad Request: body of request is not an object.' }));
+        return;
     }
 
     if (!req.body.epochs || typeof req.body.epochs !== 'number') {
         print.erro('epochs is not an number: ');
         console.log(req.body.epochs);
         print.informa('typeof req.body.epochs: ' + typeof req.body.epochs);
-        return res.send({ ok: false });
+        res.status(400).send(JSON.stringify({ err: true, message: 'Bad Request: epochs is not an number' }));
+        return;
     }
 
-    if (!req.body.email || typeof req.body.email !== 'string') {
+    if (!req.body.email || typeof req.body.email !== 'string' && req.body.sendForEmail) {
         print.erro('Email is not an string valid: ');
         console.log(req.body.email);
-        print.informa('typeof req.body.email: ' + typeof req.body.email);
-        return res.send({ ok: false });
+        res.status(400).send(JSON.stringify({ err: true, message: 'Bad Request: Email is not an string valid' }));
+        return;
     }
 
     if (!Array.isArray(req.body.data)) {
         print.erro('data is not an array: ');
         console.log(req.body.data);
-        return res.send({ ok: false });
+        res.status(400).send(JSON.stringify({ err: true, message: 'Bad Request: data is not an array' }));
+        return;
     }
 
     const elementInvalid = req.body.data.find(esse => {
@@ -76,7 +79,8 @@ function validation(req, res, next) {
     if (elementInvalid) {
         print.erro('One element in data is not valid: ');
         console.log(req.body.data);
-        return res.send({ ok: false });
+        res.status(400).send(JSON.stringify({ err: true, message: 'Bad Request: One element in data is not valid' }));
+        return;
     }
 
     next();
