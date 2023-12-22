@@ -1,6 +1,8 @@
+require('dotenv').config();
 const { Print } = require('../utils/print');
 const print = new Print({ informa: 'Controller Default', alerta: 'Controller Default', erro: 'Controller Default', sucesso: 'Controller Default' });
 const AUTHENTICATION = process.env.AUTHENTICATION ? JSON.parse(process.env.AUTHENTICATION) : null;
+
 function getDefault(req, res) {
     res.send('Pong');
 }
@@ -19,7 +21,7 @@ function authorization(req, res, next) {
     }
 
     try {
-        if (req.headers && req.headers.authentication && AUTHENTICATION.findIndexOf(req.headers.authentication) !== -1) {
+        if (req.headers && req.headers.authentication && Array.isArray(AUTHENTICATION) && AUTHENTICATION.findIndex(esse => esse === req.headers.authentication) !== -1) {
             print.sucesso('authentitation success.');
             next();
             return;
@@ -35,8 +37,8 @@ function authorization(req, res, next) {
     print.alerta('authentitation falid.');
     print.informa('req.headers:');
     console.log(req.headers);
-    console.informa(`req.headers.authenticatio: ${req.headers.authenticatio}`);
-    console.informa(`AUTHENTICATION: ${AUTHENTICATION}`);
+    print.informa(`req.headers.authenticatio: ${req.headers.authenticatio}`);
+    print.informa(`AUTHENTICATION: ${AUTHENTICATION}`);
     res.status(401).send(JSON.stringify({ err: true, message: 'Unauthorized' }));
     return;
 }

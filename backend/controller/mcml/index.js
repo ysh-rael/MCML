@@ -24,9 +24,10 @@ function validation(req, res, next) {
         return;
     }
 
-    if (!req.body.email || typeof req.body.email !== 'string' && req.body.sendForEmail) {
+    if ((!req.body.email || typeof req.body.email !== 'string') && req.body.sendForEmail) {
         print.erro('Email is not an string valid: ');
         console.log(req.body.email);
+        console.log(req.body.sendForEmail);
         res.status(400).send(JSON.stringify({ err: true, message: 'Bad Request: Email is not an string valid' }));
         return;
     }

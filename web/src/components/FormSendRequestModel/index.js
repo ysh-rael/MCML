@@ -7,6 +7,7 @@ export function FormSendRequestModel({ setModalActive, setModelContent, Elements
     const [InputEmail, setInputEmail] = useState('')
     const [InputAuth, setInputAuth] = useState('')
     const [InptEpochst, setInptEpochst] = useState(120)
+    const [Checked, setChecked] = useState(false)
 
     function test(Elements) {
         if (!Elements) return
@@ -18,9 +19,8 @@ export function FormSendRequestModel({ setModalActive, setModelContent, Elements
         if (stop) return
         return true
     }
-    const [Checked, setChecked] = useState(false)
 
-    const form = <form className="form" onSubmit={(event) => submitForm(event, { InputEmail, InptEpochst, Elements, InputAuth })}>
+    const form = <form className="form" onSubmit={(event) => submitForm(event, { InputEmail, InptEpochst, Elements, InputAuth, sendForEmail: Checked })}>
         <span className="subtitle is-info">{Checked ? 'Your model will be sent to your email' : 'Wait finish for download your model'}</span>
 
         <div class="field">

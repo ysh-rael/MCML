@@ -1,7 +1,8 @@
-export function submitForm(event, { InputEmail, InptEpochst, Elements, InputAuth }) {
+export function submitForm(event, { InputEmail, InptEpochst, Elements, InputAuth, sendForEmail }) {
     event.preventDefault()
     const data = {
         email: InputEmail,
+        sendForEmail,
         epochs: InptEpochst,
         data: Elements
     }
@@ -16,7 +17,8 @@ export function submitForm(event, { InputEmail, InptEpochst, Elements, InputAuth
         .then(res => res.json())
         .then(res => {
             console.log('res')
-            console.log(res.ok)
+            console.log(res.err)
+            console.log(res.message)
         })
         .catch(err => {
             console.error(err)
