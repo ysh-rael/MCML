@@ -60,7 +60,7 @@ export function App() {
                 setModalActive(true);
                 setModelContent(<FormRequestImage setModalActive={setModalActive} setModelContent={setModelContent} setRequestImg={setRequestImg} setOptionsRequestImg={setOptionsRequestImg} />)
               }} />
-              <Bttn userStatedIcon={BttnIconDemarcar} background='is-warning' onClick={() => { setModalActive(true); setModelContent(<Fork img={Imgs[ImgIndex - 1]} Designs={Designs} setDesigns={setDesigns} />) }} />
+              <Bttn userStatedIcon={BttnIconDemarcar} background='is-warning' onClick={() => { setModalActive(true); setModelContent(<Fork img={Imgs[ImgIndex]} Designs={Designs} setDesigns={setDesigns} />) }} />
               <Bttn
                 userStatedIcon={BttnIconFinish}
                 background='is-primary'
