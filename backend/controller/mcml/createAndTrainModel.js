@@ -15,10 +15,10 @@ async function createAndTrainModel({ images, labels, epochs }) {
 
         return model;
     } catch (error) {
-        console.log(`images: ${images}`)
-        console.log(`labels: ${labels}`)
-        console.log(`epochs: ${epochs}`)
-        throw new Error('Catch in createAndTrainModel: ' + error)
+        console.log(`images: ${images}`);
+        console.log(`labels: ${labels}`);
+        console.log(`epochs: ${epochs}`);
+        throw new Error('Catch in createAndTrainModel: ' + error);
     }
 }
 

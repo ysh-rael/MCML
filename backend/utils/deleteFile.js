@@ -12,9 +12,10 @@ function deleteFile(arrayPath) {
             fs.unlinkSync(arrayPath[i]);
             console.log(`Arquivo ${arrayPath[i]} excluído com sucesso.`);
         } catch (erro) {
-            console.error(`Erro ao excluir o arquivo ${arrayPath[i]}: ${erro.message}`);
+            print.erro(`Erro ao excluir o arquivo ${arrayPath[i]}: ${erro.message}`);
+            console.error(erro);
         }
     }
 }
 
-module.exports = { deleteFile }
+module.exports = { deleteFile };

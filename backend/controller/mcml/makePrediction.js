@@ -22,4 +22,4 @@ async function makePrediction(imagePath) {
     }
 }
 
-module.exports = { makePrediction }
+module.exports = { makePrediction };

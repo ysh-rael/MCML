@@ -9,8 +9,8 @@ async function loadAndPreprocessImage(imagePath) {
         const resizedImage = tf.image.resizeBilinear(imageTensor, [300, 300]);
         return resizedImage;
     } catch (err) {
-        print.erro('Err catch in loadAndPreprocessImage: ')
-        print.erro(err)
+        print.erro('Err catch in loadAndPreprocessImage: ');
+        print.erro(err);
         return;
     }
 }

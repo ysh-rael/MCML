@@ -13,16 +13,15 @@ async function downloadImge(localPath, url) {
             responseType: 'stream',
         });
 
-        // Usando fs.promises.writeFile para salvar a imagem localmente de forma assíncrona
         await fs.writeFile(localPath, resposta.data);
 
         return localPath;
     } catch (erro) {
         print.erro(`Erro no download da imagem: ${erro.message}`);
         console.error(erro);
-        throw new Error(`Erro no download da imagem: ${erro.message}`);
+        return;
     }
 }
 
 
-module.exports = { downloadImge }
+module.exports = { downloadImge };

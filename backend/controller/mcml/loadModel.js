@@ -4,4 +4,4 @@ async function loadModel() {
     const model = await tf.loadLayersModel('file://./trainedModel/model.json');
     return model;
 }
-module.exports = { loadModel }
+module.exports = { loadModel };
