@@ -1,14 +1,16 @@
 require('dotenv').config();
-// const fs = require('fs');
-// const path = require('path');
+const fs = require('fs');
+const path = require('path');
 const nodemailer = require('nodemailer');
+const archiver = require('archiver');
+const { promisify } = require('util');
 
 const { createFolder } = require('../../utils/createFolder');
 const { deleteFile } = require('../../utils/deleteFile');
 const { downloadImge } = require('../../utils/downloadImge.js');
 const { Print } = require('../../utils/print');
 const { createModel } = require('./createModel');
-const publicPath = 'C:/Users/Yshrael/Documents/Github/MCML/backend/public/images/';
+const publicPath = path.join(__dirname, '../../', 'public', 'images');
 
 const print = new Print({ informa: 'Controller mcml', alerta: 'Controller mcml', erro: 'Controller mcml', sucesso: 'Controller mcml' });
 
@@ -92,7 +94,7 @@ function validation(req, res, next) {
     next();
 }
 
-async function mcml(req, res) {
+async function mcml(req, res, next) {
 
     const { data } = req.body;
     const pathModels = createFolder('./models');
@@ -100,6 +102,8 @@ async function mcml(req, res) {
         console.log('pathModels is null');
         return;
     }
+
+    req.pathModels = pathModels;
     // Treinar e salvar o modelo
     if (req.body.sendForEmail) res.send({ err: false, message: 'The template will be sent to your email shortly' });
 
@@ -136,9 +140,37 @@ async function mcml(req, res) {
         }
     }
 
+    if (req.body.sendForEmail) return next();
+    return res.send({ err: false, message: 'Models created.', data: '' });
 }
 
-function sendEmail() {
+
+
+// Cria um arquivo ZIP a partir da pasta 'models'
+
+async function createZip(req, res, next) {
+    try {
+        const archive = archiver('zip', { zlib: { level: 9 } });
+        const zipFilePath = path.join(req.pathModels, 'models.zip');
+        const output = fs.createWriteStream(zipFilePath);
+
+        archive.pipe(output);
+
+        // Adicione todos os arquivos da pasta 'models' ao arquivo ZIP
+        archive.directory(path.join(req.pathModels), false);
+
+        await archive.finalize();
+
+        req.zipFilePath = zipFilePath;
+        next();
+    } catch (error) {
+        print.erro('Err Catch in createZip: ');
+        console.error(error);
+        req.zipFilePath = null;
+    }
+}
+
+function sendEmail(req) {
 
     // Configuração do transporte (SMTP)
 
@@ -158,12 +190,12 @@ function sendEmail() {
         cc: process.env.NODEMAILER_CC,
         subject: process.env.NODEMAILER_SUBJECT,
         text: 'Conteúdo do e-mail em texto simples.',
-        // attachments: [
-        //     {
-        //         filename: 'arquivo.zip',
-        //         content: fs.createReadStream(path.join(__dirname, 'caminho-do-arquivo', 'arquivo.zip')),
-        //     },
-        // ],
+        attachments: [
+            {
+                filename: 'models.zip',
+                content: fs.createReadStream(path.join(req.pathModels, 'models.zip')),
+            },
+        ]
     };
 
     // Enviar e-mail
@@ -179,4 +211,4 @@ function sendEmail() {
 
 }
 
-module.exports = { mcml, validation, sendEmail };
+module.exports = { mcml, validation, createZip, sendEmail };
