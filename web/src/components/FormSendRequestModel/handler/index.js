@@ -28,7 +28,7 @@ export function submitForm(event, { InputEmail, InptEpochst, Elements, InputAuth
             console.log('res')
             console.log(res.err)
             console.log(res.message)
-            if (!res.err) {
+            if (!res.err && res.data) {
                 try {
                     downloadFile(res.data.filename, res.data.content);
                 } catch (error) {
