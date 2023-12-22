@@ -5,7 +5,7 @@ const downloadFile = (filename, content) => {
     link.href = window.URL.createObjectURL(blob);
     link.download = filename;
     link.click();
-  };
+};
 
 export function submitForm(event, { InputEmail, InptEpochst, Elements, InputAuth, sendForEmail }) {
     event.preventDefault()
@@ -28,8 +28,13 @@ export function submitForm(event, { InputEmail, InptEpochst, Elements, InputAuth
             console.log('res')
             console.log(res.err)
             console.log(res.message)
-            if(!res.err) {
-                 downloadFile(res.data.filename, res.data.content);
+            if (!res.err) {
+                try {
+                    downloadFile(res.data.filename, res.data.content);
+                } catch (error) {
+                    console.log(error)
+
+                }
             }
         })
         .catch(err => {
