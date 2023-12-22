@@ -129,7 +129,7 @@ async function mcml(req, res, next) {
                 path ? arrayPathImgs.push(path) : console.log('Path of an image is null.');
             }
 
-            await createModel({ array: arrayPathImgs, epochs: 10, pathNewElement });
+            await createModel({ array: arrayPathImgs, epochs: req.body.epochs, pathNewElement });
 
             deleteFile(arrayPathImgs);
 
