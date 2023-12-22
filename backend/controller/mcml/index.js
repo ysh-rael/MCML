@@ -82,41 +82,6 @@ function validation(req, res, next) {
     next()
 }
 
-async function puta(element, pathModels) {
-   
-    console.log(' \n############################### INICIO ##### ')
-    const pathNewElement = createFolder(`${pathModels}/${element.label}`)
-    console.log(`pathNewElement: ${pathNewElement}`)
-
-    if (!pathNewElement) {
-        print.erro('pathNewElement is null.')
-        return;
-    }
-    // criar a imagem em public/images
-    const arrayPathImgs = []
-    if (!element.imgs.length) {
-        console.log('Nao tem imagens no elemento... finalizando funcao puta')
-        return;
-    }
-
-    for (var i = 0; i < element.imgs.length; i++) {
-        const path = await downloadImge(`${publicPath}/${Date.now() + i}.jpg`, element.imgs[i].src)
-        console.log(`path`)
-        console.log(path)
-        if (path) arrayPathImgs.push(path)
-        else console.log(`path is null***`)
-    }
-
-    console.log('comecando a criacao do modelo')
-    await createModel({ array: arrayPathImgs, epochs: 10, pathNewElement });
-
-    console.log(' \n############################### FIM ##### ')
-    // excluir as imagens criadas
-
-    deleteFile(arrayPathImgs)
-
-    print.sucesso(`model ${element.label} created.`)
-}
 
 async function mcml(req, res) {
 
@@ -129,15 +94,35 @@ async function mcml(req, res) {
     // Treinar e salvar o modelo
     res.send({ data: 'Pong', ok: true });
 
-    console.clear()
-    console.log(`\n\n\n\n\n\n\n\n\n\n\n\n\n`)
-
     for (var index = 0; index < data.length; index++) {
         try {
             const element = data[index]
-            await puta(element, pathModels)
+
+            const pathNewElement = createFolder(`${pathModels}/${element.label}`)
+
+            if (!pathNewElement) {
+                print.erro('pathNewElement is null.')
+                return;
+            }
+            // criar a imagem em public/images
+            const arrayPathImgs = []
+            if (!element.imgs.length) {
+                console.log('Nao tem imagens no elemento... finalizando funcao puta')
+                return;
+            }
+
+            for (var i = 0; i < element.imgs.length; i++) {
+                const path = await downloadImge(`${publicPath}/${Date.now() + i}.jpg`, element.imgs[i].src)
+                path ? arrayPathImgs.push(path) : console.log('Path of an image is null.')
+            }
+
+            await createModel({ array: arrayPathImgs, epochs: 10, pathNewElement });
+
+            deleteFile(arrayPathImgs)
+
+            print.sucesso(`model ${element.label} created.`)
         } catch (error) {
-            console.log(111111)
+            print.erro('Err Catch in create model: model is not created.')
             console.log(error)
         }
     }
