@@ -4,7 +4,7 @@ const { calcHeight } = require('./calcHeight');
 
 /**
  * 
- * @param {Buffer} originalImage Buffer contendo a imagem original (por exemplo, o conteúdo de um arquivo de imagem)
+ * @param {Buffer} originalImageBuffer Buffer contendo a imagem original (por exemplo, o conteúdo de um arquivo de imagem)
  * @param {Number} x1 X da vertice 1
  * @param {Number} y1 Y da vertice 1
  * @param {Number} x2 X da vertice 2
@@ -17,22 +17,27 @@ const { calcHeight } = require('./calcHeight');
  */
 async function cutImage(originalImageBuffer, x1, y1, x2, y2, x3, y3, x4, y4) {
     try {
-        // Crie um canvas
-        const canvas = createCanvas();
-        const ctx = canvas.getContext('2d');
-
-        // Carregue a imagem original no canvas
-        const originalImage = await loadImage(originalImageBuffer);
-        canvas.width = originalImage.width;
-        canvas.height = originalImage.height;
-        ctx.drawImage(originalImage, 0, 0);
-
         // Calcular a largura e altura do retângulo de corte
         const largura = calcWidth(x1, y1, x2, y2, x3, y3, x4);
         const altura = calcHeight(x1, y1, x2, y2, x3, y3, x4, y4);
 
+        // Calcular o tamanho do canvas necessário para a imagem rotacionada
+        const diagonalLength = Math.sqrt(largura.largura ** 2 + altura.altura ** 2);
+        const canvasSize = Math.ceil(diagonalLength);
+
+        // Crie um canvas com o tamanho necessário
+        const canvas = createCanvas(canvasSize, canvasSize);
+        const ctx = canvas.getContext('2d');
+
+        // Carregue a imagem original no canvas
+        const originalImage = await loadImage(originalImageBuffer);
+
         // Calcular a inclinação do retângulo original baseado nas vertice 1 e 2
         const inclinacao = Math.atan2(y2 - y1, x2 - x1);
+
+        // Centralizar a região de corte no canvas
+        const offsetX = (canvas.width - largura.largura) / 2;
+        const offsetY = (canvas.height - altura.altura) / 2;
 
         // Rotacionar o canvas
         ctx.translate(canvas.width / 2, canvas.height / 2);
@@ -44,7 +49,7 @@ async function cutImage(originalImageBuffer, x1, y1, x2, y2, x3, y3, x4, y4) {
             originalImage,
             largura.xDaVerticeComMenorX, altura.yDaVerticeMaisAlta,
             largura.largura, altura.altura,
-            0, 0, largura.largura, altura.altura
+            offsetX, offsetY, largura.largura, altura.altura
         );
 
         // Converter o canvas para Buffer
@@ -53,14 +58,14 @@ async function cutImage(originalImageBuffer, x1, y1, x2, y2, x3, y3, x4, y4) {
         return buffer;
     } catch (error) {
         console.error('Erro ao cortar a imagem:', error);
-        throw new Error('Erro ao cortar a imagem');
+        return null;
     }
 }
 
 // Exemplo de uso
 // const originalImageBuffer = fs.readFileSync('caminho-da-imagem.jpg');
-// const imagemCortadaBuffer = await cortarImagem(originalImageBuffer, x1, y1, x2, y2, x3, y3, x4, y4);
+// const imagemCortadaBuffer = await cutImage(originalImageBuffer, x1, y1, x2, y2, x3, y3, x4, y4);
 
 // Agora você pode usar "imagemCortadaBuffer" conforme necessário.
 
-module.exports - { cutImage };
+module.exports = { cutImage };

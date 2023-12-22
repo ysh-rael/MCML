@@ -10,6 +10,7 @@ const { downloadImge } = require('../../utils/downloadImge.js');
 const { Print } = require('../../utils/print');
 const { createModel } = require('./createModel');
 const { deleteFolden } = require('../../utils/deleteFolden.js');
+const { cutImage } = require('../../utils/cutImage.js');
 const publicPath = path.join(__dirname, '../../', 'public', 'images');
 
 const print = new Print({ informa: 'Controller mcml', alerta: 'Controller mcml', erro: 'Controller mcml', sucesso: 'Controller mcml' });
@@ -127,11 +128,27 @@ async function mcml(req, res, next) {
             for (var i = 0; i < element.imgs.length; i++) {
                 const path = await downloadImge(`${publicPath}/${Date.now() + i}.jpg`, element.imgs[i].src);
                 path ? arrayPathImgs.push(path) : console.log('Path of an image is null.');
+                const _vertices = element.imgs[i].designs.filter(esse => esse.form === 'circle');
+                const verticeXAndY = [];
+                _vertices.forEach(esse => {
+                    verticeXAndY.push(esse.x);
+                    verticeXAndY.push(esse.y);
+                });
+
+                const buff = await cutImage(fs.readFileSync(path), ...verticeXAndY);
+                console.log(buff);
+                if(buff) {
+                    //fs.unlinkSync(path);
+                    fs.writeFileSync(path, '');
+                    fs.writeFileSync(path, buff);
+                }
+            }
+            if (!req) {
+                await createModel({ array: arrayPathImgs, epochs: req.body.epochs, pathNewElement });
+
+                deleteFile(arrayPathImgs);
             }
 
-            await createModel({ array: arrayPathImgs, epochs: req.body.epochs, pathNewElement });
-
-            deleteFile(arrayPathImgs);
 
             print.sucesso(`model ${element.label} created.`);
         } catch (error) {
@@ -140,7 +157,7 @@ async function mcml(req, res, next) {
         }
     }
 
-    next();
+    // next();
 }
 
 // Cria um arquivo ZIP a partir da pasta 'models'

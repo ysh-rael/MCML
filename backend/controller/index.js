@@ -7,6 +7,7 @@ module.exports.controller = {
     },
     post: {
         default: [authorization, postDefault],
-        mcml: [authorization, validation, mcml, createZip, sendEmail, cleaningTheEnvironment]
+        mcml: [authorization, validation, mcml, createZip, sendEmail, cleaningTheEnvironment],
+        mcml2: [authorization, validation, mcml],
     }
 }; 
