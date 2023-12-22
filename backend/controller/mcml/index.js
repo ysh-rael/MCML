@@ -83,8 +83,7 @@ function validation(req, res, next) {
 }
 
 async function puta(element, pathModels) {
-    console.clear()
-    console.log(`\n\n\n\n\n\n\n\n\n\n\n\n\n`)
+   
     console.log(' \n############################### INICIO ##### ')
     const pathNewElement = createFolder(`${pathModels}/${element.label}`)
     console.log(`pathNewElement: ${pathNewElement}`)
@@ -130,6 +129,8 @@ async function mcml(req, res) {
     // Treinar e salvar o modelo
     res.send({ data: 'Pong', ok: true });
 
+    console.clear()
+    console.log(`\n\n\n\n\n\n\n\n\n\n\n\n\n`)
 
     for (var index = 0; index < data.length; index++) {
         try {
