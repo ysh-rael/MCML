@@ -3,7 +3,6 @@ const fs = require('fs');
 const path = require('path');
 const nodemailer = require('nodemailer');
 const archiver = require('archiver');
-const { promisify } = require('util');
 
 const { createFolder } = require('../../utils/createFolder');
 const { deleteFile } = require('../../utils/deleteFile');
@@ -143,10 +142,7 @@ async function mcml(req, res, next) {
     next();
 }
 
-
-
 // Cria um arquivo ZIP a partir da pasta 'models'
-
 async function createZip(req, res, next) {
     try {
         const archive = archiver('zip', { zlib: { level: 9 } });
