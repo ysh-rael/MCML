@@ -1,6 +1,6 @@
-const tf = require('@tensorflow/tfjs-node');
 
 async function createAndTrainModel({ images, labels, epochs }) {
+    const tf = require('@tensorflow/tfjs-node');
     try {
         const model = tf.sequential();
         // Adicionar camadas ao modelo conforme necessário

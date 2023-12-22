@@ -6,10 +6,10 @@ const { saveModel } = require("./saveModel");
 const print = new Print({ informa: 'trainModel', alerta: 'trainModel', erro: 'trainModel', sucesso: 'trainModel' });
 
 
-async function createModel({ arayPathImgs, epochs }) {
+async function createModel({ array, epochs, pathNewElement }) {
     try {
         // Preparar os dados de treinamento
-        const _ = await prepareData(arayPathImgs);
+        const _ = await prepareData(array);
         if (!_) {
             print.erro('Erro in prepareData')
             throw new Error('prepareData not sender image or label. it is null')
@@ -24,7 +24,7 @@ async function createModel({ arayPathImgs, epochs }) {
         }
 
         // Salvar o modelo
-        await saveModel(model);
+        await saveModel(model, pathNewElement);
     } catch (error) {
         print.erro('Error during training');
         throw new Error(error)

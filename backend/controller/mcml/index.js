@@ -1,3 +1,6 @@
+const { createFolder } = require('../../utils/createFolder');
+const { deleteFile } = require('../../utils/deleteFile');
+const { downloadImge } = require('../../utils/downloadImgejs');
 const { Print } = require('../../utils/print');
 const { createModel } = require('./createModel');
 const publicPath = 'C:/Users/Yshrael/Documents/Github/MCML/backend/public/images/';
@@ -79,7 +82,37 @@ function validation(req, res, next) {
     next()
 }
 
+async function puta(element, pathModels) {
+    console.log(' \n############################### INICIO ##### ')
+        const pathNewElement = createFolder(`${pathModels}/${element.label}`)
+        console.log(`pathNewElement: ${pathNewElement}`)
+        if (!pathNewElement) {
+            print.erro('pathNewElement is null.')
+            return;
+        }
+        // criar a imagem em public/images
+        const arrayPathImgs = []
+        for (var i = 0; i < element.imgs.length; i++) {
+            console.log(`i: ${i}`)
+            const path = await downloadImge(`${publicPath}/${Date.now() + i}.jpg`, element.imgs[i].src)
+            console.log('#')
+            if(path)
+            arrayPathImgs.push(path)
+        else console.log(`path is null***`)
+            console.log('**')
+        }
+        console.log('arrayPathImgs.length')
+        console.log(arrayPathImgs.length)
 
+        console.log(' \n############################### FIM ##### ')
+
+        await createModel({ array: arrayPathImgs, epochs: 10, pathNewElement });
+        // excluir as imagens criadas
+
+        deleteFile(arrayPathImgs)
+
+        print.sucesso(`model ${element.label} created.`)
+}
 
 async function mcml(req, res) {
 
@@ -92,20 +125,15 @@ async function mcml(req, res) {
     // Treinar e salvar o modelo
     res.send({ data: 'Pong', ok: true });
 
-    data.forEach(async element => {
-        const pathNewElement = createFolder(`${pathModels}/${element.label}`)
-        if (!pathNewElement) {
-            print.erro('pathNewElement is null.')
-            return;
-        }
-        // criar a imagem em public/images
-        const arayPathImgs = element.imgs.filter(esse => !!createFile(esse.src))
+    // puta(data[0], pathModels)
+    console.log(data[0].label)
+    const [a,b] = [puta(data[0], pathModels), puta(data[1], pathModels)]
+    
+    
+    for (var index = 0; index < data.length; index++) {
+        const element = data[index]
+    }
 
-        await createModel({ arayPathImgs, epochs: 10 });
-        // excluir as imagens criadas
-
-    })
-    print.sucesso('model created.')
 }
 
 module.exports = { mcml, validation };

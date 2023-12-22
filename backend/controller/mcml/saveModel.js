@@ -1,5 +1,5 @@
-async function saveModel(model) {
-    await model.save('file://./trainedModel');
+async function saveModel(model, pathNewElement) {
+    await model.save('file://'+pathNewElement);
 }
 
 module.exports = { saveModel }
