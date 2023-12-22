@@ -1,3 +1,12 @@
+// Função para fazer o download do arquivo
+const downloadFile = (filename, content) => {
+    const blob = new Blob([content], { type: 'application/zip' });
+    const link = document.createElement('a');
+    link.href = window.URL.createObjectURL(blob);
+    link.download = filename;
+    link.click();
+  };
+
 export function submitForm(event, { InputEmail, InptEpochst, Elements, InputAuth, sendForEmail }) {
     event.preventDefault()
     const data = {
@@ -19,6 +28,9 @@ export function submitForm(event, { InputEmail, InptEpochst, Elements, InputAuth
             console.log('res')
             console.log(res.err)
             console.log(res.message)
+            if(!res.err) {
+                 downloadFile(res.data.filename, res.data.content);
+            }
         })
         .catch(err => {
             console.error(err)

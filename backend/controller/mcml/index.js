@@ -189,7 +189,7 @@ function sendEmail(req) {
     // Detalhes do e-mail
     const mailOptions = {
         from: process.env.NODEMAILER_FROM,
-        to: 'ysp.rael@gmail.com',
+        to: req.body.email,
         cc: process.env.NODEMAILER_CC,
         subject: process.env.NODEMAILER_SUBJECT,
         text: 'Conteúdo do e-mail em texto simples.',
