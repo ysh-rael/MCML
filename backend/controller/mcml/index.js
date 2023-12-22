@@ -136,18 +136,11 @@ async function mcml(req, res, next) {
                 });
 
                 const buff = await cutImage(fs.readFileSync(path), ...verticeXAndY);
-                console.log(buff);
-                if(buff) {
-                    //fs.unlinkSync(path);
-                    fs.writeFileSync(path, '');
-                    fs.writeFileSync(path, buff);
-                }
+                if (buff) fs.writeFileSync(path, buff);
             }
-            if (!req) {
-                await createModel({ array: arrayPathImgs, epochs: req.body.epochs, pathNewElement });
+            await createModel({ array: arrayPathImgs, epochs: req.body.epochs, pathNewElement });
 
-                deleteFile(arrayPathImgs);
-            }
+            deleteFile(arrayPathImgs);
 
 
             print.sucesso(`model ${element.label} created.`);
@@ -157,7 +150,7 @@ async function mcml(req, res, next) {
         }
     }
 
-    // next();
+    next();
 }
 
 // Cria um arquivo ZIP a partir da pasta 'models'
