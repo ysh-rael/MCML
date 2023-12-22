@@ -9,6 +9,7 @@ const { deleteFile } = require('../../utils/deleteFile');
 const { downloadImge } = require('../../utils/downloadImge.js');
 const { Print } = require('../../utils/print');
 const { createModel } = require('./createModel');
+const { deleteFolden } = require('../../utils/deleteFolden.js');
 const publicPath = path.join(__dirname, '../../', 'public', 'images');
 
 const print = new Print({ informa: 'Controller mcml', alerta: 'Controller mcml', erro: 'Controller mcml', sucesso: 'Controller mcml' });
@@ -158,23 +159,26 @@ async function createZip(req, res, next) {
 
         req.zipFilePath = zipFilePath;
 
-        if (req.body.sendForEmail) return next();
-
-        res.send({
-            err: false, message: 'Models created.', data: {
-                filename: 'models.zip',
-                content: fs.createReadStream(path.join(req.pathModels, 'models.zip')),
-            }
-        });
+        if (!req.body.sendForEmail)
+            res.send({
+                err: false, message: 'Models created.', data: {
+                    filename: 'models.zip',
+                    content: fs.createReadStream(path.join(req.pathModels, 'models.zip')),
+                }
+            });
 
     } catch (error) {
         print.erro('Err Catch in createZip: ');
         console.error(error);
         req.zipFilePath = null;
     }
+
+    next();
 }
 
-function sendEmail(req) {
+function sendEmail(req, res, next) {
+
+    if (!req.body.sendForEmail) return next();
 
     // Configuração do transporte (SMTP)
     const transporter = nodemailer.createTransport({
@@ -210,8 +214,22 @@ function sendEmail(req) {
             print.sucesso('E-mail sent: ');
             console.log(info.response);
         }
+        next();
     });
 
 }
 
-module.exports = { mcml, validation, createZip, sendEmail };
+function cleaningTheEnvironment(req) {
+    try {
+        if (!req.pathModels) {
+            print.alerta('req.pathModels is not found');
+            return;
+        }
+        if (deleteFolden(req.pathModels)) print.sucesso('cleaningTheEnvironment was a sucess.');
+    } catch (error) {
+        print.erro('ERROR Catch in cleaningTheEnvironment');
+        console.log(error);
+    }
+}
+
+module.exports = { validation, mcml, createZip, sendEmail, cleaningTheEnvironment };
