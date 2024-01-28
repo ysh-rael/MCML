@@ -1,56 +1,38 @@
-[READ IN ENGLISH](README-en.md)
-# Titulo 
+# MCML (Model Create Machine Learning)
 
-Breve descricao
+## Descrição
+MCML é uma aplicação para a criação de modelos voltados para aprendizado de máquina, utilizando a biblioteca TensorFlow. A aplicação foi desenvolvida em React, com um design simplista e minimalista.
+
+### Características
+- Possibilidade de utilizar APIs externas para obter dados de imagem, incluindo suporte para tokens de autenticação premium.
+- Exportação de modelos em formato zip para armazenamento local ou envio por e-mail.
 
 ## Funcionamento
 
-Funcionamento
+A aplicação é uma Single Page Application (SPA) dividida em três seções principais:
 
-## Instalacao
->
-> .
-> .
-> .
-> .
-> .
-> .
-> .
+### Sessão Card
+Nesta seção, você pode configurar a API de base de imagens, descartar imagens, ajustar gráficos para definir objetos a serem reconhecidos e, ao finalizar, enviar os cards para seus respectivos grupos. Após configurar tudo, é possível solicitar a exportação do modelo por arquivo zip ou por e-mail.
 
+### Sessão Grupos
+Permite definir grupos nos quais os cards serão organizados. Também é possível atribuir cores personalizadas para facilitar a usabilidade.
 
-## Utilização
->
-> .
-> .
-> .
-> .
-> .
-> .
-> .
+### Sessão Tag
+Fornece um resumo de cada tag, permitindo o controle da quantidade de cards em cada grupo.
 
-## Contribuições
->
-> .
-> .
-> .
-> .
-> .
-> .
-> .
+## Exportação do Modelo
 
-Contribuições são bem-vindas! Se você identificar problemas, tiver sugestões de melhorias ou quiser adicionar mais informações relevantes para a identificação do navegador, sinta-se à vontade para enviar um pull request.
+Ao finalizar a criação do modelo, você tem a opção de exportá-lo de duas maneiras:
+- **Arquivo ZIP:** Baixe o modelo para armazenamento local.
+- **E-mail:** Informe seu endereço de e-mail e solicite o envio do modelo. O backend da aplicação, separado, enviará o modelo assim que a criação for concluída, permitindo que você continue suas atividades sem esperar.
+
+## Segurança e Privacidade
+
+Não se preocupe com a segurança dos seus dados. Tokens e e-mails não são armazenados e são esquecidos assim que a exportação do modelo é concluída.
 
 ## Autor
-
-- [Ysh-rael](https://github.com/Ysh-rael)
-- Email de Contato: ysp.rael@gmail.com
+Seu Nome ou Nome do Time
+Email de Contato: seu@email.com
 
 ## Licença
-
-Este projeto está licenciado sob a Licença MIT - consulte o arquivo [LICENSE](LICENSE) para obter detalhes.
-
-## Aviso Legal
-
-Este projeto é fornecido apenas como uma ferramenta de identificação e não deve ser usado para fins maliciosos ou ilegais. Respeite a privacidade dos usuários e esteja ciente das implicações legais ao coletar informações dos usuários.
-
----
+Este projeto está licenciado sob a Licença MIT - consulte o arquivo LICENSE para obter detalhes.
