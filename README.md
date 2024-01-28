@@ -3,9 +3,14 @@
 ## Descrição
 MCML é uma aplicação para a criação de modelos voltados para aprendizado de máquina, utilizando a biblioteca TensorFlow. A aplicação foi desenvolvida em React, com um design simplista e minimalista.
 
+![mcml-previa-comprimido](https://github.com/ysh-rael/MCML/assets/79410863/e991f7d5-fe57-4d03-8f43-7260400873bf)
+
+
 ### Características
 - Possibilidade de utilizar APIs externas para obter dados de imagem, incluindo suporte para tokens de autenticação premium.
 - Exportação de modelos em formato zip para armazenamento local ou envio por e-mail.
+- **Responsividade:** A aplicação é responsiva, apresentando layouts dedicados para desktop e mobile, com foco na usabilidade da interface do usuário.
+- **Request sob Demanda:** Personalize a demanda de requisições à API para ter maior controle sobre o uso. Por exemplo, defina que a cada requisição à API, venham 10 imagens. Quando essas 10 imagens forem utilizadas, mais 10 serão carregadas.
 
 ## Funcionamento
 
@@ -30,9 +35,16 @@ Ao finalizar a criação do modelo, você tem a opção de exportá-lo de duas m
 
 Não se preocupe com a segurança dos seus dados. Tokens e e-mails não são armazenados e são esquecidos assim que a exportação do modelo é concluída.
 
+## Funcionalidades Adicionais
+
+- **Request sob Demanda:** Personalize a demanda de requisições à API para ter maior controle sobre o uso.
+- **Versão Beta:** A aplicação está em versão beta e tem a meta de aceitar outras formas de obter o banco de imagem. Seu feedback é muito bem-vindo.
+
 ## Autor
-Seu Nome ou Nome do Time
-Email de Contato: seu@email.com
+Ysh-rael
+Email de Contato: ysp.rael@email.com
 
 ## Licença
 Este projeto está licenciado sob a Licença MIT - consulte o arquivo LICENSE para obter detalhes.
+
+
