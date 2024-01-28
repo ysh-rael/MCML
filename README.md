@@ -45,6 +45,6 @@ Ysh-rael
 Email de Contato: ysp.rael@email.com
 
 ## Licença
-Este projeto está licenciado sob a Licença MIT - consulte o arquivo LICENSE para obter detalhes.
+Este projeto está licenciado sob a Licença MIT - consulte o arquivo [LICENSE](LICENSE) para obter detalhes.
 
 
