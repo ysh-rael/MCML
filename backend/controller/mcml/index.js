@@ -99,12 +99,14 @@ async function mcml(req, res, next) {
 
     const { data } = req.body;
     const pathModels = createFolder('./models');
+    const pathPublic = createFolder('./public');
     if (!pathModels) {
         console.log('pathModels is null');
         return;
     }
 
     req.pathModels = pathModels;
+    req.pathPublic = pathPublic;
     // Treinar e salvar o modelo
     if (req.body.sendForEmail) res.send({ err: false, message: 'The template will be sent to your email shortly' });
 
@@ -149,7 +151,7 @@ async function mcml(req, res, next) {
             console.log(error);
         }
     }
-
+    print.alerta('NEXT(1)')
     next();
 }
 
@@ -157,8 +159,9 @@ async function mcml(req, res, next) {
 async function createZip(req, res, next) {
     try {
         const archive = archiver('zip', { zlib: { level: 9 } });
-        const zipFilePath = path.join(req.pathModels, 'models.zip');
+        const zipFilePath = path.join(req.pathPublic, 'models.zip');
         const output = fs.createWriteStream(zipFilePath);
+        var stopLog = setInterval(() =>  print.informa('Creating zip archive...'), 1000)
 
         archive.pipe(output);
 
@@ -167,15 +170,20 @@ async function createZip(req, res, next) {
 
         await archive.finalize();
 
+        clearInterval(stopLog)
+        print.sucesso('Archive created!')
+
         req.zipFilePath = zipFilePath;
 
-        if (!req.body.sendForEmail)
+        if (!req.body.sendForEmail) {
             res.send({
                 err: false, message: 'Models created.', data: {
                     filename: 'models.zip',
-                    content: fs.createReadStream(path.join(req.pathModels, 'models.zip')),
+                    content: fs.createReadStream(path.join(req.pathPublic, 'models.zip')),
                 }
             });
+
+        }
 
     } catch (error) {
         print.erro('Err Catch in createZip: ');
@@ -183,12 +191,16 @@ async function createZip(req, res, next) {
         req.zipFilePath = null;
     }
 
+    print.alerta('NEXT(2)')
+    
     next();
 }
 
 function sendEmail(req, res, next) {
 
-    if (!req.body.sendForEmail) return next();
+    if (!req.body.sendForEmail){
+        print.alerta('NEXT(3)')
+         return next();}
 
     // Configuração do transporte (SMTP)
     const transporter = nodemailer.createTransport({
@@ -224,6 +236,7 @@ function sendEmail(req, res, next) {
             print.sucesso('E-mail sent: ');
             console.log(info.response);
         }
+        print.alerta('NEXT(4)')
         next();
     });
 

@@ -3,7 +3,7 @@ const moment = require('moment');
 
 class Print {
     constructor({ informa, alerta, erro, sucesso } = {}) {
-        this.dataFormatada = () => moment().format('DD/MM/YYYY HH:mm:SS');
+        this.dataFormatada = () => moment().format('DD/MM/YYYY HH:mm:ss');
         this._sucesso = sucesso || '';
         this._informa = informa || '';
         this._alerta = alerta || '';
