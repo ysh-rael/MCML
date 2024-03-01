@@ -97,6 +97,14 @@ function validation(req, res, next) {
 
 async function mcml(req, res, next) {
 
+    console.log(`req.body `)
+    console.log(`req.body `)
+    console.log(`req.body `)
+    console.log(`req.body `)
+    console.log(`req.body `)
+    console.log(`req.body `)
+    console.log(req.body.data[0].imgs)
+
     const { data } = req.body;
     const pathModels = createFolder('./models');
     const pathPublic = createFolder('./public');

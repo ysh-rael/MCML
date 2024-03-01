@@ -83,7 +83,14 @@ export function blur({ event, setElements, id, lbl }) {
     }))
 }
 
-export function update({ event, setImgIndex, setQuant, id, setImgs, lbl, Elements, setElements, setDesigns }) {
+export function update({ event, setImgIndex, setQuant, id, setImgs, lbl, Elements, setElements, setDesigns, setContainsTheObject }) {
+    
+    let containsTheObject = false
+    setContainsTheObject(esse => {
+        containsTheObject = esse
+        return esse
+    })
+
     let designs = []
     setDesigns(esse => {
         designs = esse
@@ -106,7 +113,7 @@ export function update({ event, setImgIndex, setQuant, id, setImgs, lbl, Element
     if (Imgs[ImgIndex] && Imgs[ImgIndex].src) {
         setElements(elems => {
             const indexElem = elems.findIndex(esse => esse.id === id)
-            elems[indexElem].imgs.push({ src: Imgs[ImgIndex].src, designs })
+            elems[indexElem].imgs.push({ src: Imgs[ImgIndex].src, designs, containsTheObject })
             return elems
         })
         nextImgIndex({ event, setImgIndex, setQuant, id })

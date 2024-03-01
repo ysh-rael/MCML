@@ -9,7 +9,7 @@ import { useEffect, useRef, useState } from 'react';
 
 
 
-export function DropArea({ label, background, tags, setTags, setImgIndex, ImgIndex, Imgs, setImgs, Elements, setElements, Designs, setDesigns, DropsArea, setDropsArea, id }) {
+export function DropArea({ label, background, tags, setTags, setImgIndex, ImgIndex, Imgs, setImgs, Elements, setElements, Designs, setDesigns, DropsArea, setDropsArea, id, setContainsTheObject }) {
     const [lbl, setLbl] = useState('');
     const [quant, setQuant] = useState(0);
 
@@ -26,7 +26,7 @@ export function DropArea({ label, background, tags, setTags, setImgIndex, ImgInd
             draggable={false}
             id={`DropArea-${id}`}
             onDragOver={event => event.preventDefault()}
-            onDrop={event => update({ event, setImgIndex, setQuant, id, Imgs, setImgs, ImgIndex, lbl, Elements, setElements, Designs, setDesigns })}
+            onDrop={event => update({ event, setImgIndex, setQuant, id, Imgs, setImgs, ImgIndex, lbl, Elements, setElements, Designs, setDesigns, setContainsTheObject })}
         //onClick={nextImgIndex}
         >
             <input

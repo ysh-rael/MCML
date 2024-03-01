@@ -13,10 +13,11 @@ import { FormRequestImage } from '../FormRequestImage';
 import { usePrevImg, useRequestImg } from './hooks';
 import { BttnIconDemarcar, BttnIconEmail, BttnIconFinish, BttnIconGithub, BttnIconLinkedin, BttnIconPlus, BttnIconUpload } from './constants';
 import { Fork } from '../Fork';
-import { handlerKeyPress } from './handler';
+import { handlerKeyDown, handlerKeyPress } from './handler';
 import { designs } from '../Fork/constants';
 import { v4 as uuidv4 } from 'uuid';
 import { FormSendRequestModel } from '../FormSendRequestModel';
+import { Switch } from '../Switch';
 
 export function App() {
 
@@ -33,13 +34,15 @@ export function App() {
   const [OptionsRequestImg, setOptionsRequestImg] = useState(null)
   const [Elements, setElements] = useState([]);
   const [Designs, setDesigns] = useState(designs);
+  const [ContainsTheObject, setContainsTheObject] = useState(false);
 
 
   useRequestImg({ RequestImg, setImgIndex, setImgs, Imgs, setUrlPrevImg })
 
   usePrevImg({ ImgIndex, Imgs, UrlPrevImg, OptionsRequestImg, setRequestImg })
 
-  document.onkeyup = event => handlerKeyPress({ event, setModalActive, setModelContent, ModalActive })
+  document.onkeyup = event => handlerKeyPress({ event, setModalActive, setModelContent, ModalActive, setContainsTheObject })
+  document.onkeydown = event => handlerKeyDown({ event, setContainsTheObject })
 
   return (
     <div className="App">
@@ -75,8 +78,12 @@ export function App() {
 
           <div id='cards'>
             <Card principal={true} img={Imgs[ImgIndex]} />
-            <Card img={Imgs[ImgIndex+1]} />
+            <Card img={Imgs[ImgIndex + 1]} />
           </div>
+          <label className='label '>
+            Contains the object (Press Ctrl to select) &nbsp;
+            <Switch Checked={ContainsTheObject} setChecked={setContainsTheObject} /> 
+          </label>
 
           <Discard ImgIndex={ImgIndex} setImgIndex={setImgIndex} />
 
@@ -110,6 +117,7 @@ export function App() {
                   Designs={Designs}
                   setDesigns={setDesigns}
                   id={_id}
+                  setContainsTheObject={setContainsTheObject}
                 />
 
               setDropsArea(prev => [...prev, newElement])

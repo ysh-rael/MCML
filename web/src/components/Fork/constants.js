@@ -1,4 +1,4 @@
-const ray = 4
+const ray = 6
 const topLine = {
     "id": "topLine",
     "form": "line",
