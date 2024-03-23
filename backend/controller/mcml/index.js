@@ -183,15 +183,16 @@ async function createZip(req, res, next) {
 
         req.zipFilePath = zipFilePath;
 
-        if (!req.body.sendForEmail) {
-            res.send({
-                err: false, message: 'Models created.', data: {
-                    filename: 'models.zip',
-                    content: fs.createReadStream(path.join(req.pathPublic, 'models.zip')),
-                }
-            });
+        console.log('zipFilePath')
+        console.log(zipFilePath)
 
-        }
+        if (!req.body.sendForEmail) {
+            const fileStream = fs.createReadStream(zipFilePath);
+            res.setHeader('Content-Type', 'application/zip');
+            fileStream.pipe(res);
+        } 
+        
+        
 
     } catch (error) {
         print.erro('Err Catch in createZip: ');
