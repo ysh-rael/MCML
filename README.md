@@ -31,6 +31,26 @@ Ao finalizar a criação do modelo, você tem a opção de exportá-lo de duas m
 - **Arquivo ZIP:** Baixe o modelo para armazenamento local.
 - **E-mail:** Informe seu endereço de e-mail e solicite o envio do modelo. O backend da aplicação, separado, enviará o modelo assim que a criação for concluída, permitindo que você continue suas atividades sem esperar.
 
+## .ENV
+*env backend*: Envio de email utilizando Protocolo SMTP.
+``` javascript
+NODEMAILER_HOST='host-smtp-aqui'
+NODEMAILER_PORT='123'
+NODEMAILER_USER='seu-usuario-SMTP'
+NODEMAILER_PASS='sua-senha-SMTP'
+NODEMAILER_FROM='seuEmail@host.com'
+NODEMAILER_CC='Emails que receberao uma copia'
+NODEMAILER_SUBJECT='Assunto da email aqui'
+```
+
+*env web*: Aponta para o back-end da aplicacao e possibiita ativar modo dev.
+``` javascript
+REACT_APP_DEVELOPER=false
+TOKEN_PEXELS='token_api_pixels_para_dev' 
+REACT_APP_BACK_URLBASE='http://localhost:3239' // Aponta para o servidor.
+REACT_APP_BACK_ENDPOINT_SEND='/mcml' // Rota para envio do modelo
+```
+
 ## Segurança e Privacidade
 
 Não se preocupe com a segurança dos seus dados. Tokens e e-mails não são armazenados e são esquecidos assim que a exportação do modelo é concluída.
