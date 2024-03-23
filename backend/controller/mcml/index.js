@@ -224,16 +224,16 @@ function sendEmail(req, res, next) {
     const mailOptions = {
         from: process.env.NODEMAILER_FROM,
         to: req.body.email,
-        cc: process.env.NODEMAILER_CC,
         subject: process.env.NODEMAILER_SUBJECT,
         text: 'Conteúdo do e-mail em texto simples.',
         attachments: [
             {
                 filename: 'models.zip',
-                content: fs.createReadStream(path.join(req.pathModels, 'models.zip')),
+                content: fs.createReadStream(path.join(req.pathPublic, 'models.zip')),
             },
         ]
     };
+    if(process.env.NODEMAILER_CC) mailOptions.cc = process.env.NODEMAILER_CC
 
     // Enviar e-mail
     transporter.sendMail(mailOptions, function (error, info) {

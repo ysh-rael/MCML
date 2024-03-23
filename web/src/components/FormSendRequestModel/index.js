@@ -6,7 +6,7 @@ export function FormSendRequestModel({ setModalActive, setModelContent, Elements
 
     const [InputEmail, setInputEmail] = useState('')
     const [InputAuth, setInputAuth] = useState('')
-    const [InptEpochst, setInptEpochst] = useState(120)
+    const [InptEpochst, setInptEpochst] = useState(4)
     const [Checked, setChecked] = useState(false)
 
     function test(Elements) {
@@ -54,7 +54,7 @@ export function FormSendRequestModel({ setModalActive, setModelContent, Elements
         <div class="field">
             <label class="label">Number of epochst</label>
             <div class="control">
-                <input class="button" type="number" placeholder="120-8k" min={120} max={8000} value={InptEpochst} onChange={({ target }) => setInptEpochst(Number(target.value))} />
+                <input class="button" type="number" placeholder="4-400" min={4} max={400} value={InptEpochst} onChange={({ target }) => setInptEpochst(Number(target.value))} />
             </div>
         </div>
 
