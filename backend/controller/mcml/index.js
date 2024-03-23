@@ -97,17 +97,10 @@ function validation(req, res, next) {
 
 async function mcml(req, res, next) {
 
-    console.log(`req.body `)
-    console.log(`req.body `)
-    console.log(`req.body `)
-    console.log(`req.body `)
-    console.log(`req.body `)
-    console.log(`req.body `)
-    console.log(req.body.data[0].imgs)
-
     const { data } = req.body;
     const pathModels = createFolder('./models');
     const pathPublic = createFolder('./public');
+
     if (!pathModels) {
         console.log('pathModels is null');
         return;
@@ -159,7 +152,6 @@ async function mcml(req, res, next) {
             console.log(error);
         }
     }
-    print.alerta('NEXT(1)')
     next();
 }
 
@@ -169,7 +161,7 @@ async function createZip(req, res, next) {
         const archive = archiver('zip', { zlib: { level: 9 } });
         const zipFilePath = path.join(req.pathPublic, 'models.zip');
         const output = fs.createWriteStream(zipFilePath);
-        var stopLog = setInterval(() =>  print.informa('Creating zip archive...'), 1000)
+        var stopLog = setInterval(() => print.informa('Creating zip archive...'), 1000)
 
         archive.pipe(output);
 
@@ -188,11 +180,18 @@ async function createZip(req, res, next) {
 
         if (!req.body.sendForEmail) {
             const fileStream = fs.createReadStream(zipFilePath);
+
             res.setHeader('Content-Type', 'application/zip');
             fileStream.pipe(res);
-        } 
-        
-        
+
+            fileStream.on('end', () => {
+                // Após a transmissão estar concluída, podemos excluir o arquivo, por exemplo:
+                if (req.zipFilePath) deleteFile([req.zipFilePath])
+            });
+        }
+
+
+
 
     } catch (error) {
         print.erro('Err Catch in createZip: ');
@@ -200,16 +199,12 @@ async function createZip(req, res, next) {
         req.zipFilePath = null;
     }
 
-    print.alerta('NEXT(2)')
-    
     next();
 }
 
 function sendEmail(req, res, next) {
 
-    if (!req.body.sendForEmail){
-        print.alerta('NEXT(3)')
-         return next();}
+    if (!req.body.sendForEmail) return next();
 
     // Configuração do transporte (SMTP)
     const transporter = nodemailer.createTransport({
@@ -234,7 +229,7 @@ function sendEmail(req, res, next) {
             },
         ]
     };
-    if(process.env.NODEMAILER_CC) mailOptions.cc = process.env.NODEMAILER_CC
+    if (process.env.NODEMAILER_CC) mailOptions.cc = process.env.NODEMAILER_CC
 
     // Enviar e-mail
     transporter.sendMail(mailOptions, function (error, info) {
@@ -245,7 +240,6 @@ function sendEmail(req, res, next) {
             print.sucesso('E-mail sent: ');
             console.log(info.response);
         }
-        print.alerta('NEXT(4)')
         next();
     });
 
